@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetDatasubsetForEmployeeGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_27973</uuid>
+        <description>Contains the datasubset for the employee grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: 1,
+    batchSize: - 1,
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;FullName&quot;,
+      ascending: true
+    )
+  ),
+  local!EmployeeDetails: if(
+    
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+        ri!SkilldvId
+      )
+    ,
+    {},
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24772&quot;(
+      SkilldvId: ri!SkilldvId,
+      DepartmentId: ri!DepartmentId,
+      Year: ri!Year,
+      ProficiencyId: ri!ProficiencyId,
+      SelectedProficiency:ri!SelectedProficiency,
+      SkillAddedOn:ri!SkillAddedOn
+    )
+  ),
+ 
+ local!JsonString: if(
+    
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+        ri!SkilldvId
+      )
+    ,
+    {},
+    #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+      function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_27999&quot;(
+        Index: _
+      ),
+      array: {
+        1 + enumerate(
+          count(
+            local!EmployeeDetails
+          )
+        )
+      }
+    )
+  ),
+  local!JsonString1: substitute(
+    tostring(
+      local!JsonString
+    ),
+    &quot;;&quot;,
+    &quot;,&quot;
+  ),
+  local!HoldJson: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      local!JsonString
+    ),
+    {},
+    #&quot;SYSTEM_SYSRULES_fromJson&quot;(
+      &quot;[&quot; &amp; local!JsonString1 &amp; &quot;]&quot;
+    )
+  ),
+todatasubset(
+    local!HoldJson,
+    local!pagingInfo
+  )
+  
+)</definition>
+        <namedTypedValue>
+            <name>SkilldvId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Year</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>DepartmentId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ProficiencyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SelectedProficiency</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillAddedOn</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

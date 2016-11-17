@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_QualificationsGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18605</uuid>
+        <description>Hold Employee Qualifications</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!Qualification: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      index(
+        ri!Qualification[ri!Index],
+        &quot;QualificationTypeId&quot;,
+        {}
+      )
+    ),
+    {},
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20915&quot;(
+      index(
+        ri!Qualification[ri!Index],
+        &quot;QualificationTypeId&quot;,
+        {}
+      )
+    )
+  ),
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+    contents: {
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        placeholderLabel: &quot;----Select Education----&quot;,
+        required: true,
+        requiredMessage: &quot;Please select the education&quot;,
+        choiceLabels: {
+          index(
+            local!QualificationType,
+            &quot;Name&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!QualificationType,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: ri!Qualification[ri!Index].QualificationTypeId,
+        saveInto: {
+          a!save(
+            ri!Qualification[ri!Index].QualificationTypeId,
+            save!value
+          ),
+          
+          a!save(
+            ri!EmployeeQualification[ri!Index].QualificationId,
+            null
+          )
+        },
+        validations: {}
+      ),
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        placeholderLabel: &quot;----Select Course----&quot;,
+        required: true,
+        requiredMessage: &quot;Please select the course&quot;,
+        choiceLabels: {
+          index(
+            local!Qualification,
+            &quot;Name&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!Qualification,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: ri!EmployeeQualification[ri!Index].QualificationId,
+        saveInto: {
+          a!save(
+            ri!EmployeeQualification[ri!Index].QualificationId,
+            save!value
+          )
+          
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_dateField&quot;(
+        value: ri!EmployeeQualification[ri!Index].DateTimePassed,
+        saveInto: {
+          a!save(
+            ri!EmployeeQualification[ri!Index].DateTimePassed,
+            save!value
+          )
+          
+        },
+        validations: {
+          if(
+            (
+              ri!EmployeeQualification[ri!Index].DateTimePassed
+            ) &gt; today(),
+            &quot;Invalid Date&quot;,
+            {}
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        placeholderLabel: &quot;--Grades--&quot;,
+        required: true,
+        requiredMessage: &quot;Please select the grades&quot;,
+        choiceLabels: {
+          index(
+            local!Grades,
+            &quot;Name&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!Grades,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: ri!EmployeeQualification[ri!Index].GradeId,
+        saveInto: {
+          a!save(
+            ri!EmployeeQualification[ri!Index].GradeId,
+            save!value
+          )
+          
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_fileUploadField&quot;(
+        label: &quot;&quot;,
+        target: {
+          #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21421&quot;
+        },
+        value: ri!HoldQualificationDocumentId[ri!index],
+        saveInto: {
+          a!save(
+            ri!HoldQualificationDocumentId[ri!index],
+            save!value
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_imageField&quot;(
+        images: {
+          #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+            document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+              &quot;REMOVE&quot;
+            ),
+            caption: &quot;Remove&quot;,
+            link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+              value: {
+                ri!Index
+              },
+              saveInto: {
+                a!save(
+                  ri!EmployeeQualification,
+                  remove(
+                    ri!EmployeeQualification,
+                    save!value
+                  )
+                ),
+                a!save(
+                  ri!Qualification,
+                  remove(
+                    ri!Qualification,
+                    save!value
+                  )
+                ),
+                a!save(
+                  ri!HoldQualificationDocumentId,
+                  remove(
+                    ri!HoldQualificationDocumentId,
+                    save!value
+                  )
+                ),
+                a!save(
+                  ri!QualificationType,
+                  remove(
+                    ri!QualificationType,
+                    save!value
+                  )
+                ),
+                a!save(
+                  ri!TempQualificationDocument,
+                  remove(
+                    ri!TempQualificationDocument,
+                    save!value
+                  )
+                )
+              }
+            )
+          )
+        },
+        size: &quot;ICON&quot;
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Qualification</name>
+            <type>
+                <name>HRA_dv_Qualification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>QualificationType</name>
+            <type>
+                <name>HRA_dv_QualificationType?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeQualification</name>
+            <type>
+                <name>HRA_EmployeeQualification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempQualificationDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldQualificationDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

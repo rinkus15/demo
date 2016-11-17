@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <recordType name="Job Opening" a:uuid="30c589c9-0ffa-47b9-a3e1-f0c1c4c78aa3">
+        <a:pluralName>Job Openings</a:pluralName>
+        <a:description>List of all job openings</a:description>
+        <a:urlStub>G9WsuA</a:urlStub>
+        <a:source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:DataStoreEntity" a:uuid="c35e0cd0-7066-462a-b80b-38dde0991d30@_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20111"/>
+        <a:listViewTemplateExpr>#&quot;SYSTEM_SYSRULES_recordGridLayoutColumns&quot;(
+  columns: {
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Job Id&quot;,
+      align: &quot;CENTER&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayvalue: rf!Id,
+        align: &quot;LEFT&quot;
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Job Title&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      align: &quot;CENTER&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_linkField&quot;(
+        links: {
+          #&quot;SYSTEM_SYSRULES_recordLink&quot;(
+            label: rf!JobTitle,
+            recordtype: rp!type,
+            identifier: rp!id)
+        },
+        align: &quot;LEFT&quot;
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Location&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayvalue: if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            rf!Location
+          ),
+          {},
+          rf!Location
+        )
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Minimum Experience&quot;,
+      align: &quot;CENTER&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayvalue: #&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(rf!MinExpRequired)
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Maximum Experience&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      align: &quot;CENTER&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayvalue: #&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(rf!MaxExpRequired)
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;No of Opening&quot;,
+      align: &quot;CENTER&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_integerField&quot;(
+        displayValue: rf!NoOfOpening,
+        align: &quot;CENTER&quot;
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Closing Date&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      align: &quot;CENTER&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_dateField&quot;(
+        displayvalue: if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            rf!ClosingDate
+          ),
+          {},
+          rf!ClosingDate
+        )
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Posted By&quot;,
+      align: &quot;LEFT&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayValue: #&quot;_a-0000d8ee-7d6f-8000-bffe-010000010000_2461&quot;(rf!CreatedBy),
+        align: &quot;LEFT&quot;
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Posted On&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_dateField&quot;(
+        displayvalue: if(#&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(rf!CreatedOn),{},rf!CreatedOn)
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Status&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      align: &quot;CENTER&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_imageField&quot;(
+        images: {
+          if(
+            rf!Status = 1,
+            #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+              #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+                &quot;STATUS_OK&quot;
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+              #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+                &quot;STATUS_NOTDONE&quot;
+              )
+            )
+          )
+        },
+        size: &quot;ICON&quot;
+      )
+    )  
+  },
+  pageSize: 25,
+  defaultSort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+    field: &quot;CreatedOn&quot;,
+    ascending: false
+  )
+)</a:listViewTemplateExpr>
+        <a:fieldCfg name="Status">
+            <a:description></a:description>
+            <a:sourceRef>Status</a:sourceRef>
+            <a:isSortable>false</a:isSortable>
+            <a:isSearchable>false</a:isSearchable>
+            <a:isFacet>true</a:isFacet>
+            <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+            <a:isExclusiveFacet>true</a:isExclusiveFacet>
+            <a:facetLabelExpr>&quot;Status&quot;</a:facetLabelExpr>
+            <a:facetOption>
+                <a:labelExpr>&quot;Open&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>true</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Closed&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>false</a:values>
+            </a:facetOption>
+            <a:sortOrderIndex>0</a:sortOrderIndex>
+            <a:facetOrderIndex>0</a:facetOrderIndex>
+            <a:visibilityExpr></a:visibilityExpr>
+            <a:defaultOptionExpr>&quot;Open&quot;</a:defaultOptionExpr>
+        </a:fieldCfg>
+        <a:fieldCfg name="Minimum Experience">
+            <a:description></a:description>
+            <a:sourceRef>MinExpRequired</a:sourceRef>
+            <a:isSortable>false</a:isSortable>
+            <a:isSearchable>false</a:isSearchable>
+            <a:isFacet>true</a:isFacet>
+            <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+            <a:isExclusiveFacet>true</a:isExclusiveFacet>
+            <a:facetLabelExpr>&quot;Minimum Experience&quot;</a:facetLabelExpr>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 6 Months&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>7</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 2 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>25</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 5 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>61</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 10 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>121</a:upperLimitExpr>
+            </a:facetOption>
+            <a:sortOrderIndex>1</a:sortOrderIndex>
+            <a:facetOrderIndex>1</a:facetOrderIndex>
+            <a:visibilityExpr></a:visibilityExpr>
+            <a:defaultOptionExpr></a:defaultOptionExpr>
+        </a:fieldCfg>
+        <a:fieldCfg name="Maximum Experience">
+            <a:description></a:description>
+            <a:sourceRef>MaxExpRequired</a:sourceRef>
+            <a:isSortable>false</a:isSortable>
+            <a:isSearchable>false</a:isSearchable>
+            <a:isFacet>true</a:isFacet>
+            <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+            <a:isExclusiveFacet>true</a:isExclusiveFacet>
+            <a:facetLabelExpr>&quot;Maximum Experience&quot;</a:facetLabelExpr>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 6 Months&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>7</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 2 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>25</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 5 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>61</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 10 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>121</a:upperLimitExpr>
+            </a:facetOption>
+            <a:sortOrderIndex>2</a:sortOrderIndex>
+            <a:facetOrderIndex>2</a:facetOrderIndex>
+            <a:visibilityExpr></a:visibilityExpr>
+            <a:defaultOptionExpr></a:defaultOptionExpr>
+        </a:fieldCfg>
+        <a:fieldCfg name="Posted In">
+            <a:description></a:description>
+            <a:sourceRef>CreatedOn</a:sourceRef>
+            <a:isSortable>false</a:isSortable>
+            <a:isSearchable>false</a:isSearchable>
+            <a:isFacet>true</a:isFacet>
+            <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+            <a:isExclusiveFacet>true</a:isExclusiveFacet>
+            <a:facetLabelExpr>&quot;Posted In&quot;</a:facetLabelExpr>
+            <a:facetOption>
+                <a:labelExpr>&quot;Last 5 Days &quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>now()-5</a:lowerLimitExpr>
+                <a:upperLimitExpr>now()</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Last 15 Days&quot; </a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>now()-15</a:lowerLimitExpr>
+                <a:upperLimitExpr>now()</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Last 30 Days&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>now()-30</a:lowerLimitExpr>
+                <a:upperLimitExpr>now()</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Last 45 Days&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>now()-45</a:lowerLimitExpr>
+                <a:upperLimitExpr>now()</a:upperLimitExpr>
+            </a:facetOption>
+            <a:sortOrderIndex>3</a:sortOrderIndex>
+            <a:facetOrderIndex>3</a:facetOrderIndex>
+            <a:visibilityExpr></a:visibilityExpr>
+            <a:defaultOptionExpr></a:defaultOptionExpr>
+        </a:fieldCfg>
+        <a:detailViewCfg>
+            <a:nameExpr>=&quot;Summary&quot;</a:nameExpr>
+            <a:uiExpr>#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20608&quot;()</a:uiExpr>
+            <a:visibilityExpr>=true()</a:visibilityExpr>
+            <a:urlStub>summary</a:urlStub>
+            <a:headerExpr></a:headerExpr>
+            <a:relatedActionCfg>de38f075-3498-4548-be70-d3b56b5191c8</a:relatedActionCfg>
+        </a:detailViewCfg>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dd94-759c-8000-9ccd-014d98014d98"/>
+            <a:contextExpr>{
+  JobId:rf!Id
+}</a:contextExpr>
+            <a:visibilityExpr>if(rf!Status=true,true,false)</a:visibilityExpr>
+            <a:refId>de38f075-3498-4548-be70-d3b56b5191c8</a:refId>
+        </a:relatedActionCfg>
+        <a:isSystem>false</a:isSystem>
+        <a:dataSrcExpr></a:dataSrcExpr>
+        <a:facetsListExpr></a:facetsListExpr>
+        <a:titleExpr>&quot;Job Title - &quot;&amp;rf!JobTitle</a:titleExpr>
+        <a:defaultFiltersExpr></a:defaultFiltersExpr>
+        <a:layoutType>GRID</a:layoutType>
+        <a:security>16383</a:security>
+    </recordType>
+    <roleMap>
+        <role name="record_type_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0001dd0b-8755-8000-9ccd-011e94011e94_248</groupUuid>
+                <groupUuid>_e-0001dd0b-8755-8000-9ccd-011e94011e94_247</groupUuid>
+                <groupUuid>_e-0001dd0b-8755-8000-9ccd-011e94011e94_246</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+</recordTypeHaul>

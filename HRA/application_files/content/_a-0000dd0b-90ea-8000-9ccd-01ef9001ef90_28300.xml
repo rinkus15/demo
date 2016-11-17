@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeFullTextSearch</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28300</uuid>
+        <description>Interface for employee full text search</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!text,
+  
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: 1,
+    batchSize: 20,
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;Id&quot;,
+      ascending: true
+    )
+  ),
+  with(
+    local!data: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28317&quot;(
+    local!text
+  ),
+    local!datasubset:todatasubset(
+      local!data,
+      local!pagingInfo
+    ),
+    #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          label: &quot;Free Text Search&quot;,
+          firstColumnContents: {
+            #&quot;SYSTEM_SYSRULES_textField&quot;(
+              label: &quot;Text&quot;,
+              instructions: &quot;Type text to search employee on basis of Employee Name, Department, Skills, Qualifications, Certifications, Key Assignments, Training, Recommedation and Total Experience.&quot;,
+              value: local!text,
+              saveInto: {
+                local!text
+                /*a!save(
+                  local!datasubset,
+                  rule!HRA_EmployeeFullText_QE(
+                    save!value
+                  )
+                )*/
+              },
+              refreshAfter: &quot;KEYPRESS&quot;
+            )
+          },
+          secondColumnContents: {}
+        ),
+        #&quot;SYSTEM_SYSRULES_gridField&quot;(
+          totalCount: local!datasubset.totalCount,
+          columns: {
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Id&quot;,
+              field: &quot;Id&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;Id&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridImageColumn&quot;(
+              label: &quot;&quot;,
+              field: &quot;PictureId&quot;,
+              data: {
+                apply(
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20925&quot;(
+                    _
+                  ),
+                  index(
+                    local!datasubset.data,
+                    &quot;PictureId&quot;,
+                    {}
+                  )
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Employee Name&quot;,
+              field: &quot;EmployeeName&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;EmployeeName&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Profile Overview&quot;,
+              field: &quot;ProfileOverview&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;ProfileOverview&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Department&quot;,
+              field: &quot;Department&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;Department&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Total Experience&quot;,
+              field: &quot;TotalExperience&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;TotalExperience&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Reporting Manager&quot;,
+              field: &quot;ReportingManager&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;ReportingManager&quot;,
+                {}
+              )
+            )
+          },
+          value: local!pagingInfo,
+          saveInto: local!pagingInfo
+        )
+      },
+      secondColumnContents: {}
+    )
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

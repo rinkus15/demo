@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeSkillReportFilter</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21431</uuid>
+        <description>Interface for the employee skills report filter</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with&#xD;
+(&#xD;
+=#&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+  firstColumnContents: {&#xD;
+    #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+      label: &quot;Skills Category&quot;,&#xD;
+      labelPosition: &quot;ABOVE&quot;,&#xD;
+      choiceLabels: fn!index(&#xD;
+              local!SkillsType,&#xD;
+              &quot;Name&quot;,&#xD;
+              {}&#xD;
+            ),&#xD;
+      choiceValues: fn!index(&#xD;
+              local!SkillsType,&#xD;
+              &quot;Id&quot;,&#xD;
+              {}&#xD;
+            ),&#xD;
+            value:local!SkillTypeValue,&#xD;
+      saveInto: {&#xD;
+        local!SkillTypeValue,&#xD;
+      a!save(&#xD;
+                local!Skills,&#xD;
+                if(&#xD;
+                  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                    save!value&#xD;
+                  ),&#xD;
+                  {},&#xD;
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20878&quot; (&#xD;
+                    save!value,&#xD;
+                     true()&#xD;
+                  )&#xD;
+                )&#xD;
+              ),&#xD;
+              a!save(local!SkillsValue,null)&#xD;
+&#xD;
+&#xD;
+      },&#xD;
+      validations: {}&#xD;
+    ),&#xD;
+    if(#&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(local!Skills),&#xD;
+    #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+      label: &quot;Skills&quot;,&#xD;
+      disabled:true,&#xD;
+      labelPosition: &quot;ABOVE&quot;,&#xD;
+      choiceLabels: {&quot; &quot;},&#xD;
+      choiceValues: {&quot; &quot;},&#xD;
+      saveInto: {},&#xD;
+      validations: {}&#xD;
+    ),    &#xD;
+    #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+      label: &quot;Skills&quot;,&#xD;
+      labelPosition: &quot;ABOVE&quot;,&#xD;
+      choiceLabels: {fn!index(&#xD;
+                local!Skills,&#xD;
+                &quot;Skill&quot;,&#xD;
+                {}&#xD;
+              )},&#xD;
+      choiceValues: {              &#xD;
+        fn!index(&#xD;
+                local!Skills,&#xD;
+                &quot;Id&quot;,&#xD;
+                {}&#xD;
+              )&#xD;
+},&#xD;
+value:local!SkillsValue,&#xD;
+      saveInto: local!SkillsValue,&#xD;
+      validations: {}&#xD;
+    )&#xD;
+    &#xD;
+    )&#xD;
+  },&#xD;
+  secondColumnContents: {&#xD;
+    #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+      label: &quot;Proficiency&quot;,&#xD;
+      labelPosition: &quot;ABOVE&quot;,&#xD;
+      choiceLabels: { &#xD;
+        fn!index(&#xD;
+              local!Proficiency,&#xD;
+              &quot;Name&quot;,&#xD;
+              {}&#xD;
+              )&#xD;
+      },&#xD;
+      choiceValues: { &#xD;
+        fn!index(&#xD;
+              local!Proficiency,&#xD;
+              &quot;Id&quot;,&#xD;
+              {}&#xD;
+              )&#xD;
+      },&#xD;
+      value:local!ProficiencyValue,&#xD;
+&#xD;
+      saveInto: local!ProficiencyValue,&#xD;
+      validations: {}&#xD;
+    )&#xD;
+   &#xD;
+    &#xD;
+  },&#xD;
+  validations: {}&#xD;
+)&#xD;
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

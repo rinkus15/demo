@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeSkillsGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18613</uuid>
+        <description>Editable grid for addition of new skills of an employee</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(&#xD;
+  local!Skills: if(&#xD;
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+      index(&#xD;
+        ri!SkillType[ri!Index],&#xD;
+        &quot;Id&quot;,&#xD;
+        {}&#xD;
+      )&#xD;
+    ),&#xD;
+    {},&#xD;
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20878&quot;(&#xD;
+      index(&#xD;
+        ri!SkillType[ri!Index],&#xD;
+        &quot;Id&quot;,&#xD;
+        {}&#xD;
+      ),&#xD;
+      true&#xD;
+    )&#xD;
+  ),&#xD;
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(&#xD;
+    id : ri!Index,&#xD;
+    contents: {&#xD;
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(&#xD;
+        placeholderLabel: &quot;--- Select a Skills Category ---&quot;,&#xD;
+        required: true,&#xD;
+        requiredMessage: &quot;Please select the skill type&quot;,&#xD;
+        choiceLabels: {&#xD;
+          local!SkillType.Name&#xD;
+        },&#xD;
+        choiceValues: {&#xD;
+          local!SkillType.Id&#xD;
+        },&#xD;
+        value: ri!SkillType[ri!Index].Id,&#xD;
+        saveInto: {&#xD;
+          ri!SkillType[ri!Index].Id,&#xD;
+          &#xD;
+          local!SkillTypeId,&#xD;
+          a!save(&#xD;
+            ri!EmployeeSkills[ri!Index].SkillId,&#xD;
+            null&#xD;
+          )&#xD;
+          &#xD;
+        }&#xD;
+      ),&#xD;
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(&#xD;
+        placeholderLabel: &quot;--- Select a Skills ---&quot;,&#xD;
+        required: true,&#xD;
+        requiredMessage: &quot;Please select the skills&quot;,&#xD;
+        choiceLabels: {&#xD;
+          index(&#xD;
+            local!Skills,&#xD;
+            &quot;Skill&quot;,&#xD;
+            {}&#xD;
+          )&#xD;
+        },&#xD;
+        choiceValues: {&#xD;
+          index(&#xD;
+            local!Skills,&#xD;
+            &quot;Id&quot;,&#xD;
+            {}&#xD;
+          )&#xD;
+        },&#xD;
+        value: ri!EmployeeSkills[ri!Index].SkillId,&#xD;
+        saveInto: {&#xD;
+          a!save(&#xD;
+            ri!EmployeeSkills[ri!Index].SkillId,&#xD;
+            save!value&#xD;
+          )&#xD;
+        }&#xD;
+      ),&#xD;
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(&#xD;
+        placeholderLabel: &quot;--- Select Proficiency ---&quot;,&#xD;
+        required: true,&#xD;
+        requiredMessage: &quot;Please select the proficiency&quot;,&#xD;
+        choiceLabels: {&#xD;
+          index(&#xD;
+            local!ProficencyLevel,&#xD;
+            &quot;Name&quot;,&#xD;
+            {}&#xD;
+          )&#xD;
+        },&#xD;
+        choiceValues: {&#xD;
+          index(&#xD;
+            local!ProficencyLevel,&#xD;
+            &quot;Id&quot;,&#xD;
+            {}&#xD;
+          )&#xD;
+        },&#xD;
+        value: ri!EmployeeSkills[ri!Index].ProficiencyId,&#xD;
+        saveInto: {&#xD;
+          a!save(&#xD;
+            ri!EmployeeSkills[ri!Index].ProficiencyId,&#xD;
+            save!value&#xD;
+          )&#xD;
+        }&#xD;
+      ),&#xD;
+      #&quot;SYSTEM_SYSRULES_fileUploadField&quot;(&#xD;
+        label: &quot;&quot;,&#xD;
+        target: {&#xD;
+          #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21421&quot;&#xD;
+        },&#xD;
+        value: ri!HoldSkillDocumentId[ri!Index],&#xD;
+        saveInto: {&#xD;
+          a!save(&#xD;
+            ri!HoldSkillDocumentId[ri!Index],&#xD;
+            save!value&#xD;
+          )&#xD;
+        }&#xD;
+      ),&#xD;
+      &#xD;
+      #&quot;SYSTEM_SYSRULES_imageField&quot;(&#xD;
+        images: {&#xD;
+          #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+            document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+              &quot;REMOVE&quot;&#xD;
+            ),&#xD;
+            link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(&#xD;
+              value: ri!Index,&#xD;
+              saveInto: {&#xD;
+                a!save(&#xD;
+                  ri!Skills,&#xD;
+                  remove(&#xD;
+                    ri!Skills,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                ),&#xD;
+                a!save(&#xD;
+                  ri!SkillType,&#xD;
+                  remove(&#xD;
+                    ri!SkillType,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                ),&#xD;
+                a!save(&#xD;
+                  ri!Proficiency,&#xD;
+                  remove(&#xD;
+                    ri!Proficiency,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                ),&#xD;
+                a!save(&#xD;
+                  ri!EmployeeSkills,&#xD;
+                  remove(&#xD;
+                    ri!EmployeeSkills,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                ),&#xD;
+                a!save(&#xD;
+                  ri!TempSkillDocument,&#xD;
+                  remove(&#xD;
+                    ri!TempSkillDocument,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                ),&#xD;
+                a!save(&#xD;
+                  ri!HoldSkillDocumentId,&#xD;
+                  remove(&#xD;
+                    ri!HoldSkillDocumentId,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                )&#xD;
+              }&#xD;
+            )&#xD;
+          )&#xD;
+        },&#xD;
+        size: &quot;ICON&quot;&#xD;
+      )&#xD;
+    }&#xD;
+  )&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Skills</name>
+            <type>
+                <name>HRA_dv_Skill?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillType</name>
+            <type>
+                <name>HRA_dv_SkillType?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Proficiency</name>
+            <type>
+                <name>HRA_dv_Proficiency?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeSkills</name>
+            <type>
+                <name>HRA_EmployeeSkills?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempSkillDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldSkillDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

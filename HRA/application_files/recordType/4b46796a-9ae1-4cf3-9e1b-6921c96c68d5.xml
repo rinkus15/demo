@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recordTypeHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <recordType name="Employee" a:uuid="4b46796a-9ae1-4cf3-9e1b-6921c96c68d5">
+        <a:pluralName>Employees</a:pluralName>
+        <a:description>List of all employees</a:description>
+        <a:urlStub>FlwNuA</a:urlStub>
+        <a:source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:DataStoreEntity" a:uuid="c364b260-5da7-40c1-acca-11f269f8f41f@_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21405"/>
+        <a:listViewTemplateExpr>#&quot;SYSTEM_SYSRULES_recordGridLayoutColumns&quot;(
+  columns: {
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_imageField&quot;(
+        images: if(&#xD;
+            #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+              rf!PictureURL&#xD;
+            ),&#xD;
+            if(&#xD;
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21892&quot;(&#xD;
+                rf!PictureId&#xD;
+              ),&#xD;
+              #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+                document: rf!PictureId&#xD;
+              ),&#xD;
+              #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+                document: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20879&quot;&#xD;
+              )&#xD;
+            ),&#xD;
+            #&quot;SYSTEM_SYSRULES_webImage&quot;(&#xD;
+              source: rf!PictureURL&#xD;
+            )&#xD;
+          ),
+        size: &quot;THUMBNAIL&quot;
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Name&quot;,
+      field: &quot;FullName&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_linkField&quot;(
+        links: {#&quot;SYSTEM_SYSRULES_recordLink&quot;(
+          label: rf!FullName,
+          recordType: rp!type,
+          identifier: rp!id
+)}
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Employee Type&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      field: &quot;EmployeeTypeId&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayvalue: if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(rf!EmployeeType),
+          {},
+          rf!EmployeeType
+        )
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Department&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      field: &quot;DepartmentId&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayvalue: if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            rf!Department
+          ),
+          {},
+          rf!Department
+        ))
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Date Of Joining&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      field: &quot;DateOfJoin&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_dateField&quot;(
+        displayvalue: if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(rf!DateOfJoin),{},
+          rf!DateOfJoin
+        )
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Experience&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      field: &quot;TotalWorkExperience&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayvalue: #&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(rf!TotalWorkExperience)
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_gridLayoutColumn&quot;(
+      label: &quot;Reporting Manager&quot;,
+      width: &quot;DISTRIBUTE&quot;,
+      field: &quot;ReportingManager&quot;,
+      component: #&quot;SYSTEM_SYSRULES_recordGrid_textField&quot;(
+        displayvalue: if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            rf!ReportingManager
+          ),
+          {},
+          #&quot;_a-0000d8ee-7d6f-8000-bffe-010000010000_2461&quot;(rf!ReportingManager)
+        )
+      )
+    )  
+  },
+  pageSize: 10,
+  defaultSort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+    field: &quot;Id&quot;,
+    ascending: fn!true()
+  )
+)</a:listViewTemplateExpr>
+        <a:fieldCfg name="Department">
+            <a:description></a:description>
+            <a:sourceRef>DepartmentId</a:sourceRef>
+            <a:isSortable>false</a:isSortable>
+            <a:isSearchable>false</a:isSearchable>
+            <a:isFacet>true</a:isFacet>
+            <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+            <a:isExclusiveFacet>true</a:isExclusiveFacet>
+            <a:facetLabelExpr>&quot;Department&quot;</a:facetLabelExpr>
+            <a:facetOption>
+                <a:labelExpr>&quot;Client Servicing&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>1</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Corporate Stratetgy&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>2</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Finance&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>3</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Marketing&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>4</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Product Management&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>5</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;General Management&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>6</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Sales&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>7</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Security Department&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>8</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Office Administration&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>9</a:values>
+            </a:facetOption>
+            <a:sortOrderIndex>0</a:sortOrderIndex>
+            <a:facetOrderIndex>0</a:facetOrderIndex>
+            <a:visibilityExpr></a:visibilityExpr>
+            <a:defaultOptionExpr></a:defaultOptionExpr>
+        </a:fieldCfg>
+        <a:fieldCfg name="Employee Type">
+            <a:description></a:description>
+            <a:sourceRef>EmployeeType</a:sourceRef>
+            <a:isSortable>false</a:isSortable>
+            <a:isSearchable>false</a:isSearchable>
+            <a:isFacet>true</a:isFacet>
+            <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+            <a:isExclusiveFacet>true</a:isExclusiveFacet>
+            <a:facetLabelExpr>&quot;Employee Type&quot;</a:facetLabelExpr>
+            <a:facetOption>
+                <a:labelExpr>&quot;Full Time&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>&quot;Full Time&quot;</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Part Time&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>&quot;Part Time&quot;</a:values>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Temporary&quot;</a:labelExpr>
+                <a:facetOperator>IN</a:facetOperator>
+                <a:lowerLimitExpr></a:lowerLimitExpr>
+                <a:upperLimitExpr></a:upperLimitExpr>
+                <a:values>&quot;Temporary&quot;</a:values>
+            </a:facetOption>
+            <a:sortOrderIndex>1</a:sortOrderIndex>
+            <a:facetOrderIndex>1</a:facetOrderIndex>
+            <a:visibilityExpr></a:visibilityExpr>
+            <a:defaultOptionExpr></a:defaultOptionExpr>
+        </a:fieldCfg>
+        <a:fieldCfg name="Experience">
+            <a:description></a:description>
+            <a:sourceRef>TotalWorkExperience</a:sourceRef>
+            <a:isSortable>false</a:isSortable>
+            <a:isSearchable>false</a:isSearchable>
+            <a:isFacet>true</a:isFacet>
+            <a:facetType>CUSTOM_BUCKETS_CLOSED</a:facetType>
+            <a:isExclusiveFacet>true</a:isExclusiveFacet>
+            <a:facetLabelExpr>&quot;Experience&quot;</a:facetLabelExpr>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 6 Months&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>7</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 2 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>25</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 5 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>61</a:upperLimitExpr>
+            </a:facetOption>
+            <a:facetOption>
+                <a:labelExpr>&quot;Upto 10 Years&quot;</a:labelExpr>
+                <a:facetOperator>BETWEEN</a:facetOperator>
+                <a:lowerLimitExpr>0</a:lowerLimitExpr>
+                <a:upperLimitExpr>121</a:upperLimitExpr>
+            </a:facetOption>
+            <a:sortOrderIndex>2</a:sortOrderIndex>
+            <a:facetOrderIndex>2</a:facetOrderIndex>
+            <a:visibilityExpr></a:visibilityExpr>
+            <a:defaultOptionExpr></a:defaultOptionExpr>
+        </a:fieldCfg>
+        <a:detailViewCfg>
+            <a:nameExpr>=&quot;Summary&quot;</a:nameExpr>
+            <a:uiExpr>#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19061&quot;(EmployeeId:rf!Id)</a:uiExpr>
+            <a:visibilityExpr>=true()</a:visibilityExpr>
+            <a:urlStub>summary</a:urlStub>
+            <a:headerExpr></a:headerExpr>
+            <a:relatedActionCfg>43e08465-6c23-469f-9da4-7799229ed9cf</a:relatedActionCfg>
+            <a:relatedActionCfg>616f039d-c5a4-4f5c-bbd5-ead4c7e4d064</a:relatedActionCfg>
+            <a:relatedActionCfg>765680de-ebab-4ffe-83e7-8811976d1f0b</a:relatedActionCfg>
+            <a:relatedActionCfg>5563a51a-26ab-44f1-9747-8b80ad31115d</a:relatedActionCfg>
+            <a:relatedActionCfg>6b6947c5-a746-485c-acfd-13332853da03</a:relatedActionCfg>
+            <a:relatedActionCfg>86839bde-b7c6-4a6b-ba54-e4556261a400</a:relatedActionCfg>
+            <a:relatedActionCfg>562aec2f-ab98-491c-a5b8-e940e582cd91</a:relatedActionCfg>
+        </a:detailViewCfg>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dd77-796b-8000-9ccd-014d98014d98"/>
+            <a:contextExpr>{EmployeeId:rf!Id,TriggerSource:#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21607&quot;[1]}</a:contextExpr>
+            <a:visibilityExpr>if(
+  or(
+    isusermemberofgroups(
+      loggedInUser(),
+      #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37323&quot;[2]
+    ),
+    rf!EmployeeId = loggedInUser()
+  ),
+  true,
+  false
+)</a:visibilityExpr>
+            <a:refId>43e08465-6c23-469f-9da4-7799229ed9cf</a:refId>
+        </a:relatedActionCfg>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dddd-94a5-8000-9ccd-014d98014d98"/>
+            <a:contextExpr>{
+  EmployeeId:rf!Id
+}</a:contextExpr>
+            <a:visibilityExpr>if(isusermemberofgroups(&#xD;
+loggedInUser(),&#xD;
+#&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37323&quot;[2]&#xD;
+),true,false)</a:visibilityExpr>
+            <a:refId>6b6947c5-a746-485c-acfd-13332853da03</a:refId>
+        </a:relatedActionCfg>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dd77-8b62-8000-9ccd-014d98014d98"/>
+            <a:contextExpr>{EmployeeId:rf!Id,TriggerSource:#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21607&quot;[2]}</a:contextExpr>
+            <a:visibilityExpr>if(&#xD;
+  or(&#xD;
+    isusermemberofgroups(&#xD;
+      loggedInUser(),&#xD;
+      #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37323&quot;[2]&#xD;
+    ),&#xD;
+    rf!EmployeeId = loggedInUser()&#xD;
+  ),&#xD;
+  true,&#xD;
+  false&#xD;
+)</a:visibilityExpr>
+            <a:refId>616f039d-c5a4-4f5c-bbd5-ead4c7e4d064</a:refId>
+        </a:relatedActionCfg>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dd7a-2394-8000-9ccd-014d98014d98"/>
+            <a:contextExpr>{
+ EmployeeId:rf!Id
+}</a:contextExpr>
+            <a:visibilityExpr>if(&#xD;
+  or(&#xD;
+    isusermemberofgroups(&#xD;
+      loggedInUser(),&#xD;
+      #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37323&quot;[2]&#xD;
+    ),&#xD;
+    rf!EmployeeId = loggedInUser()&#xD;
+  ),&#xD;
+  true,&#xD;
+  false&#xD;
+)</a:visibilityExpr>
+            <a:refId>765680de-ebab-4ffe-83e7-8811976d1f0b</a:refId>
+        </a:relatedActionCfg>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dd93-631d-8000-9ccd-014d98014d98"/>
+            <a:contextExpr>{
+  EmployeeId: rf!Id
+}</a:contextExpr>
+            <a:visibilityExpr>if(&#xD;
+  or(&#xD;
+    isusermemberofgroups(&#xD;
+      loggedInUser(),&#xD;
+      #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37323&quot;[2]&#xD;
+    ),&#xD;
+    rf!EmployeeId = loggedInUser()&#xD;
+  ),&#xD;
+  true,&#xD;
+  false&#xD;
+)</a:visibilityExpr>
+            <a:refId>5563a51a-26ab-44f1-9747-8b80ad31115d</a:refId>
+        </a:relatedActionCfg>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002dddf-a22b-8000-9ccd-014d98014d98"/>
+            <a:contextExpr>{EmpId:rf!Id}</a:contextExpr>
+            <a:visibilityExpr>if(&#xD;
+or(&#xD;
+isusermemberofgroups(&#xD;
+loggedInUser(),&#xD;
+#&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37323&quot;[2]&#xD;
+),&#xD;
+rf!EmployeeId = loggedInUser()&#xD;
+),&#xD;
+true,&#xD;
+false&#xD;
+)</a:visibilityExpr>
+            <a:refId>86839bde-b7c6-4a6b-ba54-e4556261a400</a:refId>
+        </a:relatedActionCfg>
+        <a:relatedActionCfg>
+            <a:target xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="a:ProcessModel" a:uuid="0002ddde-a5d6-8000-9ccd-014d98014d98"/>
+            <a:contextExpr>{
+  EmployeeId:rf!Id
+}</a:contextExpr>
+            <a:visibilityExpr>if(&#xD;
+or(&#xD;
+isusermemberofgroups(&#xD;
+loggedInUser(),&#xD;
+#&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37323&quot;[2]&#xD;
+),&#xD;
+rf!EmployeeId = loggedInUser()&#xD;
+),&#xD;
+true,&#xD;
+false&#xD;
+)</a:visibilityExpr>
+            <a:refId>562aec2f-ab98-491c-a5b8-e940e582cd91</a:refId>
+        </a:relatedActionCfg>
+        <a:isSystem>false</a:isSystem>
+        <a:dataSrcExpr></a:dataSrcExpr>
+        <a:facetsListExpr></a:facetsListExpr>
+        <a:titleExpr>rf!FullName</a:titleExpr>
+        <a:defaultFiltersExpr></a:defaultFiltersExpr>
+        <a:layoutType>GRID</a:layoutType>
+        <a:security>16383</a:security>
+    </recordType>
+    <roleMap>
+        <role name="record_type_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0001dd0b-8755-8000-9ccd-011e94011e94_252</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+</recordTypeHaul>

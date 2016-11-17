@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_DynamicRowsForOtherColumns</name>
+        <uuid>57f5b76e-caa0-42cc-95b8-3e0aad9019bf</uuid>
+        <description></description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+   /*ri!EmployeeView: rule!HRA_EmployeeViewCountSkillBySkillIdAndYearQE(
+    ri!skillId,
+    ri!Year
+  ),*/
+  local!DataBySkillId: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      ri!EmployeeView
+    ),
+    {},
+    index(
+      ri!EmployeeView,
+      wherecontains(
+        ri!SkillId,
+        tointeger(
+          index(
+            ri!EmployeeView,
+            &quot;SkillId&quot;,
+            null()
+          )
+        )
+      )
+    )
+  ),
+  local!count: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      local!DataBySkillId
+    ),
+    0,
+    Count(
+      index(
+        local!DataBySkillId.SkillId,
+        where(
+          tointeger(
+            local!DataBySkillId.SkillAddedOn
+          ) = ri!Year
+        )
+      )
+    )
+  ),
+  concat(
+    &quot;&quot;&quot;&quot;,
+    ri!Year,
+    &quot;&quot;&quot;&quot;,
+    &quot;: &quot;,
+    local!count
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Year</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeView</name>
+            <type>
+                <name>HRA_EmployeeView?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

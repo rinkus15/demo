@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeViewCertificationByEIdCertificateIdQE</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23756</uuid>
+        <description>Fetch value by eid and cid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(&#xD;
+    1,&#xD;
+    - 1&#xD;
+  ),&#xD;
+&#xD;
+#&quot;SYSTEM_SYSRULES_queryEntity&quot;(&#xD;
+    entity: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20521&quot;,&#xD;
+    query: #&quot;SYSTEM_SYSRULES_query&quot;(&#xD;
+      aggregation: #&quot;SYSTEM_SYSRULES_queryAggregation&quot;(aggregationColumns: {&#xD;
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;CertificateId&quot;,aggregationFunction:&quot;MAX&quot;),&#xD;
+        /*a!queryAggregationColumn(field:&quot;CertificateId&quot;,isGrouping:true),*/&#xD;
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;CertificationName&quot;,isGrouping:true),&#xD;
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;CertificationType&quot;,isGrouping:true),&#xD;
+		  #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;CertificationGrade&quot;,isGrouping:true),&#xD;
+		  #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;CertificationIsApproved&quot;,isGrouping:true),&#xD;
+		  #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;ExpiryDate&quot;,isGrouping:true)&#xD;
+          }),&#xD;
+      logicalExpression: if(&#xD;
+        and(&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!EId&#xD;
+          ),&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!CertificationIsApproved&#xD;
+          ),&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!CertificateId&#xD;
+          )&#xD;
+        ),&#xD;
+        null,&#xD;
+        #&quot;SYSTEM_SYSRULES_queryLogicalExpression&quot;(&#xD;
+          operator: &quot;AND&quot;,&#xD;
+          filters: {&#xD;
+            if(&#xD;
+             #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!EId&#xD;
+              ),&#xD;
+              {},&#xD;
+                #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;EId&quot;,&#xD;
+                operator: &quot;=&quot;,&#xD;
+                value: ri!EId&#xD;
+              )&#xD;
+            ),&#xD;
+             if(&#xD;
+             #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!CertificationIsApproved&#xD;
+              ),&#xD;
+              {},&#xD;
+                #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;CertificationIsApproved&quot;,&#xD;
+                operator: &quot;in&quot;,&#xD;
+                value: ri!CertificationIsApproved&#xD;
+              )&#xD;
+            ),&#xD;
+            if(&#xD;
+             #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!CertificateId&#xD;
+              ),&#xD;
+              {},&#xD;
+                #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;CertificateId&quot;,&#xD;
+                operator: &quot;in&quot;,&#xD;
+                value: ri!CertificateId&#xD;
+              )&#xD;
+            )&#xD;
+		}&#xD;
+        )&#xD;
+      ),&#xD;
+      pagingInfo: local!pagingInfo&#xD;
+    )&#xD;
+  )&#xD;
+).data</definition>
+        <namedTypedValue>
+            <name>EId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificationIsApproved</name>
+            <type>
+                <name>Boolean?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificateId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<administeredSettingHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <uuid>conf.userStartPages.START_PAGES</uuid>
+    <isDefault>false</isDefault>
+    <urlConfigs>
+        <urlConfig>
+            <url>/sites/DRC_E-Gov</url>
+            <groups>
+                <group a:uuid="_e-0001dd0b-8755-8000-9ccd-011e94011e94_260"/>
+            </groups>
+        </urlConfig>
+        <urlConfig>
+            <url>/sites/drc-e-gov-eng</url>
+            <groups>
+                <group a:uuid="_e-0001dd0b-8755-8000-9ccd-011e94011e94_261"/>
+            </groups>
+        </urlConfig>
+        <urlConfig>
+            <url>/sites/drc-election</url>
+            <groups>
+                <group a:uuid="_e-0001dd0b-8755-8000-9ccd-011e94011e94_270"/>
+            </groups>
+        </urlConfig>
+    </urlConfigs>
+</administeredSettingHaul>

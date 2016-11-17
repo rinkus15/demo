@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <queryRule>
+        <name>HRA_AllTrainingDetails</name>
+        <uuid>_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_37767</uuid>
+        <description>Contains the value for the training details</description>
+        <folderUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18826</folderUuid>
+        <dataStoreEntityCompositeUuid>59ba83f5-e260-42f7-8931-9d8b43cbf38f@_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20111</dataStoreEntityCompositeUuid>
+        <params/>
+        <filters/>
+        <orderings/>
+    </queryRule>
+    <roleMap public="false">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

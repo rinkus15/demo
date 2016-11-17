@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_DynamicEditableGridForReport</name>
+        <uuid>33932d5b-49c0-494c-9339-e03c7ed7526f</uuid>
+        <description>Holds rule for dynamic columns and rows in a grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!selectedYear:{2016,2014,2015,2013},
+  local!skills: {
+    &quot;Planning&quot;,
+    &quot;Judgement&quot;,
+    &quot;Strategy&quot;
+  }, 
+  local!skillsId: {
+    10,
+    11, 
+    14
+  },
+  local!EmployeeView: #&quot;444149fb-a156-4b4d-a3c6-3f7324ba1ec9&quot;(
+    local!skillsId,
+    local!selectedYear[1]
+  ),
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+    label: &quot;&quot;,
+    instructions: &quot;&quot;,
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+        label: &quot;&quot;,
+        labelPosition: &quot;ABOVE&quot;,
+        headerCells: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+            function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_27195&quot;(
+              _
+            ),
+            array: {
+              1 + enumerate(
+                count(
+                  local!selectedYear
+                )
+              )
+            }
+          )
+        },
+        columnConfigs: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 1
+          ),
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+            function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_27198&quot;(
+              _
+            ),
+            array: {
+              1 + enumerate(
+                count(
+                  local!selectedYear
+                )
+              )
+            }
+          )
+        },
+        rows: {
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+            #&quot;af7664ab-95d3-447f-b52e-acfeeccb45ba&quot;(
+              SkillId: _,
+              EmployeeView:local!EmployeeView,
+              Year:local!selectedYear
+            ),
+            
+                local!skillsId
+              )
+            
+        }
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>cancel</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillRow</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>YearColumn</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeView</name>
+            <type>
+                <name>HRA_EmployeeView?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>SurbhiAgrawal</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

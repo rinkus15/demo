@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeSearch</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20611</uuid>
+        <description>Contains the Employee Search interface</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!SkillId,
+  local!data,
+  local!QualificationId,
+  local!MinExpRequired,
+  local!MaxExpRequired,
+  local!CertificateId,
+  local!flag: false,
+  local!MinYear,
+  local!MaxYear,
+  local!MinMonth,
+  local!MaxMonth,
+  local!gridEmployeeSelection: #&quot;SYSTEM_SYSRULES_gridSelection&quot;(
+    pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+      startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,
+      batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[1],
+      sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+        field: &quot;Id&quot;,
+        ascending: true
+      )
+    )
+  ),
+  with(
+    #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+      label: &quot;Look Up Employee&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+          primaryButtons: {
+            #&quot;SYSTEM_SYSRULES_ButtonWidget&quot;(
+              label: &quot;Reset&quot;,
+              value: &quot;&quot;,
+              saveInto: {
+                a!save(
+                  local!CertificateId,
+                  null
+                ),
+                a!save(
+                  local!SkillId,
+                  null
+                ),
+                a!save(
+                  local!QualificationId,
+                  null
+                ),
+                a!save(
+                  local!MinExpRequired,
+                  null
+                ),
+                a!save(
+                  local!MaxExpRequired,
+                  null
+                ),
+                a!save(
+                  ri!SelectedId,
+                  null
+                ),
+                a!save(
+                  local!MinYear,
+                  null
+                ),
+                a!save(
+                  local!MaxYear,
+                  null
+                ),
+                a!save(
+                  local!MinMonth,
+                  null
+                ),
+                a!save(
+                  local!MaxMonth,
+                  null
+                ),
+                a!save(
+                  local!gridEmployeeSelection.selected,
+                  null
+                )
+              }
+            )
+          }
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20582&quot;(),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20367&quot;(
+          SkillId: local!SkillId,
+          QualificationId: local!QualificationId,
+          CertificateId: local!CertificateId,
+          MinExpRequired: local!MinExpRequired,
+          MaxExpRequired: local!MaxExpRequired,
+          SelectedId: ri!SelectedId,
+          Action: ri!Action
+        )
+      },
+      buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+        secondaryButtons: {
+          #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Close&quot;,
+            style: &quot;NORMAL&quot;,
+            value: false,
+            saveInto: ri!Action,
+            skipValidation: true
+          )
+        }
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Action</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SelectedId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

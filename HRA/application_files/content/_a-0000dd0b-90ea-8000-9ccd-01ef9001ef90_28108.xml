@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetJsonStringOfTopSkillProficiencyAndCount</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28108</uuid>
+        <description>Returns json of skillname with proficiency and count</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  /*ri!EmployeeView:rule!HRA_EmployeeViewReportQueryEntity(
+      SkillId: ri!SkillId,
+      DepartmentId: 4,
+      ProficiencyId: ri!ProficiencyId
+       
+      ),
+      local!ProficiencyDetails: rule!HRA_GetProficiencyDetailsByProficiencyIds(
+      if(
+        rule!Utils_CheckIsNull(
+          ri!ProficiencyId
+        ),
+        {},
+        ri!ProficiencyId
+      )
+    ),*/
+  local!string: apply(
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28111&quot;(
+      ProficiencyId: _,
+      SkillId: ri!SkillId,
+      EmployeeView: ri!EmployeeView
+    ),
+    ri!ProficiencyId
+  ),
+  local!String1: substitute(
+    tostring(
+      local!string
+    ),
+    &quot;;&quot;,
+    &quot;,&quot;
+  ),
+  concat(
+    &quot;{&quot;&quot;SkillName&quot;&quot;: &quot;,
+    &quot;&quot;&quot;&quot;,
+    union(index(
+        ri!EmployeeView[whereContains(ri!SkillId,
+           tointeger(index(
+              ri!EmployeeView,
+              &quot;SkillId&quot;,
+              {}
+            ))
+          
+        )],&quot;SkillName&quot;,{}
+      ),index(
+        ri!EmployeeView[whereContains(ri!SkillId,
+           tointeger(index(
+              ri!EmployeeView,
+              &quot;SkillId&quot;,
+              {}
+            ))
+          
+        )],&quot;SkillName&quot;,{}
+      )),
+    &quot;&quot;&quot;&quot;,
+    &quot; , &quot;,
+    tostring(
+      local!String1
+    ),
+    &quot;}&quot;
+  )
+)</definition>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ProficiencyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeView</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

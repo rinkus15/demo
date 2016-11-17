@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <queryRule>
+        <name>HRA_GetKeyAssignmentByEmployeeId</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23152</uuid>
+        <description>Rule for get the key assignment details by employeeId </description>
+        <folderUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18826</folderUuid>
+        <dataStoreEntityCompositeUuid>d20204b3-d02d-49b6-bbe2-73ee794e6613@_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20111</dataStoreEntityCompositeUuid>
+        <params>
+            <param>
+                <description></description>
+                <name>EmployeeId</name>
+                <type>{http://www.w3.org/2001/XMLSchema}int</type>
+            </param>
+        </params>
+        <filters>
+            <filter>
+                <field>
+                    <name>EmployeeId</name>
+                    <type>{http://www.w3.org/2001/XMLSchema}int</type>
+                </field>
+                <op>=</op>
+                <value>EmployeeId</value>
+                <valueType>PARAMETER</valueType>
+            </filter>
+        </filters>
+        <orderings/>
+    </queryRule>
+    <roleMap public="false">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

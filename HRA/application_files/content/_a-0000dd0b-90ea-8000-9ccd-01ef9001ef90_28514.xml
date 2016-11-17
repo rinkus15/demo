@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_MyTasksReport</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28514</uuid>
+        <description>Contains the value for the my task report</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: 1,
+    batchSize: 10,
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;c7&quot;,
+      ascending: false()
+    )
+  ),
+  local!UserGroups: getgroupsformemberuser(
+    loggedInUser()
+  ),
+  local!priority,
+  local!Search,
+  local!INSNumber,
+  local!Viewed,
+  local!TaskType,
+  local!Team,
+  local!Type,
+  local!ProcessModel,
+  local!Due: tointeger(
+    null
+  ),
+  local!Assignee,
+  with(
+    local!report: a!queryProcessAnalytics(
+      report: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28642&quot;,
+      contextProcessModels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28650&quot;,
+      query: #&quot;SYSTEM_SYSRULES_query&quot;(
+        logicalExpression: #&quot;SYSTEM_SYSRULES_queryLogicalExpression&quot;(
+          operator: &quot;AND&quot;,
+          logicalExpressions: #&quot;SYSTEM_SYSRULES_queryLogicalExpression&quot;(
+            operator: &quot;AND&quot;,
+            filters: {
+              #&quot;SYSTEM_SYSRULES_queryFilter&quot;(
+                field: &quot;c18&quot;,
+                operator: &quot;in&quot;,
+                value: {if(#&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(local!ProcessModel),#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28650&quot;,
+                  local!ProcessModel)
+                }
+              ),
+              #&quot;SYSTEM_SYSRULES_queryFilter&quot;(
+                field: &quot;c5&quot;,
+                operator: &quot;in&quot;,
+                value: {
+                  0,
+                  1
+                }
+              ),
+              if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  local!priority
+                ),
+                {},
+                #&quot;SYSTEM_SYSRULES_queryFilter&quot;(
+                  field: &quot;c4&quot;,
+                  operator: &quot;=&quot;,
+                  value: local!priority
+                )
+              ),
+              if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  local!Search
+                ),
+                {},
+                #&quot;SYSTEM_SYSRULES_queryFilter&quot;(
+                  field: &quot;c0&quot;,
+                  operator: &quot;includes&quot;,
+                  value: tostring(
+                    local!Search
+                  )
+                )
+              ),
+              if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  local!Viewed
+                ),
+                {},
+                #&quot;SYSTEM_SYSRULES_queryFilter&quot;(
+                  field: &quot;c5&quot;,
+                  operator: &quot;=&quot;,
+                  value: if(
+                    local!Viewed = 1,
+                    &quot;1&quot;,
+                    &quot;0&quot;
+                  )
+                )
+              ),
+              if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  local!Due
+                ),
+                {},
+                #&quot;SYSTEM_SYSRULES_queryFilter&quot;(
+                  field: &quot;c7&quot;,
+                  operator: if(
+                    local!Due = 1,
+                    &quot;=&quot;,
+                    &quot;&lt;=&quot;
+                  ),
+                  value: now() + local!Due
+                )
+              )
+            }
+          )
+        ),
+        pagingInfo: local!pagingInfo
+      )
+    ),
+    #&quot;SYSTEM_SYSRULES_dashboardLayout&quot;(
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          label:&quot;Task Report&quot;,
+          firstColumnContents: {
+            #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+              secondaryButtons: {
+                #&quot;SYSTEM_SYSRULES_ButtonWidget&quot;(
+                  label: &quot;Refresh&quot;,
+                  saveInto: {
+                    a!save(
+                      local!priority,
+                      null
+                    ),
+                    a!save(
+                      local!Search,
+                      null
+                    ),
+                    a!save(
+                      local!Viewed,
+                      null
+                    ),
+                    a!save(
+                      local!Due,
+                      null
+                    ),
+                    a!save(
+                      local!Assignee,
+                      null
+                    ),
+                    a!save(
+                      local!Type,
+                      null
+                    ),
+                    a!save(
+                      local!Team,
+                      null
+                    ),
+                    a!save(
+                      local!ProcessModel,null
+                    ),
+                    a!save(
+                      local!pagingInfo.startIndex,
+                      1
+                    )
+                  }
+                )
+              }
+            )
+          },
+          secondColumnContents: {}
+        ),
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          label: &quot;&quot;,
+          firstColumnContents: {
+            #&quot;SYSTEM_SYSRULES_textField&quot;(
+              label: &quot;Search - Click/Tab Out to Search&quot;,
+              value: local!Search,
+              refreshAfter: &quot;KEYPRESS&quot;,
+              saveInto: {
+                local!Search,
+                a!save(
+                  local!pagingInfo.startIndex,
+                  1
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Priority&quot;,
+              placeholderLabel: &quot;-- All --&quot;,
+              choiceLabels: {
+                &quot;High&quot;,
+                &quot;Normal&quot;,
+                &quot;Low&quot;
+              },
+              choiceValues: {
+                2,
+                1,
+                0
+              },
+              value: local!Priority,
+              saveInto: {
+                local!Priority,
+                a!save(
+                  local!pagingInfo.startIndex,
+                  1
+                )
+              }
+            ),
+             #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(
+              label: &quot;Filter by Application Area&quot;,
+              placeholderLabel: &quot;-- All --&quot;,
+              choiceLabels: { #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28758&quot;
+              },
+              choiceValues: {
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28650&quot;
+              },
+              value: local!ProcessModel,
+              saveInto: {
+                local!ProcessModel,
+                a!save(
+                  local!pagingInfo.startIndex,
+                  1
+                )
+              }
+            ),
+          },
+          secondColumnContents: {
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Due&quot;,
+              placeholderLabel: &quot;-- Any Time --&quot;,
+              choiceLabels: {
+                &quot;Tomorrow&quot;,
+                &quot;Within 7 Days&quot;,
+                &quot;Within 30 days&quot;
+              },
+              choiceValues: {
+                1,
+                7,
+                30
+              },
+              value: local!Due,
+              saveInto: {
+                local!Due,
+                a!save(
+                  local!pagingInfo.startIndex,
+                  1
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Viewed/Not Viewed&quot;,
+              placeholderLabel: &quot;-- All --&quot;,
+              choiceLabels: {
+                &quot;Task Opened&quot;,
+                &quot;Task Not Yet Opened&quot;
+              },
+              choiceValues: {
+                1,
+                2
+              },
+              value: local!Viewed,
+              saveInto: {
+                local!Viewed,
+                a!save(
+                  local!pagingInfo.startIndex,
+                  1
+                )
+              }
+            )
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          label: &quot;Tasks&quot;,
+          firstColumnContents: {
+            #&quot;SYSTEM_SYSRULES_gridField&quot;(
+              label: &quot;&quot;,
+              totalCount: index(
+                local!report,
+                &quot;totalCount&quot;,
+                0
+              ),
+              columns: {
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: index(
+                    local!report.columnConfigs[1],
+                    &quot;label&quot;,
+                    {}
+                  ),
+                  field: index(
+                    local!report.columnConfigs[1],
+                    &quot;field&quot;,
+                    {}
+                  ),
+                  data: index(
+                    local!report.data,
+                    &quot;c0&quot;,
+                    {}
+                  ),
+                  links: apply(
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28660&quot;,
+                    index(
+                      local!report.data,
+                      &quot;dp0&quot;,
+                      {}
+                    )
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;Assignee To&quot;,
+                  field: &quot;c8&quot;,
+                  data: if(
+                    or(
+                      local!report.totalCount = 0
+                    ),
+                    {},
+                    apply(
+                      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28677&quot;,
+                      index(
+                        local!report.data,
+                        &quot;c8&quot;,
+                        {}
+                      )
+                    )
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: index(
+                    local!report.columnConfigs[5],
+                    &quot;label&quot;,
+                    {}
+                  ),
+                  field: index(
+                    local!report.columnConfigs[5],
+                    &quot;field&quot;,
+                    {}
+                  ),
+                  data: apply(
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28679&quot;,
+                    index(
+                      local!report.data,
+                      &quot;c5&quot;,
+                      {}
+                    )
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: index(
+                    local!report.columnConfigs[3],
+                    &quot;label&quot;,
+                    {}
+                  ),
+                  field: &quot;c4&quot;,
+                  data: apply(
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28681&quot;,
+                    index(
+                      local!report.data,
+                      &quot;c4&quot;,
+                      {}
+                    )
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;Start Date&quot;,
+                  field: index(
+                    local!report.columnConfigs[2],
+                    &quot;field&quot;,
+                    {}
+                  ),
+                  data: apply(
+                    #&quot;_a-0000dac7-a419-8000-6ee0-010000010000_4230&quot;,
+                    index(
+                      local!report.data,
+                      &quot;c2&quot;,
+                      {}
+                    )
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                  label: &quot;Deadline&quot;,
+                  field: &quot;c7&quot;,
+                  data: apply(
+                    #&quot;_a-0000dac7-a419-8000-6ee0-010000010000_4230&quot;,
+                    index(
+                      local!report.data,
+                      &quot;c7&quot;,
+                      {}
+                    )
+                  )
+                ),
+                if(
+                  local!report.totalCount = 0,
+                  #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                    label: &quot;Deadline Indicator&quot;,
+                    field: &quot;c7&quot;,
+                    data: apply(
+                      #&quot;_a-0000dac7-a419-8000-6ee0-010000010000_4230&quot;,
+                      index(
+                        local!report.data,
+                        &quot;c7&quot;,
+                        {}
+                      )
+                    )
+                  ),
+                  #&quot;SYSTEM_SYSRULES_gridImageColumn&quot;(
+                    label: &quot;Deadline Indicator&quot;,
+                    size: &quot;ICON&quot;,
+                    field: &quot;c7&quot;,
+                    data: #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28685&quot;(
+                        _
+                      ),
+                      index(
+                        local!report.data,
+                        &quot;c7&quot;,
+                        null
+                      ),
+                      local!report.data
+                    )
+                  )
+                )
+              },
+              value: local!pagingInfo,
+              saveInto: local!pagingInfo
+            )
+          }
+        )
+      }
+    )
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

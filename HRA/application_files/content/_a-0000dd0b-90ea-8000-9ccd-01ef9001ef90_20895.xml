@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_CreateJobSkillsGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20895</uuid>
+        <description>Rule For Job Skills Grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= load(&#xD;
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(&#xD;
+    id: ri!index,&#xD;
+    contents: {&#xD;
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(&#xD;
+        placeholderLabel: &quot;--- Select Skills ---&quot;,&#xD;
+        choiceLabels: {&#xD;
+          fn!index(&#xD;
+            local!skillType,&#xD;
+            &quot;Skills&quot;,&#xD;
+            {}&#xD;
+          )&#xD;
+        },&#xD;
+        choiceValues: {&#xD;
+          fn!index(&#xD;
+            local!skillType,&#xD;
+            &quot;Id&quot;,&#xD;
+            {}&#xD;
+          )&#xD;
+        },&#xD;
+         required:true,&#xD;
+        value: ri!SkillGrid[ri!Index].SkillId,&#xD;
+        saveInto: {&#xD;
+          &#xD;
+          ri!SkillGrid[ri!Index].SkillId&#xD;
+        }&#xD;
+      ),&#xD;
+      #&quot;SYSTEM_SYSRULES_imageField&quot;(&#xD;
+        images: {&#xD;
+          #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+            document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+              &quot;REMOVE&quot;&#xD;
+            ),&#xD;
+            caption: &quot;Remove&quot;,&#xD;
+            link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(&#xD;
+              value: ri!index,&#xD;
+              saveInto: {&#xD;
+                a!save(&#xD;
+                  ri!SkillGrid,&#xD;
+                  remove(&#xD;
+                    ri!SkillGrid,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                )&#xD;
+              }&#xD;
+            )&#xD;
+          )&#xD;
+        },&#xD;
+        size: &quot;ICON&quot;&#xD;
+      )&#xD;
+    }&#xD;
+  )&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>SkillGrid</name>
+            <type>
+                <name>HRA_JobSkillRequired?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

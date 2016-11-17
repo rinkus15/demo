@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetJsonForSkillGrowthChartOnReport</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28082</uuid>
+        <description>Contains json for the skill growth chart on the report</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>&#xD;
+  with(&#xD;
+  local!SkillId1: substitute(&#xD;
+    tostring(&#xD;
+      local!SkillId&#xD;
+    ),&#xD;
+    &quot;;&quot;,&#xD;
+    &quot;,&quot;&#xD;
+  ),&#xD;
+  local!SkillAddedOn1: substitute(&#xD;
+    tostring(&#xD;
+      local!SkillAddedOn&#xD;
+    ),&#xD;
+    &quot;;&quot;,&#xD;
+    &quot;,&quot;&#xD;
+  ),&#xD;
+  local!SelectedReportingManager1: substitute(&#xD;
+    tostring(&#xD;
+      local!SelectedReportingManager&#xD;
+    ),&#xD;
+    &quot;;&quot;,&#xD;
+    concat(&#xD;
+      &quot;&quot;&quot;&quot;,&#xD;
+      &quot;,&quot;,&#xD;
+      &quot;&quot;&quot;&quot;&#xD;
+    )&#xD;
+  ),&#xD;
+  local!Department1: substitute(&#xD;
+    tostring(&#xD;
+      local!Department&#xD;
+    ),&#xD;
+    &quot;;&quot;,&#xD;
+    &quot;,&quot;&#xD;
+  ),&#xD;
+  local!Proficiency1: substitute(&#xD;
+    tostring(&#xD;
+      local!Proficiency&#xD;
+    ),&#xD;
+    &quot;;&quot;,&#xD;
+    &quot;,&quot;&#xD;
+  ),&#xD;
+  concat(&#xD;
+    &quot;{&quot;&quot;SkillId&quot;&quot;: &quot;,&#xD;
+    &quot;[&quot;,&#xD;
+    local!SkillId1,&#xD;
+    &quot;]&quot;,&#xD;
+    &quot; , &quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;Year&quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;: &quot;,&#xD;
+    &quot;[&quot;,&#xD;
+    local!SkillAddedOn1,&#xD;
+    &quot;]&quot;,&#xD;
+    &quot; , &quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;DepartmentId&quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;: &quot;,&#xD;
+    &quot;[&quot;,&#xD;
+    local!Department1,&#xD;
+    &quot;]&quot;,&#xD;
+    &quot; , &quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;ReportingManager&quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;: &quot;,&#xD;
+    &quot;[&quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    local!SelectedReportingManager1,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;]&quot;,&#xD;
+    &quot; , &quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;ProficiencyId&quot;,&#xD;
+    &quot;&quot;&quot;&quot;,&#xD;
+    &quot;: &quot;,&#xD;
+    &quot;[&quot;,&#xD;
+    local!Proficiency1,&#xD;
+    &quot;]&quot;,&#xD;
+    &quot;}&quot;&#xD;
+  )&#xD;
+)&#xD;
+</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

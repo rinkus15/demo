@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <constant>
+        <name>HRA_COUNTRY_LIST</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18598</uuid>
+        <description>Holds the value of the list of country</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Text?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>Afghanistan</el>
+                <el>Åland Islands</el>
+                <el>Albania</el>
+                <el>Algeria</el>
+                <el>American Samoa</el>
+                <el>Andorra</el>
+                <el>Angola</el>
+                <el>Anguilla</el>
+                <el>Antarctica</el>
+                <el>Antigua and Barbuda</el>
+                <el>Argentina</el>
+                <el>Armenia</el>
+                <el>Aruba</el>
+                <el>Australia</el>
+                <el>Austria</el>
+                <el>Azerbaijan</el>
+                <el>Bahamas</el>
+                <el>Bahrain</el>
+                <el>Bangladesh</el>
+                <el>Barbados</el>
+                <el>Belarus</el>
+                <el>Belgium</el>
+                <el>Belize</el>
+                <el>Benin</el>
+                <el>Bermuda</el>
+                <el>Bhutan</el>
+                <el>Bolivia</el>
+                <el>Bonaire  Sint Eustatius and Saba</el>
+                <el>Bosnia and Herzegovina</el>
+                <el>Botswana</el>
+                <el>Bouvet Island</el>
+                <el>Brazil</el>
+                <el>British Indian Ocean Territory</el>
+                <el>Brunei Darussalam</el>
+                <el>Bulgaria</el>
+                <el>Burkina Faso</el>
+                <el>Burundi</el>
+                <el>Cambodia</el>
+                <el>Cameroon</el>
+                <el>Canada</el>
+                <el>Cape Verde</el>
+                <el>Cayman Islands</el>
+                <el>Central African Republic</el>
+                <el>Chad</el>
+                <el>Chile</el>
+                <el>China</el>
+                <el>Christmas Island</el>
+                <el>Cocos (Keeling) Islands</el>
+                <el>Colombia</el>
+                <el>Comoros</el>
+                <el>Congo</el>
+                <el>Congo</el>
+                <el>Cook Islands</el>
+                <el>Costa Rica</el>
+                <el>Côte d'Ivoire</el>
+                <el>Croatia</el>
+                <el>Cuba</el>
+                <el>Curaçao</el>
+                <el>Cyprus</el>
+                <el>Czech Republic</el>
+                <el>Denmark</el>
+                <el>Djibouti</el>
+                <el>Dominica</el>
+                <el>Dominican Republic</el>
+                <el>Ecuador</el>
+                <el>Egypt</el>
+                <el>Equatorial Guinea</el>
+                <el>Eritrea</el>
+                <el>Estonia</el>
+                <el>Ethiopia</el>
+                <el>Falkland Islands (Malvinas)</el>
+                <el>Faroe Islands</el>
+                <el>Fiji</el>
+                <el>Finland</el>
+                <el>France</el>
+                <el>French Guiana</el>
+                <el>French Polynesia</el>
+                <el>French Southern erritories</el>
+                <el>Gabon</el>
+                <el>Gambia</el>
+                <el>Georgia</el>
+                <el>Germany</el>
+                <el>Ghana</el>
+                <el>Gibraltar</el>
+                <el>Greece</el>
+                <el>Greenland</el>
+                <el>Grenada</el>
+                <el>Guadeloupe</el>
+                <el>Guam</el>
+                <el>Guatemala</el>
+                <el>Guernsey</el>
+                <el>Guinea</el>
+                <el>Guinea-Bissau</el>
+                <el>Guyana</el>
+                <el>Haiti</el>
+                <el>Heard Island and McDonald Islands</el>
+                <el>Holy See (Vatican City State)</el>
+                <el>Honduras</el>
+                <el>Hong Kong</el>
+                <el>Hungary</el>
+                <el>Iceland</el>
+                <el>India</el>
+                <el>Indonesia</el>
+                <el>Iran</el>
+                <el>Iraq</el>
+                <el>Ireland</el>
+                <el>Isle of Man</el>
+                <el>Israel</el>
+                <el>Italy</el>
+                <el>Jamaica</el>
+                <el>Japan</el>
+                <el>Jersey</el>
+                <el>Jordan</el>
+                <el>Kazakhstan</el>
+                <el>Kenya</el>
+                <el>Kiribati</el>
+                <el>Korea</el>
+                <el>Kuwait</el>
+                <el>Kyrgyzstan</el>
+                <el>Lao People's Democratic Republic</el>
+                <el>Latvia</el>
+                <el>Lebanon</el>
+                <el>Lesotho</el>
+                <el>Liberia</el>
+                <el>Libya</el>
+                <el>Liechtenstein</el>
+                <el>Lithuania</el>
+                <el>Luxembourg</el>
+                <el>Macao</el>
+                <el>Macedonia</el>
+                <el>Madagascar</el>
+                <el>Malawi</el>
+                <el>Malaysia</el>
+                <el>Maldives</el>
+                <el>Mali</el>
+                <el>Malta</el>
+                <el>Marshall Islands</el>
+                <el>Martinique</el>
+                <el>Mauritania</el>
+                <el>Mauritius</el>
+                <el>Mayotte</el>
+                <el>Mexico</el>
+                <el>Micronesia</el>
+                <el>Moldova</el>
+                <el>Monaco</el>
+                <el>Mongolia</el>
+                <el>Montenegro</el>
+                <el>Montserrat</el>
+                <el>Morocco</el>
+                <el>Mozambique</el>
+                <el>Myanmar</el>
+                <el>Namibia</el>
+                <el>Nauru</el>
+                <el>Nepal</el>
+                <el>Netherlands</el>
+                <el>New Caledonia</el>
+                <el>New Zealand</el>
+                <el>Nicaragua</el>
+                <el>Niger</el>
+                <el>Nigeria</el>
+                <el>Niue</el>
+                <el>Norfolk Island</el>
+                <el>Northern Mariana Islands</el>
+                <el>Norway</el>
+                <el>Oman</el>
+                <el>Pakistan</el>
+                <el>Palau</el>
+                <el>Palestinian Territory, Occupied</el>
+                <el>Panama</el>
+                <el>Papua New Guinea</el>
+                <el>Paraguay</el>
+                <el>Peru</el>
+                <el>Philippines</el>
+                <el>Pitcairn</el>
+                <el>Poland</el>
+                <el>Portugal</el>
+                <el>Puerto Rico</el>
+                <el>Qatar</el>
+                <el>Romania</el>
+                <el>Russian Federation</el>
+                <el>Rwanda</el>
+                <el>Saint Barthélemy</el>
+                <el>Saint Helena</el>
+                <el>Saint Kitts and Nevis</el>
+                <el>Saint Lucia</el>
+                <el>Saint Martin</el>
+                <el>Saint Pierre and Miquelon</el>
+                <el>Saint Vincent and the Grenadines</el>
+                <el>Salvador</el>
+                <el>Samoa</el>
+                <el>San Marino</el>
+                <el>Sao Tome and Principe</el>
+                <el>Saudi Arabia</el>
+                <el>Senegal</el>
+                <el>Serbia</el>
+                <el>Seychelles</el>
+                <el>Sierra Leone</el>
+                <el>Singapore</el>
+                <el>Sint Maarten</el>
+                <el>Slovakia</el>
+                <el>Slovenia</el>
+                <el>Solomon Islands</el>
+                <el>Somalia</el>
+                <el>South Africa</el>
+                <el>South Georgia and the South Sandwich Islands</el>
+                <el>South Sudan</el>
+                <el>Spain</el>
+                <el>Sri Lanka</el>
+                <el>Sudan</el>
+                <el>Suriname</el>
+                <el>Svalbard and Jan Mayen</el>
+                <el>Swaziland</el>
+                <el>Sweden</el>
+                <el>Switzerland</el>
+                <el>Syrian Arab Republic</el>
+                <el>Taiwan</el>
+                <el>Tajikistan</el>
+                <el>Tanzania</el>
+                <el>Thailand</el>
+                <el>Timor-Leste</el>
+                <el>Togo</el>
+                <el>Tokelau</el>
+                <el>Tonga</el>
+                <el>Trinidad and Tobago</el>
+                <el>Tunisia</el>
+                <el>Turkey</el>
+                <el>Turkmenistan</el>
+                <el>Turks and Caicos Islands</el>
+                <el>Tuvalu</el>
+                <el>Uganda</el>
+                <el>Ukraine</el>
+                <el>United Arab Emirates</el>
+                <el>United Kingdom</el>
+                <el>United States</el>
+                <el>United States Minor Outlying Islands</el>
+                <el>Uruguay</el>
+                <el>Uzbekistan</el>
+                <el>Vanuatu</el>
+                <el>Venezuela</el>
+                <el>Viet Nam</el>
+                <el>Virgin Islands</el>
+                <el>Virgin Islands</el>
+                <el>Wallis and Futuna</el>
+                <el>Western Sahara</el>
+                <el>Yemen</el>
+                <el>Zambia</el>
+                <el>Zimbabwe</el>
+            </value>
+        </typedValue>
+    </constant>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

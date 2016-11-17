@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_ChartSeriesRule</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25220</uuid>
+        <description>Contains the value for the chart series rule</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_chartSeries&quot;(
+  label: union(
+    index(
+      index(
+        local!datasubset.data,
+        &quot;SkillName&quot;,
+        {}
+      ),
+      wherecontains(
+        ri!SkillId,
+        tointeger(
+          index(
+            local!datasubset.data,
+            &quot;SkillId&quot;,
+            {}
+          )
+        )
+      )
+    ),
+    index(
+      index(
+        local!datasubset.data,
+        &quot;SkillName&quot;,
+        {}
+      ),
+      wherecontains(
+        ri!SkillId,
+        tointeger(
+          index(
+            local!datasubset.data,
+            &quot;SkillId&quot;,
+            {}
+          )
+        )
+      )
+    )
+  ),
+  data: {
+    apply(
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24563&quot;(
+        _,
+        ri!SkillId
+      ),
+      {
+        local!SkillAddedOn
+      }
+    )
+  },
+  links: apply(
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24556&quot;(
+      _,
+      ri!SkillId
+    ),
+    if(
+      or(
+        #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+          index(
+            local!datasubset.data,
+            &quot;SkillAddedOn&quot;,
+            {}
+          )
+        )
+      ),
+      {},
+      local!SkillAddedOn
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

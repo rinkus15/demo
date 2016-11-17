@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_LinkedinProfileDashboard</name>
+        <uuid>_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38289</uuid>
+        <description>To view Linkedin Profile Dashboard</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!accessToken: index(
+    #&quot;_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38511&quot;(
+      ri!EmpId
+    ),
+    &quot;AccessToken&quot;,
+    {}
+  ),
+  local!responseBody:
+     #&quot;SYSTEM_SYSRULES_httpQuery&quot;(
+      url: &quot;https://api.linkedin.com/v1/people/~:(firstName,lastName,picture-url)?oauth2_access_token=&quot; &amp; local!accessToken &amp; &quot;&amp;format=json&quot;
+    )
+  ,
+  #&quot;SYSTEM_SYSRULES_dashboardLayout&quot;(
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_textField&quot;(
+        label: local!responseBody.result
+      ),
+      #&quot;SYSTEM_SYSRULES_textField&quot;(
+        label : local!accessToken,
+        value : local!responseBody
+      )
+      
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>EmpId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

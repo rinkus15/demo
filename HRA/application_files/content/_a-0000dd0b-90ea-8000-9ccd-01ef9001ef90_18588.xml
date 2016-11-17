@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_Qualifications</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18588</uuid>
+        <description>Hold Employee Qualification Details </description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{&#xD;
+  #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+    label: &quot;Qualifications&quot;,&#xD;
+    firstColumnContents: {&#xD;
+      #&quot;SYSTEM_SYSRULES_gridLayout&quot;(&#xD;
+        emptyGridMessage:&quot;No qualifications available&quot;,&#xD;
+        headerCells: {&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Education&quot;,&#xD;
+            align: &quot;CENTER&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Course&quot;,&#xD;
+            align: &quot;CENTER&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Passing Date&quot;,&#xD;
+            align: &quot;CENTER&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Grades&quot;,&#xD;
+            align: &quot;CENTER&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Upload Document&quot;,&#xD;
+            align: &quot;CENTER&quot;&#xD;
+          )/*,&#xD;
+          a!gridLayoutHeaderCell(&#xD;
+            label: &quot;Document Description&quot;,&#xD;
+            align: &quot;RIGHT&quot;&#xD;
+          )*/,&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            align: &quot;CENTER&quot;&#xD;
+          )&#xD;
+        },&#xD;
+        columnConfigs: {&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 3&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 3&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 3&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 3&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 3&#xD;
+          )/*,&#xD;
+          a!gridLayoutColumnConfig(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 3&#xD;
+          )*/,&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;ICON&quot;&#xD;
+          )&#xD;
+        },&#xD;
+        rows: {&#xD;
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(&#xD;
+            function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18605&quot;(&#xD;
+              Index: _,&#xD;
+              Qualification: ri!Qualification,&#xD;
+              QualificationType: ri!QualificationType,&#xD;
+              EmployeeQualification: ri!EmployeeQualifications,&#xD;
+              TempQualificationDocument: ri!TempQualificationDocument,&#xD;
+              HoldQualificationDocumentId:ri!HoldQualificationDocumentId&#xD;
+            ),&#xD;
+            array: if(&#xD;
+              or(&#xD;
+                isnull(&#xD;
+                  ri!Qualification&#xD;
+                ),&#xD;
+                count(&#xD;
+                  ri!Qualification&#xD;
+                ) &lt; 1&#xD;
+              ),&#xD;
+              {},&#xD;
+              1 + enumerate(&#xD;
+                count(&#xD;
+                  ri!Qualification&#xD;
+                )&#xD;
+              )&#xD;
+            )&#xD;
+          )&#xD;
+        },&#xD;
+        addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(&#xD;
+          label: &quot;Add Qualification&quot;,&#xD;
+          value: {&#xD;
+            local!addnewrow&#xD;
+          },&#xD;
+          saveInto: {&#xD;
+            a!save(&#xD;
+              ri!Qualification,&#xD;
+              append(&#xD;
+                ri!Qualification,&#xD;
+                save!value&#xD;
+              )&#xD;
+            ),&#xD;
+			 a!save(&#xD;
+              ri!HoldQualificationDocumentId,&#xD;
+              append(&#xD;
+                ri!HoldQualificationDocumentId,&#xD;
+                save!value&#xD;
+              )&#xD;
+            ),&#xD;
+            a!save(&#xD;
+              ri!QualificationType,&#xD;
+              append(&#xD;
+                ri!QualificationType,&#xD;
+                save!value&#xD;
+              )&#xD;
+            ),&#xD;
+            a!save(&#xD;
+              ri!EmployeeQualifications,&#xD;
+              append(&#xD;
+                ri!EmployeeQualifications,&#xD;
+                save!value&#xD;
+              )&#xD;
+            ),&#xD;
+            a!save(&#xD;
+              ri!TempQualificationDocument,&#xD;
+              append(&#xD;
+                ri!TempQualificationDocument,&#xD;
+                save!value&#xD;
+              )&#xD;
+            ),&#xD;
+            &#xD;
+            &#xD;
+          }&#xD;
+        ),&#xD;
+        validations: {&#xD;
+          if(&#xD;
+            #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+              index(ri!EmployeeQualifications,&quot;QualificationId&quot;,{})&#xD;
+            ),&#xD;
+            {},&#xD;
+            if(&#xD;
+              count(&#xD;
+                wherecontains(&#xD;
+                  {&#xD;
+                    ri!EmployeeQualifications[count(&#xD;
+                      ri!EmployeeQualifications&#xD;
+                    )]&#xD;
+                  },&#xD;
+                  {&#xD;
+                    ri!EmployeeQualifications&#xD;
+                  }&#xD;
+                )&#xD;
+              ) &gt; 1,&#xD;
+              &quot;Already Exist&quot;,&#xD;
+              {}&#xD;
+            )&#xD;
+          ),&#xD;
+          if(count(index(ri!EmployeeQualifications,&quot;QualificationId&quot;,{}))&lt;1,&#xD;
+          #&quot;SYSTEM_SYSRULES_validationMessage&quot;(message: &quot;Please enter the qualification details&quot;,&#xD;
+          validateAfter:&quot;SUBMIT&quot;),&#xD;
+          &quot;&quot;&#xD;
+          )&#xD;
+          &#xD;
+        }&#xD;
+      )&#xD;
+    },&#xD;
+    selectionRequired:true,&#xD;
+    isCollapsible: true&#xD;
+  )&#xD;
+}</definition>
+        <namedTypedValue>
+            <name>EmployeeQualifications</name>
+            <type>
+                <name>HRA_EmployeeQualification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Qualification</name>
+            <type>
+                <name>HRA_dv_Qualification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>QualificationType</name>
+            <type>
+                <name>HRA_dv_QualificationType?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempQualificationDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldQualificationDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

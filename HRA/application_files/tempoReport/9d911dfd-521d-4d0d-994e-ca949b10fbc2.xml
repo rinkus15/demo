@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tempoReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <tempoReport name="Skill Analytics" a:uuid="9d911dfd-521d-4d0d-994e-ca949b10fbc2">
+        <a:description>A report for the skill analytics</a:description>
+        <a:uiExpr>=#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24526&quot;()</a:uiExpr>
+        <a:urlStub>xhAt0A</a:urlStub>
+    </tempoReport>
+    <roleMap>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0001dd0b-8755-8000-9ccd-011e94011e94_247</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+</tempoReportHaul>

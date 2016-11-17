@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_CreateJobCertificationGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20658</uuid>
+        <description>Create Job Certification Grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= load(
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+    id: ri!index,
+    contents: {
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        placeholderLabel: &quot;--- Select Certificate ---&quot;,
+        choiceLabels: {
+          fn!index(
+            local!CertficationDetails,
+            &quot;Certification&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          fn!index(
+            local!CertficationDetails,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+         required:true,
+        value: ri!CertificationGrid[ri!Index].CertificateId,
+        saveInto: {
+          
+          ri!CertificationGrid[ri!Index].CertificateId
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_imageField&quot;(
+        images: {
+          #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+            document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+              &quot;REMOVE&quot;
+            ),
+            caption: &quot;Remove&quot;,
+            link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+              value: ri!index,
+              saveInto: {
+                a!save(
+                  ri!CertificationGrid,
+                  remove(
+                    ri!CertificationGrid,
+                    save!value
+                  )
+                )
+              }
+            )
+          )
+        },
+        size: &quot;ICON&quot;
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>CertificationGrid</name>
+            <type>
+                <name>HRA_JobCertificateRequired?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

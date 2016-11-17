@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeProfileDetails</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18607</uuid>
+        <description>Contians the form for the details of the employee</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!addnewrow,
+  local!Qualification,
+  local!QualificationTypeId,
+  local!SkillTypeId,
+  local!DepartmentName,
+  local!OldCertificates,
+  local!OldSkills,
+  local!CertificationType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20917&quot;(
+    true
+  ),
+  local!Department: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18827&quot;(),
+  local!EmployeeTypeValue: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22141&quot;(
+    true
+  ),
+  local!SkillType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19158&quot;(
+    true
+  ),
+  local!ProficencyLevel: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19272&quot;(
+    true
+  ),
+  local!QualificationType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20473&quot;(
+    true
+  ),
+  local!Grades: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20523&quot;(
+    true
+  ),
+  with(
+    local!Skills: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20878&quot;(
+      if(
+        #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+          local!SkillTypeId
+        ),
+        {},
+        local!SkillTypeId
+      ),
+      true
+    ),
+    #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+      label: &quot;Employee Details&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          isCollapsible: true,
+          label: &quot;Basic Details&quot;,
+          firstColumnContents: {
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Title&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholderLabel: &quot;All Title&quot;,
+              choiceLabels: {
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18772&quot;
+              },
+              choiceValues: {
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18772&quot;
+              },
+              value: index(
+                ri!EmployeeDetails,
+                &quot;Title&quot;,
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!EmployeeDetails.Title,
+                  save!value
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_textField&quot;(
+              label: &quot;First Name&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholder: &quot;Enter the first name&quot;,
+              value: index(
+                ri!EmployeeDetails,
+                &quot;FirstName&quot;,
+                {}
+              ),
+              saveInto: {
+                ri!EmployeeDetails.FirstName,
+                a!save(
+                  ri!EmployeeDetails.FirstName,
+                  trim(
+                    save!value
+                  )
+                )
+              },
+              required: true,
+              requiredMessage: &quot;Please enter the firstname&quot;,
+              refreshAfter: &quot;UNFOCUS&quot;,
+              validations: {}
+            ),
+            #&quot;SYSTEM_SYSRULES_textField&quot;(
+              label: &quot;Last Name&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholder: &quot;Enter the last name&quot;,
+              value: index(
+                ri!EmployeeDetails,
+                &quot;LastName&quot;,
+                {}
+              ),
+              saveInto: {
+                ri!EmployeeDetails.LastName,
+                a!save(
+                  ri!EmployeeDetails.LastName,
+                  trim(
+                    save!value
+                  )
+                )
+              },
+              required: true,
+              requiredMessage: &quot;Please enter the lastname&quot;,
+              refreshAfter: &quot;UNFOCUS&quot;,
+              validations: {}
+            ),
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Department&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholderLabel: &quot;All Departments&quot;,
+              required:true,
+              requiredMessage:&quot;Please select the department&quot;,
+              choiceLabels: {
+                index(
+                  local!Department,
+                  &quot;Name&quot;,
+                  {}
+                )
+              },
+              choiceValues: {
+                index(
+                  local!Department,
+                  &quot;Id&quot;,
+                  {}
+                )
+              },
+              value: index(
+                ri!EmployeeDepartment,
+                &quot;DepartmentId&quot;,
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!EmployeeDepartment.DepartmentId,
+                  save!value
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_pickerFieldUsersAndGroups&quot;(
+              label: &quot;Reporting Manager&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              maxSelections: 1,
+              groupFilter: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28597&quot;,
+              placeholder: &quot;Select Reporting Manager&quot;,
+              required: true,
+              requiredMessage:&quot;Please enter the reporting manager&quot;,
+              value: index(
+                ri!ReportingManager,
+                &quot;ReportingManager&quot;,
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!ReportingManager.ReportingManager,
+                  save!value
+                )
+              }
+            )
+          },
+          secondColumnContents: {
+            #&quot;SYSTEM_SYSRULES_fileUploadField&quot;(
+              label: &quot;Upload Profile Image&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              target: {
+                /*
+              cons!HRA_PROFILE_IMAGE_FOLDER*/
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21421&quot;
+              },
+              value: {
+                ri!HoldImageId
+              },
+              saveInto: {
+                ri!HoldImageId
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dateField&quot;(
+              label: &quot;Date Of Birth&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              value: index(
+                ri!EmployeeDetails,
+                &quot;DateOfBirth&quot;,
+                {}
+              ),
+              saveInto: {
+                ri!EmployeeDetails.DateOfBirth
+              },
+              validations: {
+                if(
+                  index(
+                    ri!EmployeeDetails,
+                    &quot;DateOfBirth&quot;,
+                    {}
+                  ) &gt;= today(),
+                  &quot;Please enter valid date&quot;,
+                  {}
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dateField&quot;(
+              label: &quot;Date Of Joining&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              required: true,
+              requiredMessage: &quot;Please enter the date of joining&quot;,
+              value: ri!EmployeeDetails.DateOfJoin,
+              saveInto: {
+                ri!EmployeeDetails.DateOfJoin
+              },
+              validations: {
+                if(
+                  index(
+                    ri!EmployeeDetails,
+                    &quot;DateOfJoin&quot;,
+                    {}
+                  ) &gt;= today(),
+                  &quot;Please enter valid date&quot;,
+                  {}
+                ),
+                if(
+                  index(
+                    ri!EmployeeDetails,
+                    &quot;DateOfJoin&quot;,
+                    {}
+                  ) &lt; property(
+                    ri!WorkExperience,
+                    &quot;WorkingEndDate&quot;,
+                    &quot;&quot;
+                  ),
+                  &quot;Joining date should be greater than your last work experience.&quot;,
+                  &quot;&quot;
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Employee Type&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholderLabel: &quot;All Employee Type&quot;,
+              choiceLabels: {
+                index(
+                  local!EmployeeTypeValue,
+                  &quot;Name&quot;,
+                  {}
+                )
+              },
+              choiceValues: {
+                index(
+                  local!EmployeeTypeValue,
+                  &quot;Id&quot;,
+                  {}
+                )
+              },
+              value: index(
+                ri!EmployeeDetails,
+                &quot;EmployeeTypeId&quot;,
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!EmployeeDetails.EmployeeTypeId,
+                  save!value
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_textField&quot;(
+              label: &quot;Email Id&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholder: &quot;Enter the email of the employee&quot;,
+              value: index(
+                ri!EmployeeDetails,
+                &quot;EmailId&quot;,
+                {}
+              ),
+              saveInto: {
+                ri!EmployeeDetails.EmailId
+              },
+              required: true,
+              requiredMessage: &quot;Please enter the EmailId&quot;,
+              refreshAfter: &quot;UNFOCUS&quot;,
+              validations: {
+                #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36494&quot;(
+                  index(
+                    ri!EmployeeDetails,
+                    &quot;EmailId&quot;,
+                    {}
+                  )
+                )
+              }
+            )
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+          label: &quot;Profile Overview&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          required: true,
+          requiredMessage: &quot;Please enter the profile overview&quot;,
+          value: index(
+            ri!EmployeeDetails,
+            &quot;ProfileOverview&quot;,
+            {}
+          ),
+          saveInto: {
+            ri!EmployeeDetails.ProfileOverview,
+            a!save(
+              ri!EmployeeDetails.ProfileOverview,
+              trim(
+                save!value
+              )
+            )
+          },
+          validations: {
+            if(
+              len(
+                index(
+                  ri!EmployeeDetails,
+                  &quot;ProfileOverview&quot;,
+                  {}
+                )
+              ) &gt; 1000,
+              &quot;Please enter profile overview less than 1000&quot;,
+              {}
+            )
+          }
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18588&quot;(
+          EmployeeQualifications: ri!EmployeeQualifications,
+          Qualification: ri!Qualification,
+          QualificationType: ri!QualificationType,
+          TempQualificationDocument: ri!TempQualificationDocument,
+          HoldQualificationDocumentId: ri!HoldQualificationDocumentId
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18650&quot;(
+          WorkExperience: ri!WorkExperience,
+          TempWorkExperienceDocument: ri!TempWorkExperienceDocument,
+          HoldExpDocumentId: ri!HoldExpDocumentId
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18642&quot;(
+          Skills: ri!Skills,
+          SkillType: ri!SkillType,
+          Proficiency: ri!Proficiency,
+          EmployeeSkills: ri!EmployeeSkills,
+          TempSkillDocument: ri!TempSkillDocument,
+          HoldSkillDocumentId: ri!HoldSkillDocumentId
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18637&quot;(
+          CertificationDetails: ri!EmployeeCertification,
+          Certification: ri!Certification,
+          CertificationType: ri!CertificationType,
+          HoldCertificationDocumentId: ri!HoldCertificationDocumentId,
+          Document: ri!Document
+        ),
+        #&quot;9f9bbb56-de30-4586-bf8d-b6fc1214f0fc&quot;(
+          KeyAssignments: ri!KeyAssignments,
+          TempKeyAssignmentsDocument: ri!TempKeyAssignmentsDocument,
+          HoldAssignmentDocumentId: ri!HoldAssignmentDocumentId
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22746&quot;(
+          Training: ri!Training,
+          HoldTrainingId: ri!HoldTrainingId,
+          TempTrainingDocument: ri!TempTrainingDocument
+        )
+      },
+      validations: {},
+      buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+        primaryButtons: #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Submit&quot;,
+          style: &quot;PRIMARY&quot;,
+          value: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19218&quot;[2],
+          saveInto: {
+            ri!ButtonAction
+          }
+        ),
+        secondaryButtons: #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Cancel&quot;,
+          sytle: &quot;NORMAL&quot;,
+          value: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19218&quot;[1],
+          saveInto: ri!ButtonAction,
+          skipValidation: true
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>EmployeeDetails</name>
+            <type>
+                <name>HRA_Employee</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>WorkExperience</name>
+            <type>
+                <name>HRA_EmployeeWorkExperience?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeQualifications</name>
+            <type>
+                <name>HRA_EmployeeQualification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Skills</name>
+            <type>
+                <name>HRA_dv_Skill?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillType</name>
+            <type>
+                <name>HRA_dv_SkillType?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Proficiency</name>
+            <type>
+                <name>HRA_dv_Proficiency?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeSkills</name>
+            <type>
+                <name>HRA_EmployeeSkills?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ButtonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeCertification</name>
+            <type>
+                <name>HRA_EmployeeCertification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeDepartment</name>
+            <type>
+                <name>HRA_EmployeeDepartment</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Qualification</name>
+            <type>
+                <name>HRA_dv_Qualification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>QualificationType</name>
+            <type>
+                <name>HRA_dv_QualificationType?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificationType</name>
+            <type>
+                <name>HRA_dv_CertificationType?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Document</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Certification</name>
+            <type>
+                <name>HRA_dv_Certification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempSkillDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempQualificationDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempWorkExperienceDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ReportingManager</name>
+            <type>
+                <name>HRA_EmployeeReportingManager</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldExpDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldQualificationDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldSkillDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldCertificationDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Training</name>
+            <type>
+                <name>HRA_EmployeeTraining?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempTrainingDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>KeyAssignments</name>
+            <type>
+                <name>HRA_EmployeeKeyAssignments?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempKeyAssignmentsDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldTrainingId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldAssignmentDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldImageId</name>
+            <type>
+                <name>CollaborationDocument</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_Employee"/>
+                    <a:nameRef>EmployeeDetails</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>WorkExperience</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>EmployeeQualifications</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>Skills</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>SkillType</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>Proficiency</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>EmployeeSkills</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>ButtonAction</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>EmployeeCertification</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_EmployeeDepartment"/>
+                    <a:nameRef>EmployeeDepartment</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>Qualification</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>QualificationType</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>CertificationType</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>Document</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>Certification</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>TempSkillDocument</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>TempQualificationDocument</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>TempWorkExperienceDocument</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_EmployeeReportingManager"/>
+                    <a:nameRef>ReportingManager</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>HoldExpDocumentId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>HoldQualificationDocumentId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>HoldSkillDocumentId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>HoldCertificationDocumentId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>Training</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>TempTrainingDocument</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>KeyAssignments</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>TempKeyAssignmentsDocument</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>HoldTrainingId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>HoldAssignmentDocumentId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="a:CollaborationDocument"/>
+                    <a:nameRef>HoldImageId</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

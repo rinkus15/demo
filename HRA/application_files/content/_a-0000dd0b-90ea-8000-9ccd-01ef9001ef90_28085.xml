@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetJsonForTopSkillsChartOnReport</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28085</uuid>
+        <description>Returns json for top skill chart on report</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!Proficiency1: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      local!Proficiency
+    ),
+    {
+      1,
+      2,
+      3
+    },
+    local!Proficiency
+  ),
+  local!SkillId1: substitute(
+    tostring(
+      local!SelectedTopSkillId
+    ),
+    &quot;;&quot;,
+    &quot;,&quot;
+  ),
+  local!SkillAddedOn1: substitute(
+    tostring(
+      local!TopSkillAddedOn
+    ),
+    &quot;;&quot;,
+    &quot;,&quot;
+  ),
+  local!Department1: substitute(
+    tostring(
+      local!Department
+    ),
+    &quot;;&quot;,
+    &quot;,&quot;
+  ),
+  
+  local!Proficiency2: substitute(
+    tostring(
+      local!Proficiency1
+    ),
+    &quot;;&quot;,
+    &quot;,&quot;
+  ),
+  concat(
+    &quot;{&quot;&quot;SkillId&quot;&quot;: &quot;,
+    &quot;[&quot;,
+    local!SkillId1,
+    &quot;]&quot;,
+    &quot; , &quot;,
+    &quot;&quot;&quot;&quot;,
+    &quot;Year&quot;,
+    &quot;&quot;&quot;&quot;,
+    &quot;: &quot;,
+    local!SkillAddedOn1,
+    &quot; , &quot;,
+    &quot;&quot;&quot;&quot;,
+    &quot;DepartmentId&quot;,
+    &quot;&quot;&quot;&quot;,
+    &quot;: &quot;,
+    &quot;[&quot;,
+    local!Department1,
+    &quot;]&quot;,
+    &quot; , &quot;,
+    &quot;&quot;&quot;&quot;,
+    &quot;ProficiencyId&quot;,
+    &quot;&quot;&quot;&quot;,
+    &quot;: &quot;,
+    &quot;[&quot;,
+    local!Proficiency2,
+    &quot;]&quot;,
+    &quot;}&quot;
+  )
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

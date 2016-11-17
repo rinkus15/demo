@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_Common_PickerRule</name>
+        <uuid>_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38169</uuid>
+        <description>Contains the value for the picker</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_pickerFieldCustom&quot;(&#xD;
+  label: ri!Label,&#xD;
+  labelPosition:&quot;ABOVE&quot;,&#xD;
+  instructions: ri!Instructions&amp;ri!Selected,&#xD;
+  maxSelections: ri!MaxSelection,&#xD;
+  suggestFunction: #&quot;_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38165&quot;(&#xD;
+    Filter: _,&#xD;
+    Labels: ri!PickerLabels,&#xD;
+    Identifiers: ri!Identifiers&#xD;
+  ),&#xD;
+  selectedLabels: if(&#xD;
+    or(&#xD;
+      count(&#xD;
+       ri!Selected&#xD;
+      ) = 0,&#xD;
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(ri!Selected)&#xD;
+    ),&#xD;
+    null,&#xD;
+    apply(&#xD;
+      #&quot;_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38167&quot;(&#xD;
+        Identifier: _,&#xD;
+        Labels: ri!PickerLabels,&#xD;
+        Identifiers: ri!Identifiers&#xD;
+      ),&#xD;
+      {ri!Selected}&#xD;
+    )&#xD;
+  ),&#xD;
+  value: ri!Selected,&#xD;
+  saveInto: {a!save(&#xD;
+    ri!Selected,&#xD;
+    #&quot;_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38170&quot;(&#xD;
+      save!value&#xD;
+    )&#xD;
+  ),&#xD;
+  /*a!save(local!EmployeeTrainingPrograms.EmployeeId,save!value),*/&#xD;
+  /*a!save(local!pagingInfo.startIndex,1)*/&#xD;
+  &#xD;
+  }&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>Label</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Instructions</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>MaxSelection</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>PickerLabels</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Identifiers</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Selected</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

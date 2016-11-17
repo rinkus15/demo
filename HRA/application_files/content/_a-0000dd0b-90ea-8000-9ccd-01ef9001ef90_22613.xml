@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_AskRecommendation</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22613</uuid>
+        <description>Ask recommendation interface</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=#&quot;SYSTEM_SYSRULES_formLayout&quot;(&#xD;
+  label: &quot;Ask for Recommendation&quot;,&#xD;
+  instructions: &quot;Please enter the recommendation description&quot;,&#xD;
+  firstColumnContents: {&#xD;
+    #&quot;SYSTEM_SYSRULES_paragraphField&quot;(&#xD;
+      label: &quot;Description&quot;,&#xD;
+      labelPosition: &quot;ABOVE&quot;,&#xD;
+      value:ri!Recommendation.Recommendation,&#xD;
+      saveInto: ri!Recommendation.Recommendation,&#xD;
+      refreshAfter: &quot;UNFOCUS&quot;,&#xD;
+      required: true,&#xD;
+      requiredmessage: &quot;Description is required&quot;,&#xD;
+      height: &quot;MEDIUM&quot;,&#xD;
+      validations: {&#xD;
+        if(len(ri!Recommendation.Recommendation)&gt;100,&quot;Description should not be more than 1000 characters&quot;,null())&#xD;
+      }&#xD;
+    )&#xD;
+  },&#xD;
+  secondColumnContents: {&#xD;
+    /* Add components here for a two-column form */&#xD;
+  },&#xD;
+  buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(&#xD;
+    primaryButtons: {&#xD;
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(&#xD;
+        label: &quot;Ask&quot;,&#xD;
+        style: &quot;PRIMARY&quot;,&#xD;
+		 value: true,&#xD;
+        saveInto: ri!Action&#xD;
+      )&#xD;
+    },&#xD;
+    secondaryButtons: {&#xD;
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(&#xD;
+        label: &quot;Cancel&quot;,&#xD;
+        style: &quot;NORMAL&quot;,&#xD;
+        value: false,&#xD;
+        saveInto: ri!Action,&#xD;
+        skipValidation: true&#xD;
+      )&#xD;
+    }&#xD;
+  ),&#xD;
+  validations: {}&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>Action</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Recommendation</name>
+            <type>
+                <name>HRA_EmployeeRecommendation</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

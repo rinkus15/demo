@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_SkillCountByYear</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25072</uuid>
+        <description>Contains the value for the skill count by year</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>index(
+  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25126&quot;(
+    ri!year
+  ),
+  wherecontains(
+    tointeger(
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25074&quot;(
+        index(
+          #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25126&quot;(
+            ri!year
+          ),
+          &quot;Count&quot;,
+          null
+        ),
+        3
+      )
+    ),
+    {
+      tointeger(
+        index(
+          #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25126&quot;(
+            ri!year
+          ),
+          &quot;Count&quot;,
+          {}
+        )
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>year</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>top</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

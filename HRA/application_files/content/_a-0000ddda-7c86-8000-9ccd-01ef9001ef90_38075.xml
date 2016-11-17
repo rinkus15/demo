@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_AddTrainingInterface</name>
+        <uuid>_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38075</uuid>
+        <description>Contains the value for the add training interface</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!SkillsType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19158&quot;(
+    true()
+  ),
+  local!Skills,
+  local!value,
+  local!SkillTypeValue,
+  local!SkillId,
+  with(
+    #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+      label: &quot;Create New Training&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          label: &quot;Basic Details&quot;,
+          isCollapsible: true,
+          firstColumnContents: {
+            #&quot;SYSTEM_SYSRULES_textField&quot;(
+              label: &quot;Name&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              required: true,
+              requiredMessage: &quot;Please enter the training name&quot;,
+              value: index(
+                ri!Training,
+                &quot;Name&quot;,
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!Training.Name,
+                  trim(
+                    save!value
+                  )
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+              label: &quot;Description&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              value: index(
+                ri!Training,
+                &quot;Description&quot;,
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!Training.Description,
+                  trim(
+                    save!value
+                  )
+                )
+              },
+              validations: {
+                if(
+                  len(
+                    index(
+                      ri!Training,
+                      &quot;Description&quot;,
+                      {}
+                    )
+                  ) &gt; 255,
+                  &quot;Please enter description less than 1000 &quot;,
+                  &quot;&quot;
+                )
+              }
+            )
+          },
+          secondColumnContents: {
+            #&quot;SYSTEM_SYSRULES_textField&quot;(
+              label: &quot;Cost&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              required: true,
+              requiredMessage: &quot;Please enter the cost of training&quot;,
+              value: index(
+                ri!Training,
+                &quot;Cost&quot;,
+                {}
+              ),
+              saveInto: {
+                a!save(
+                  ri!Training.Cost,
+                  trim(
+                    save!value
+                  )
+                )
+              },
+              validations: {
+                if(
+                  ri!Training.Cost &lt; 0,
+                  &quot;Please enter valid cost&quot;,
+                  {}
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dateField&quot;(
+              label: &quot;Expiry Date&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              required: true,
+              requiredMessage: &quot;Please enter the expiry date of training&quot;,
+              value: index(
+                ri!Training,
+                &quot;ExpiryDate&quot;,
+                {}
+              ),
+              saveInto: {
+                ri!Training.ExpiryDate
+              },
+              validations: {
+                if(
+                  ri!Training.ExpiryDate &lt;= today(),
+                  &quot;Please enter valid date&quot;,
+                  {}
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dateField&quot;(
+              label: &quot;From&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              required: true,
+              requiredMessage: &quot;Please enter the start date of training&quot;,
+              value: index(
+                ri!Training,
+                &quot;Startdate&quot;,
+                {}
+              ),
+              saveInto: {
+                ri!Training.Startdate
+              },
+              validations: {
+                if(
+                  ri!Training.Startdate &lt; today(),
+                  &quot;Please enter valid date&quot;,
+                  {}
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dateField&quot;(
+              label: &quot;To&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              required: true,
+              requiredMessage: &quot;Please enter the end date of training&quot;,
+              value: index(
+                ri!Training,
+                &quot;Enddate&quot;,
+                {}
+              ),
+              saveInto: {
+                ri!Training.Enddate
+              },
+              validations: {
+                if(
+                  ri!Training.Enddate &lt; ri!Training.Startdate,
+                  &quot;Please enter valid date&quot;,
+                  {}
+                )
+              }
+            )
+          }
+        ),
+        
+      },
+      buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+        primaryButtons: #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Create&quot;,
+          style: &quot;PRIMARY&quot;,
+          value: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19218&quot;[2],
+          saveInto: ri!BtnAction
+        ),
+        secondaryButtons: #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Cancel&quot;,
+          style: &quot;NORMAL&quot;,
+          value: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19218&quot;[1],
+          saveInto: ri!BtnAction,
+          skipValidation: true
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Training</name>
+            <type>
+                <name>HRA_AddTraining</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TrainingSkills</name>
+            <type>
+                <name>HRA_TrainingSkills?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>BtnAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_AddTraining"/>
+                    <a:nameRef>Training</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>TrainingSkills</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>BtnAction</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

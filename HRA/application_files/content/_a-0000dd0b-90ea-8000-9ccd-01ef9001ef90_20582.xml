@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_COMMON_FilterRule</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20582</uuid>
+        <description>Contains the expression rule for the filter</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  /*local!SkillId,
+  local!QualificationId,
+  local!MinExpRequired,
+  local!MaxExpRequired,*/
+  local!SkillTypeAndSkill: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20581&quot;(),
+  local!Qualification: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20579&quot;(),
+  local!Certification: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20812&quot;(),
+  {
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      isCollapsible: true,
+      label: &quot;Search Filters&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(
+          label: &quot;Skill&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          placeholderLabel: &quot;Select the Skill&quot;,
+          choiceLabels: index(
+            local!SkillTypeAndSkill,
+            &quot;Skills&quot;,
+            {}
+          ),
+          choiceValues: index(
+            local!SkillTypeAndSkill,
+            &quot;Id&quot;,
+            {}
+          ),
+          value: local!SkillId,
+          saveInto: {
+            a!save(
+              local!gridEmployeeSelection.selected,
+              null
+            ),
+            if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!gridEmployeeSelection.pagingInfo.startIndex
+              ),
+              {},
+              if(
+                local!gridEmployeeSelection.pagingInfo.startIndex &lt;&gt; 1,
+                a!save(
+                  local!gridEmployeeSelection.pagingInfo.startIndex,
+                  1
+                ),
+                {}
+              )
+            ),
+            a!save(
+              local!SkillId,
+              save!value
+            )
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+          label: &quot;Minimum Experience Reqiured&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          choiceLabels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26498&quot;,
+          choiceValues: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26500&quot;,
+          placeholderLabel: &quot;--Select Year--&quot;,
+          value: local!MinExpRequired,
+          saveInto: {
+            a!save(
+              local!gridEmployeeSelection.selected,
+              null
+            ),
+            if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!gridEmployeeSelection.pagingInfo.startIndex
+              ),
+              {},
+              if(
+                local!gridEmployeeSelection.pagingInfo.startIndex &lt;&gt; 1,
+                a!save(
+                  local!gridEmployeeSelection.pagingInfo.startIndex,
+                  1
+                ),
+                {}
+              )
+            ),
+            a!save(
+              local!MinExpRequired,
+              save!value
+            )
+          },
+          refreshAfter: &quot;UNFOCUS&quot;,
+          validations: {}
+        ),
+        #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(
+          label: &quot;Certification&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          placeholderLabel: &quot;Select the Certification&quot;,
+          choiceLabels: {
+            index(
+              local!Certification,
+              &quot;Certification&quot;,
+              {}
+            )
+          },
+          choiceValues: {
+            index(
+              local!Certification,
+              &quot;Id&quot;,
+              {}
+            )
+          },
+          value: local!CertificateId,
+          saveInto: {
+            a!save(
+              local!gridEmployeeSelection.selected,
+              null
+            ),
+            if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!gridEmployeeSelection.pagingInfo.startIndex
+              ),
+              {},
+              if(
+                local!gridEmployeeSelection.pagingInfo.startIndex &lt;&gt; 1,
+                a!save(
+                  local!gridEmployeeSelection.pagingInfo.startIndex,
+                  1
+                ),
+                {}
+              )
+            ),
+            a!save(
+              local!CertificateId,
+              save!Value
+            )
+          }
+        )
+      },
+      secondColumnContents: {
+        #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(
+          label: &quot;Qualifications&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          placeholderLabel: &quot;Select the Qualifications&quot;,
+          choiceLabels: index(
+            local!Qualification,
+            &quot;Qualification&quot;,
+            {}
+          ),
+          choiceValues: index(
+            local!Qualification,
+            &quot;Id&quot;,
+            {}
+          ),
+          value: local!QualificationId,
+          saveInto: {
+            a!save(
+              local!gridEmployeeSelection.selected,
+              null
+            ),
+            if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!gridEmployeeSelection.pagingInfo.startIndex
+              ),
+              {},
+              if(
+                local!gridEmployeeSelection.pagingInfo.startIndex &lt;&gt; 1,
+                a!save(
+                  local!gridEmployeeSelection.pagingInfo.startIndex,
+                  1
+                ),
+                {}
+              )
+            ),
+            a!save(
+              local!QualificationId,
+              save!Value
+            )
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+          label: &quot;Maximum Experience Reqiured&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          choiceLabels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26498&quot;,
+          choiceValues: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26500&quot;,
+          placeholderLabel: &quot;--Select Year--&quot;,
+          value: local!MaxExpRequired,
+          saveInto: {
+            a!save(
+              local!gridEmployeeSelection.selected,
+              null
+            ),
+            if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!gridEmployeeSelection.pagingInfo.startIndex
+              ),
+              {},
+              if(
+                local!gridEmployeeSelection.pagingInfo.startIndex &lt;&gt; 1,
+                a!save(
+                  local!gridEmployeeSelection.pagingInfo.startIndex,
+                  #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;
+                ),
+                {}
+              )
+            ),
+            a!save(
+              local!MaxExpRequired,
+              save!value
+            )
+          },
+          refreshAfter: &quot;UNFOCUS&quot;,
+          validations: {}
+        )
+      }
+    )
+  }
+)</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeePagingGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20367</uuid>
+        <description>Contains the paging grid for the employee details</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!data: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20476&quot;(
+    SkillDvId: ri!SkillId,
+    QualificationDvId: ri!QualificationId,
+    CertificateDvId: ri!CertificateId,
+    MinExpRequired: ri!MinExpRequired,
+    MaxExpRequired: ri!MaxExpRequired
+  ),
+  local!datasubset: todatasubset(
+    local!data,
+    local!gridEmployeeSelection.pagingInfo
+  ),
+  {
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;Employee(s)&quot;,
+      isCollapsible: true,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+          primaryButtons: #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Compare&quot;,
+            style: &quot;PRIMARY&quot;,
+            disabled: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                ri!selectedId
+              ),
+              true,
+              false
+            ),
+            value: true,
+            saveInto: ri!Action
+          )
+        ),
+        #&quot;SYSTEM_SYSRULES_gridField&quot;(
+          label: &quot;&quot;,
+          labelPosition: &quot;ABOVE&quot;,
+          totalCount: local!datasubset.totalCount,
+          columns: {
+            #&quot;SYSTEM_SYSRULES_gridImageColumn&quot;(
+              label: &quot;&quot;,
+              field: &quot;PictureId&quot;,
+              data: {
+                apply(
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20925&quot;(
+                    _
+                  ),
+                  index(
+                    local!datasubset.data,
+                    &quot;PictureId&quot;,
+                    {}
+                  )
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Name&quot;,
+              field: &quot;FullName&quot;,
+              data: {
+                index(
+                  local!datasubset.data,
+                  &quot;FullName&quot;,
+                  {}
+                )
+              },
+              links: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;EId&quot;,
+                    {}
+                  )
+                ),
+                {},
+                #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                  function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20839&quot;(
+                    Index: _,
+                    EmployeeId: index(
+                      local!datasubset.data,
+                      &quot;EId&quot;,
+                      {}
+                    )
+                  ),
+                  array: 1 + enumerate(
+                    count(
+                      index(
+                        local!datasubset.data,
+                        &quot;EId&quot;,
+                        {}
+                      )
+                    )
+                  )
+                )
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Date Of Birth&quot;,
+              field: &quot;DateOfBirth&quot;,
+              data: {
+                apply(
+                  fn!todate(
+                    _
+                  ),
+                  index(
+                    local!datasubset.data,
+                    &quot;DateOfBirth&quot;,
+                    {}
+                  )
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Profile Overview&quot;,
+              field: &quot;ProfileOverview&quot;,
+              data: {
+                index(
+                  local!datasubset.data,
+                  &quot;ProfileOverview&quot;,
+                  {}
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Total Work Experience&quot;,
+              field: &quot;TotalWorkExperience&quot;,
+              data: {
+                apply(
+                  #&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(
+                    _
+                  ),
+                  index(
+                    local!datasubset.data,
+                    &quot;TotalWorkExperience&quot;,
+                    {}
+                  )
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Date Of Joining&quot;,
+              field: &quot;DateOfJoining&quot;,
+              data: {
+                apply(
+                  fn!todate(
+                    _
+                  ),
+                  index(
+                    local!datasubset.data,
+                    &quot;DateOfJoining&quot;,
+                    {}
+                  )
+                )
+              }
+            )
+          },
+          selection: true,
+          requiredSelection: true,
+          identifiers: index(
+            local!datasubset.data,
+            &quot;EId&quot;,
+            {}
+          ),
+          value: local!gridEmployeeSelection,
+          saveInto: {
+            local!gridEmployeeSelection,
+            a!save(
+              ri!SelectedId,
+              index(
+                local!gridEmployeeSelection,
+                &quot;selected&quot;,
+                {}
+              )
+            )
+          },
+          validations: {
+            if(
+              or(
+                count(
+                  ri!selectedId
+                ) = 0,
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  ri!selectedId
+                )
+              ),
+              {},
+              if(
+                count(
+                  ri!selectedId
+                ) &lt; 2,
+                #&quot;SYSTEM_SYSRULES_validationMessage&quot;(
+                  &quot;You must select atleast 2 employees&quot;,
+                  &quot;SUBMIT&quot;
+                ).message,
+                if(
+                  count(
+                    ri!selectedId
+                  ) &gt; 3,
+                  #&quot;SYSTEM_SYSRULES_validationMessage&quot;(
+                    &quot;You must select atmost 3 employees&quot;,
+                    &quot;SUBMIT&quot;
+                  ).message,
+                  {}
+                )
+              )
+            )
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+          primaryButtons: #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Compare&quot;,
+            style: &quot;PRIMARY&quot;,
+            disabled: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                ri!selectedId
+              ),
+              true,
+              false
+            ),
+            value: true,
+            saveInto: ri!Action
+          )
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>QualificationId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificateId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>MinExpRequired</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>MaxExpRequired</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SelectedId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Action</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

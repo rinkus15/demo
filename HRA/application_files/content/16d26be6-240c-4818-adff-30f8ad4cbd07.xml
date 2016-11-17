@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetExperienceInYearAndMonths</name>
+        <uuid>16d26be6-240c-4818-adff-30f8ad4cbd07</uuid>
+        <description>Holds rule to convert months into years</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!Years: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      ri!Months
+    ),
+    {},
+    floor(
+      ri!Months / 12,
+      1
+    )
+  ),
+  local!Months: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      ri!Months
+    ),
+    {},
+    mod(
+      ri!Months,
+      12
+    )
+  ),
+  if(
+    ri!Months &lt;= 0,
+    &quot;0 month&quot;,
+    if(
+      local!Years &lt;= 0,
+      {
+        concat(
+          local!Months,
+          if(local!Months&lt;=1,&quot; month&quot;,&quot; months&quot;)
+        )
+      },
+      {
+        if(
+          local!Months &lt;= 0,
+          concat(
+            local!Years,
+            if(local!Years&lt;=1,&quot; year&quot;,&quot; years&quot;)
+          ),
+          concat(
+            local!Years,
+            if(local!Years&lt;=1,&quot; year &quot;,&quot; years &quot;),
+            local!Months,
+            if(local!Months&lt;=1,&quot; month &quot;,&quot; months &quot;)
+          )
+        )
+      }
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Months</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

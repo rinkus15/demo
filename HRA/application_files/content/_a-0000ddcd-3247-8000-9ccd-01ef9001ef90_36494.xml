@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_Common_EmailValidationRule</name>
+        <uuid>_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36494</uuid>
+        <description>Contains the value for the email validation</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(&#xD;
+  or(&#xD;
+    len(&#xD;
+      trim(&#xD;
+        ri!Address&#xD;
+      )&#xD;
+    ) &gt; 255,&#xD;
+    length(&#xD;
+      split(&#xD;
+        trim(&#xD;
+          ri!Address&#xD;
+        ),&#xD;
+        &quot; &quot;&#xD;
+      )&#xD;
+    ) &gt; 1,&#xD;
+    count(&#xD;
+      split(&#xD;
+        ri!Address,&#xD;
+        &quot;@&quot;&#xD;
+      )&#xD;
+    ) &lt;&gt; 2&#xD;
+  ),&#xD;
+  &quot;Please enter the valid email&quot;,&#xD;
+  with(&#xD;
+    localPart: split(&#xD;
+      trim(&#xD;
+        ri!Address&#xD;
+      ),&#xD;
+      &quot;@&quot;&#xD;
+    )[1],&#xD;
+    domainPart: split(&#xD;
+      trim(&#xD;
+        ri!Address&#xD;
+      ),&#xD;
+      &quot;@&quot;&#xD;
+    )[2],&#xD;
+    if(&#xD;
+      or(&#xD;
+        length(&#xD;
+          split(&#xD;
+            domainPart,&#xD;
+            &quot;.&quot;&#xD;
+          )&#xD;
+        ) &lt; 2,&#xD;
+        contains(&#xD;
+          split(&#xD;
+            localPart,&#xD;
+            &quot;.&quot;&#xD;
+          ),&#xD;
+          &quot;&quot;&#xD;
+        ),&#xD;
+        contains(&#xD;
+          split(&#xD;
+            domainPart,&#xD;
+            &quot;.&quot;&#xD;
+          ),&#xD;
+          &quot;&quot;&#xD;
+        ),&#xD;
+        not(&#xD;
+          isnull(&#xD;
+            stripwith(&#xD;
+              lower(&#xD;
+                domainPart&#xD;
+              ),&#xD;
+              &quot;abcdefghijklmnopqrstuvwxyz1234567890-.&quot;&#xD;
+            )&#xD;
+          )&#xD;
+        ),&#xD;
+        not(&#xD;
+          isnull(&#xD;
+            stripwith(&#xD;
+              lower(&#xD;
+                localPart&#xD;
+              ),&#xD;
+              &quot;abcdefghijklmnopqrstuvwxyz1234567890-._+'&amp;%&quot;&#xD;
+            )&#xD;
+          )&#xD;
+        )&#xD;
+      ),&#xD;
+      &quot;Please enter the valid email&quot;,&#xD;
+      {}&#xD;
+    )&#xD;
+  )&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>Address</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

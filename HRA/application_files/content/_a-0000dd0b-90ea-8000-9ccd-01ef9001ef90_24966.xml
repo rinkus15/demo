@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_RecommendationPagingGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24966</uuid>
+        <description>Holds rule for paging grid of recommendations</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(&#xD;
+    startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,&#xD;
+    batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[1],&#xD;
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(&#xD;
+      field: &quot;Id&quot;,&#xD;
+      ascending: true&#xD;
+    )&#xD;
+  ),&#xD;
+  with(&#xD;
+    local!Recommendation:&#xD;
+    if(&#xD;
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+        ri!EmployeeId&#xD;
+      ),&#xD;
+      {},&#xD;
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23067&quot;(&#xD;
+      ri!EmployeeId,&#xD;
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22514&quot;[7]&#xD;
+    )&#xD;
+    ),&#xD;
+    local!datasubset: todatasubset(&#xD;
+       local!Recommendation,&#xD;
+      local!pagingInfo&#xD;
+      ),&#xD;
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+      label: &quot;Recommendation(s)&quot;,&#xD;
+      isCollapsible:true,&#xD;
+      firstColumnContents: {&#xD;
+        #&quot;SYSTEM_SYSRULES_gridField&quot;(&#xD;
+          labelPosition: &quot;ABOVE&quot;,&#xD;
+          totalCount: local!datasubset.totalCount,&#xD;
+          columns: {&#xD;
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+              label: &quot;Recommendation&quot;,&#xD;
+              field: &quot;Recommendation&quot;,&#xD;
+              data: index(&#xD;
+                local!datasubset.data,&#xD;
+                &quot;Recommendation&quot;,&#xD;
+                {}&#xD;
+              )&#xD;
+            ),&#xD;
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+              label: &quot;Recommended By&quot;,&#xD;
+              field: &quot;UserId&quot;,&#xD;
+              data: apply(#&quot;_a-0000d8ee-7d6f-8000-bffe-010000010000_2461&quot;(_),index(&#xD;
+                local!datasubset.data,&#xD;
+                &quot;UserId&quot;,&#xD;
+                {}&#xD;
+              ))&#xD;
+              ),&#xD;
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+              label: &quot;Recommended On&quot;,&#xD;
+              field: &quot;DateGiven&quot;,&#xD;
+              data: apply(fn!todate(_),&#xD;
+              index(&#xD;
+                local!datasubset.data,&#xD;
+                &quot;DateGiven&quot;,&#xD;
+                {}&#xD;
+              ))&#xD;
+            )&#xD;
+            &#xD;
+        },&#xD;
+          value: local!pagingInfo,&#xD;
+          saveInto: local!pagingInfo,&#xD;
+          validations: {}&#xD;
+        )&#xD;
+      },&#xD;
+      secondColumnContents: {}&#xD;
+    )&#xD;
+  )&#xD;
+  )</definition>
+        <namedTypedValue>
+            <name>EmployeeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

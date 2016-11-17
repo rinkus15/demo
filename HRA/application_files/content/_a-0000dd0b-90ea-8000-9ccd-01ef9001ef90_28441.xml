@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_ContactReportingManager</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28441</uuid>
+        <description>Contact to Reporting manager value</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  with(
+    #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+      label: &quot;Contact Reporting Manager&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+          label: &quot;Enter Your Message&quot;,
+          labelPosition: &quot;ADJACENT&quot;,
+          required: true(),
+          value: index(
+            ri!ContactToManager,
+            &quot;Description&quot;,
+            null
+          ),
+          saveInto: {
+            a!save(
+              ri!ContactToManager.Description,
+              save!value
+            )
+          },
+          height: &quot;MEDIUM&quot;,
+          refreshAfter: &quot;UNFOCUS&quot;,
+          validations: {
+            #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23237&quot;(
+              Value: index(
+                ri!ContactToManager,
+                &quot;Description&quot;,
+                null
+              ),
+              ValidLength: #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39342&quot;[2]
+            )
+          }
+        )
+      },
+      secondColumnContents: {
+        /* Add components here for a two-column form */
+        
+      },
+      buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+        primaryButtons: {
+          #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Submit&quot;,
+            style: &quot;PRIMARY&quot;,
+            value: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19218&quot;[2],
+            saveInto: ri!ButtonAction
+          )
+        },
+        secondaryButtons: {
+          #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+            label: &quot;Cancel&quot;,
+            style: &quot;NORMAL&quot;,
+            value: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19218&quot;[1],
+            saveInto: ri!ButtonAction,
+            skipValidation: true
+          )
+        }
+      ),
+      validations: {}
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>ButtonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ContactToManager</name>
+            <type>
+                <name>HRA_ContactToManager</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>ButtonAction</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_ContactToManager"/>
+                    <a:nameRef>ContactToManager</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

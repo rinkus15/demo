@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_ColumnChartFieldForTopSkills</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28046</uuid>
+        <description>Hold column chart field for top skills</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>  series:
+   { #&quot;SYSTEM_SYSRULES_chartSeries&quot;(label:&quot;Basic&quot;,data:#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28018&quot;(ri!TopSkillId,1)),
+      #&quot;SYSTEM_SYSRULES_chartSeries&quot;(label:&quot;Intermidiate&quot;, data:#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28018&quot;(ri!TopSkillId,1)),
+      #&quot;SYSTEM_SYSRULES_chartSeries&quot;(label:&quot;Advance&quot;, data:#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28018&quot;(ri!TopSkillId,1))
+   }  </definition>
+        <namedTypedValue>
+            <name>TopSkillId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Year</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

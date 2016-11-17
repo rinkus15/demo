@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeTrainingGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22769</uuid>
+        <description>rule for employee training grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(&#xD;
+  contents: {&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      value: index(&#xD;
+        ri!Training[ri!Index],&#xD;
+        &quot;ShortDescription&quot;,&#xD;
+        {}&#xD;
+      ),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!Training[ri!Index].ShortDescription,trim(save!value))&#xD;
+       &#xD;
+      },&#xD;
+      required: true,&#xD;
+      requiredMessage: &quot;Please enter the Title&quot;&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_textField&quot;(&#xD;
+      value: property(&#xD;
+        ri!Training[ri!Index],&#xD;
+        &quot;Description&quot;,&#xD;
+        {}&#xD;
+      ),&#xD;
+      saveInto: {&#xD;
+        a!save(ri!Training[ri!Index].Description,trim(save!value))&#xD;
+        &#xD;
+      },&#xD;
+      required: true,&#xD;
+      requiredMessage: &quot;Please enter the Description&quot;&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_dateField&quot;(&#xD;
+      value: property(&#xD;
+        ri!Training[ri!Index],&#xD;
+        &quot;StartDate&quot;,&#xD;
+        {}&#xD;
+      ),&#xD;
+      saveInto: {&#xD;
+        ri!Training[ri!Index].StartDate&#xD;
+        &#xD;
+        &#xD;
+        },&#xD;
+        validations: {&#xD;
+          if(&#xD;
+            ri!Training[ri!Index].StartDate &gt;= today(),&#xD;
+            &quot;Invalid start date.&quot;,&#xD;
+            {}&#xD;
+          )&#xD;
+        }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_dateField&quot;(&#xD;
+      value: property(&#xD;
+        ri!Training[ri!Index],&#xD;
+        &quot;EndDate&quot;,&#xD;
+        {}&#xD;
+      ),&#xD;
+      saveInto: {&#xD;
+        ri!Training[ri!Index].EndDate&#xD;
+        &#xD;
+      },&#xD;
+      &#xD;
+      validations: {&#xD;
+        if(&#xD;
+          or(&#xD;
+          ri!Training[ri!Index].EndDate &gt; today(),&#xD;
+          ri!Training[ri!Index].EndDate &lt; ri!Training[ri!Index].StartDate&#xD;
+          ),&#xD;
+          &quot;Invalid end date.&quot;,&#xD;
+          {}&#xD;
+        )&#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_fileUploadField&quot;(&#xD;
+      label: &quot;&quot;,&#xD;
+      target: {&#xD;
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21421&quot;&#xD;
+      },&#xD;
+      value: ri!HoldTrainingId[ri!Index],&#xD;
+      saveInto: {&#xD;
+        a!save(&#xD;
+          ri!HoldTrainingId[ri!Index],&#xD;
+          save!value&#xD;
+        )&#xD;
+        &#xD;
+      }&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_imageField&quot;(&#xD;
+      images: {&#xD;
+        #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+          document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+            &quot;REMOVE&quot;&#xD;
+          ),&#xD;
+          caption: &quot;Remove&quot;,&#xD;
+          link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(&#xD;
+            value: {&#xD;
+              ri!Index&#xD;
+            },&#xD;
+            saveInto: {&#xD;
+              a!save(&#xD;
+                ri!Training,&#xD;
+                remove(&#xD;
+                  ri!Training,&#xD;
+                  save!value&#xD;
+                )&#xD;
+              ),&#xD;
+              a!save(&#xD;
+                ri!TempTrainingDocument,&#xD;
+                remove(&#xD;
+                  ri!TempTrainingDocument,&#xD;
+                  save!value&#xD;
+                )&#xD;
+              ),&#xD;
+              a!save(&#xD;
+                ri!HoldTrainingId,&#xD;
+                remove(&#xD;
+                  ri!HoldTrainingId,&#xD;
+                  save!value&#xD;
+                )&#xD;
+              )&#xD;
+            }&#xD;
+          )&#xD;
+        )&#xD;
+      },&#xD;
+      size: &quot;ICON&quot;&#xD;
+    )&#xD;
+  }&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Training</name>
+            <type>
+                <name>HRA_EmployeeTraining?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempTrainingDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldTrainingId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

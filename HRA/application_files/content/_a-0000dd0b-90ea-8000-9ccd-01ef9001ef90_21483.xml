@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeBasicDetail</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21483</uuid>
+        <description>Employee basic detail used in employee compare view</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+  labelPosition: &quot;COLLAPSED&quot;,
+  value: {
+    #&quot;SYSTEM_SYSRULES_richTextBulletedList&quot;(
+      items: {
+        &quot;Name - &quot; &amp; index(
+          ri!Employee,
+          &quot;FullName&quot;,
+          {}
+        ),
+        &quot;EmployeeId - &quot; &amp; index(
+          ri!Employee,
+          &quot;EId&quot;,
+          {}
+        ),
+        &quot;Employee Type - &quot; &amp; index(
+          ri!Employee,
+          &quot;EmployeeType&quot;,
+          {}
+        ),
+        &quot;Date of Joining - &quot; &amp; todate(
+          index(
+            ri!Employee,
+            &quot;DateOfJoining&quot;,
+            {}
+          )
+        ),
+        &quot;Department - &quot; &amp; index(
+          ri!Employee,
+          &quot;Department&quot;,
+          {}
+        ),
+        &quot;Reporting Manager - &quot; &amp; #&quot;_a-0000d8ee-7d6f-8000-bffe-010000010000_2461&quot;(
+          index(
+            ri!Employee,
+            &quot;ReportingManager&quot;,
+            {}
+          )
+        ),
+        &quot;Profile Overview - &quot; &amp; index(
+          ri!Employee,
+          &quot;ProfileOverview&quot;,
+          {}
+        )
+      }
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>Employee</name>
+            <type>
+                <name>HRA_EmployeeView</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

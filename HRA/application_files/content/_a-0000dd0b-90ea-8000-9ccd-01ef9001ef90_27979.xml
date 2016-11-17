@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetExcelEmployeeGridDatasubset</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_27979</uuid>
+        <description>Contains the value for the excel employee grid datasubset</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(&#xD;
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(&#xD;
+    startIndex: 1,&#xD;
+    batchSize: - 1,&#xD;
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(&#xD;
+      field: &quot;FullName&quot;,&#xD;
+      ascending: true&#xD;
+    )&#xD;
+  ),&#xD;
+ &#xD;
+  local!data:#&quot;SYSTEM_SYSRULES_fromJson&quot;(ri!Input),&#xD;
+   local!skill:#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19639&quot;(local!data.SkillId).Skill,&#xD;
+  'type!{urn:appian:plugin:datasubsetdownload:types}ExportableDataSubset'(&#xD;
+    datasubset: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_27973&quot;(&#xD;
+        SkilldvId: local!data.SkillId,&#xD;
+        Year: tointeger(local!data.Year),&#xD;
+        DepartmentId: local!data.DepartmentId,&#xD;
+        ProficiencyId: local!data.ProficiencyId,&#xD;
+        SelectedProficiency:local!data.SelectedProficiencyId,&#xD;
+        SkillAddedOn:local!data.SkillAddedOn&#xD;
+    ),&#xD;
+    fieldNames: {&#xD;
+      &quot;FullName&quot;,&quot;Department&quot;,&quot;DateOfJoining&quot;,&quot;SkillProficiency&quot;,&quot;TotalWorkExperience&quot;&#xD;
+    },&#xD;
+    fieldLabels: {&#xD;
+      &quot;Full Name&quot;,&quot;Department&quot;,&quot;Date Of Joining&quot;,&quot;Proficiency&quot;,&quot;Total Work Experience&quot; &#xD;
+    },&#xD;
+    filename: &quot;Employee Details for Skill &quot;&amp;local!skill&#xD;
+  )&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>Input</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

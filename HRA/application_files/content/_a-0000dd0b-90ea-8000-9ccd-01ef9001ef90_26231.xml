@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <constant>
+        <name>HRA_YEARS</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26231</uuid>
+        <description>Holds value for years in experience</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>0</el>
+                <el>1</el>
+                <el>2</el>
+                <el>3</el>
+                <el>4</el>
+                <el>5</el>
+                <el>6</el>
+                <el>7</el>
+                <el>8</el>
+                <el>9</el>
+                <el>10</el>
+                <el>11</el>
+                <el>12</el>
+                <el>13</el>
+                <el>14</el>
+                <el>15</el>
+                <el>16</el>
+                <el>17</el>
+                <el>18</el>
+                <el>19</el>
+                <el>20</el>
+                <el>21</el>
+                <el>22</el>
+                <el>23</el>
+                <el>24</el>
+                <el>25</el>
+                <el>26</el>
+                <el>27</el>
+                <el>28</el>
+                <el>29</el>
+                <el>30</el>
+                <el>31</el>
+                <el>32</el>
+                <el>33</el>
+                <el>34</el>
+                <el>35</el>
+                <el>36</el>
+                <el>37</el>
+                <el>38</el>
+                <el>39</el>
+                <el>40</el>
+            </value>
+        </typedValue>
+    </constant>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

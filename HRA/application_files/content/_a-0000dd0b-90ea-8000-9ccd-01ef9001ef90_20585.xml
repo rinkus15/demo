@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_JobPosting</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20585</uuid>
+        <description>interface for Job Posting</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!CertficationDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20812&quot;(),
+  local!QualificationType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20579&quot;(),
+  local!skillType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20581&quot;(),
+  local!index,
+  local!MaxYear,
+  local!MinYear,
+  local!MaxMonth,
+  local!MinMonth,
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+    label: &quot;Create Job Opening&quot;,
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        label: &quot;Basic Details&quot;,
+        isCollapsible:true,
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Job Title&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: index(
+              ri!JobOpeningDetails,
+              &quot;JobTitle&quot;,
+              {}
+            ),
+            saveInto: {
+              a!save(
+                ri!JobOpeningDetails.JobTitle,
+                trim(
+                  save!value
+                )
+              )
+            },
+            refreshAfter: &quot;UNFOCUS&quot;,
+            required: true,
+            validations: {
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23237&quot;(
+                Value: index(
+                  ri!JobOpeningDetails,
+                  &quot;JobTitle&quot;,
+                  {}
+                ),
+                ValidLength: #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39342&quot;[1]
+              )
+            }
+          ),
+          #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+            label: &quot;Description&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: index(
+              ri!JobOpeningDetails,
+              &quot;Description&quot;,
+              {}
+            ),
+            saveInto: {
+              a!save(
+                ri!JobOpeningDetails.Description,
+                trim(
+                  save!value
+                )
+              )
+            },
+            refreshAfter: &quot;UNFOCUS&quot;,
+            required: true,
+            height: &quot;MEDIUM&quot;,
+            validations: {
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23237&quot;(
+                Value: index(
+                  ri!JobOpeningDetails,
+                  &quot;Description&quot;,
+                  {}
+                ),
+                ValidLength: #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39342&quot;[2]
+              )
+            }
+          )
+        },
+        secondColumnContents: {
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Job Location&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: index(
+              ri!JobOpeningDetails,
+              &quot;Location&quot;,
+              {}
+            ),
+            saveInto: {
+              a!save(
+                ri!JobOpeningDetails.Location,
+                trim(
+                  save!value
+                )
+              )
+            },
+            refreshAfter: &quot;UNFOCUS&quot;,
+            required: true,
+            validations: {
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23237&quot;(
+                Value: index(
+                  ri!JobOpeningDetails,
+                  &quot;Location&quot;,
+                  {}
+                ),
+                ValidLength: #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39342&quot;[1]
+              )
+            }
+          ),
+          #&quot;SYSTEM_SYSRULES_dateField&quot;(
+            label: &quot;Closing Date&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: index(
+              ri!JobOpeningDetails,
+              &quot;ClosingDate&quot;,
+              {}
+            ),
+            saveInto: {
+              ri!JobOpeningDetails.ClosingDate
+            },
+            validations: {
+              if(
+                (
+                  ri!JobOpeningDetails.ClosingDate &gt; today()
+                ),
+                {},
+                &quot;Please enter a valid date&quot;
+              )
+            }
+          ),
+          #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+            label: &quot;Status&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            choiceLabels: {
+              #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39323&quot;[1],
+              #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39323&quot;[2]
+            },
+            choiceValues: {
+              true,
+              false
+            },
+            value: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                index(ri!JobOpeningDetails,&quot;Status&quot;,{})
+              ),
+              index(ri!JobOpeningDetails,&quot;Status&quot;,{}): 1,
+              index(ri!JobOpeningDetails,&quot;Status&quot;,{})
+            ),
+            saveInto: {
+              ri!JobOpeningDetails.Status
+            },
+            choiceLayout: &quot;STACKED&quot;,
+            validations: {}
+          ),
+          #&quot;SYSTEM_SYSRULES_integerField&quot;(
+            label: &quot;No Of Opening&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            required: true,
+            value: index(ri!JobOpeningDetails,&quot;NoOfOpening&quot;,{}),
+            saveInto: {
+              ri!JobOpeningDetails.NoOfOpening
+            },
+            refreshAfter: &quot;UNFOCUS&quot;,
+            validations: {
+              if(
+                index(ri!JobOpeningDetails,&quot;NoOfOpening&quot;,{}) &gt; 0,
+                {},
+                &quot;Please enter valid no of openings&quot;
+              )
+            }
+          ),
+          
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        label: &quot;Experience Required&quot;,
+        isCollapsible:true,
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+            label: &quot;Minimum Year&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            required: true,
+            choiceLabels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26231&quot;,
+            choiceValues: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26231&quot;,
+            value: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!MinYear
+              ),
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26231&quot;[1],
+              local!MinYear
+            ),
+            saveInto: {
+              local!MinYear
+            },
+            validations: {}
+          ),
+          #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+            label: &quot;Minimum Month&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            required: true,
+            choiceLabels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26230&quot;,
+            choiceValues: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26230&quot;,
+            value: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!MinMonth
+              ),
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26230&quot;[1],
+              local!MinMonth
+            ),
+            saveInto: {
+              local!MinMonth
+            },
+            refreshAfter: &quot;UNFOCUS&quot;,
+            validations: {}
+          )
+        },
+        secondColumnContents: {
+          #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+            label: &quot;Maximum Year&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            required: true,
+            choiceLabels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26231&quot;,
+            choiceValues: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26231&quot;,
+            value: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!MaxYear
+              ),
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26231&quot;[1],
+              local!MaxYear
+            ),
+            saveInto: {
+              local!MaxYear
+            },
+            refreshAfter: &quot;UNFOCUS&quot;,
+            validations: {}
+          ),
+          #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+            label: &quot;Maximum Month&quot;,
+            required: true,
+            labelPosition: &quot;ADJACENT&quot;,
+            choiceLabels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26230&quot;,
+            choiceValues: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26230&quot;,
+            value: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                local!MaxMonth
+              ),
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26230&quot;[1],
+              local!MaxMonth
+            ),
+            saveInto: {
+              local!MaxMonth
+            },
+            refreshAfter: &quot;UNFOCUS&quot;,
+            validations: {}
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        label: &quot;Other Requirement&quot;,
+        isCollapsible:true,
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+            label: &quot;Qualification&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            emptyGridMessage:&quot;No qualification available&quot;,
+            headerCells: {
+              #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+                label: &quot;Name&quot;,
+                align: &quot;CENTER&quot;
+              ),
+              #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+                label: &quot;&quot;,
+                align: &quot;CENTER&quot;
+              )
+            },
+            columnConfigs: {
+              #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+                width: &quot;DISTRIBUTE&quot;,
+                weight: 1
+              ),
+              #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+                width: &quot;ICON&quot;
+              )
+            },
+            rows: {
+              #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20882&quot;(
+                  QualificationGrid: ri!QualficationDetails,
+                  index: _
+                ),
+                array: if(
+                  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                    ri!QualficationDetails
+                  ),
+                  {},
+                  1 + enumerate(
+                    count(
+                      ri!QualficationDetails
+                    )
+                  )
+                )
+              )
+            },
+            selectionSaveInto: {},
+            validations: {
+              if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    ri!QualficationDetails,
+                    &quot;QualificationId&quot;,
+                    null
+                  )
+                ),
+                {},
+                if(
+                  count(
+                    wherecontains(
+                      {
+                        ri!QualficationDetails[count(
+                          ri!QualficationDetails
+                        )]
+                      },
+                      {
+                        ri!QualficationDetails
+                      }
+                    )
+                  ) &gt; 1,
+                  &quot;Already Exist&quot;,
+                  {}
+                )
+              )
+            },
+            addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+              label: &quot;Add new qualification&quot;,
+              value: {
+                CertificateId: null
+              },
+              saveInto: {
+                a!save(
+                  ri!QualficationDetails,
+                  append(
+                    ri!QualficationDetails,
+                    save!value
+                  )
+                )
+              }
+            )
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+            label: &quot;Certification&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            emptyGridMessage:&quot;No certification available&quot;,
+            headerCells: {
+              #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+                label: &quot;Name&quot;,
+                align: &quot;CENTER&quot;
+              ),
+              #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+                label: &quot;&quot;,
+                align: &quot;CENTER&quot;
+              )
+            },
+            columnConfigs: {
+              #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+                width: &quot;DISTRIBUTE&quot;,
+                weight: 1
+              ),
+              #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+                width: &quot;ICON&quot;
+              )
+            },
+            rows: {
+              #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20658&quot;(
+                  CertificationGrid: ri!CertificationDetails,
+                  index: _
+                ),
+                array: if(
+                  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                    ri!CertificationDetails
+                  ),
+                  {},
+                  1 + enumerate(
+                    count(
+                      ri!CertificationDetails
+                    )
+                  )
+                )
+              )
+            },
+            selectionSaveInto: {},
+            /*validations: {if(rule!Utils_CheckIsNull(ri!CertificationDetails),{},if(count(wherecontains({ri!CertificationDetails},{ri!CertificationDetails}))&gt;1,&quot;alreday exit&quot;,{}))},*/
+            validations: {
+              if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    ri!CertificationDetails,
+                    &quot;CertificateId&quot;,
+                    {}
+                  )
+                ),
+                {},
+                if(
+                  count(
+                    wherecontains(
+                      {
+                        ri!CertificationDetails[count(
+                          ri!CertificationDetails
+                        )]
+                      },
+                      {
+                        ri!CertificationDetails
+                      }
+                    )
+                  ) &gt; 1,
+                  &quot;Already Exist&quot;,
+                  {}
+                )
+              )
+            },
+            addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+              label: &quot;Add new certification&quot;,
+              value: {
+                CertificateId: null
+              },
+              saveInto: {
+                a!save(
+                  ri!CertificationDetails,
+                  append(
+                    ri!CertificationDetails,
+                    save!value
+                  )
+                )
+              }
+            )
+          )
+        },
+        secondColumnContents: {
+          #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+            label: &quot;Skill&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            headerCells: {
+              #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+                label: &quot;Name&quot;,
+                align: &quot;CENTER&quot;
+              ),
+              #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+                label: &quot;&quot;,
+                align: &quot;CENTER&quot;
+              )
+            },
+            columnConfigs: {
+              #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+                width: &quot;DISTRIBUTE&quot;,
+                weight: 1
+              ),
+              #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+                width: &quot;ICON&quot;
+              )
+            },
+            rows: {
+              #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20895&quot;(
+                  SkillGrid: ri!SkillsDetails,
+                  index: _
+                ),
+                array: if(
+                  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                    ri!SkillsDetails
+                  ),
+                  {},
+                  1 + enumerate(
+                    count(
+                      ri!SkillsDetails
+                    )
+                  )
+                )
+              )
+            },
+            selectionSaveInto: {},
+            validations: {
+              if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    ri!SkillsDetails,
+                    &quot;SkillId&quot;,
+                    {}
+                  )
+                ),
+                {},
+                if(
+                  count(
+                    wherecontains(
+                      {
+                        ri!SkillsDetails[count(
+                          ri!SkillsDetails
+                        )]
+                      },
+                      {
+                        ri!SkillsDetails
+                      }
+                    )
+                  ) &gt; 1,
+                  &quot;Already Exist&quot;,
+                  {}
+                )
+              )
+            },
+            addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+              label: &quot;Add new skill&quot;,
+              value: {
+                CertificateId: null
+              },
+              saveInto: {
+                a!save(
+                  ri!SkillsDetails,
+                  append(
+                    ri!SkillsDetails,
+                    save!value
+                  )
+                )
+              }
+            )
+          )
+        }
+      )
+    },
+    secondColumnContents: {},
+    validations: {
+      if(
+        (
+          #&quot;2b50885c-ae31-4f26-806f-d9c37e083e71&quot;(
+            local!MaxYear,
+            local!MaxMonth
+          ) &lt; #&quot;2b50885c-ae31-4f26-806f-d9c37e083e71&quot;(
+            local!MinYear,
+            local!MinMonth
+          )
+        ),
+        &quot;Please select the correct maxinum experience&quot;,
+        {}
+      )
+    },
+    buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+      primaryButtons: {
+        #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Create&quot;,
+          style: &quot;PRIMARY&quot;,
+          value: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19218&quot;[2],
+          saveInto: {
+            ri!ButAction,
+            a!save(
+              ri!JobOpeningDetails.MaxExpRequired,
+              (
+                #&quot;2b50885c-ae31-4f26-806f-d9c37e083e71&quot;(
+                  local!MaxYear,
+                  local!MaxMonth
+                )
+              )
+            ),
+            a!save(
+              ri!JobOpeningDetails.MinExpRequired,
+              (
+                #&quot;2b50885c-ae31-4f26-806f-d9c37e083e71&quot;(
+                  local!MinYear,
+                  local!MinMonth
+                )
+              )
+            )
+          }
+        )
+      },
+      secondaryButtons: {
+        #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Cancel&quot;,
+          style: &quot;NORMAL&quot;,
+          value: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19218&quot;[1],
+          saveInto: ri!ButAction,
+          skipValidation: true
+        )
+      }
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>ButAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificationDetails</name>
+            <type>
+                <name>HRA_JobCertificateRequired?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>QualficationDetails</name>
+            <type>
+                <name>HRA_JobQualificationRequired?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillsDetails</name>
+            <type>
+                <name>HRA_JobSkillRequired?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>JobOpeningDetails</name>
+            <type>
+                <name>HRA_JobOpening</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>ButAction</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>CertificationDetails</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>QualficationDetails</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:nameRef>SkillsDetails</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_JobOpening"/>
+                    <a:nameRef>JobOpeningDetails</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <queryRule>
+        <name>HRA_GetEmailContentByMailType</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19397</uuid>
+        <description>rule for get the email content by mail type id</description>
+        <folderUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18826</folderUuid>
+        <dataStoreEntityCompositeUuid>e913dea0-cc56-435b-b02b-fd68fe63e5dd@_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18694</dataStoreEntityCompositeUuid>
+        <params>
+            <param>
+                <description></description>
+                <name>Id</name>
+                <type>{http://www.w3.org/2001/XMLSchema}int</type>
+            </param>
+        </params>
+        <filters>
+            <filter>
+                <field>
+                    <name>id</name>
+                    <type>{http://www.w3.org/2001/XMLSchema}int</type>
+                </field>
+                <op>=</op>
+                <value>Id</value>
+                <valueType>PARAMETER</valueType>
+            </filter>
+        </filters>
+        <orderings/>
+    </queryRule>
+    <roleMap public="false">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_ConvertIntoJsonFormat</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_27672</uuid>
+        <description>Holds rule to convert data into Json format</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  /* ri!EmployeeView:rule!HRA_EmployeeViewReportQueryEntity(
+   SkillId:ri!SkillId,
+   SkillAddedOn:ri!SelectedYear
+ ),*/
+ local!string: if(contains(tointeger(index(ri!EmployeeView,&quot;SkillId&quot;,{})),ri!SkillId),
+  #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+    #&quot;57f5b76e-caa0-42cc-95b8-3e0aad9019bf&quot;(
+      Year: _,
+      SkillId: ri!SkillId,
+      EmployeeView: ri!EmployeeView
+    ),
+    ri!SelectedYear
+  ),{}),
+  local!String1: substitute(
+    tostring(
+      local!string
+    ),
+    &quot;;&quot;,
+    &quot;,&quot;
+  ),
+  if(contains(tointeger(index(ri!EmployeeView,&quot;SkillId&quot;,{})),ri!SkillId),
+  concat(
+    &quot;{&quot;&quot;SkillName&quot;&quot;: &quot;,
+    &quot;&quot;&quot;&quot;,
+   /* union(
+      index(
+        ri!EmployeeView[whereContains(
+          ri!SkillId, tointeger(
+            index(
+              ri!EmployeeView, &quot;SkillId&quot;, {}
+            )
+          )
+        )],
+        &quot;SkillName&quot;,
+        {}
+      ),
+      index(
+        ri!EmployeeView[whereContains(
+          ri!SkillId, tointeger(
+            index(
+              ri!EmployeeView, &quot;SkillId&quot;, {}
+            )
+          )
+        )],
+        &quot;SkillName&quot;,
+        {}
+      )
+    ),*/
+    union(
+      index(
+        ri!EmployeeView[index(
+          wherecontains(
+            ri!SkillId, tointeger(
+              index(
+                ri!EmployeeView, &quot;SkillId&quot;, {}
+              )
+            )
+          ), 1, {}
+        )],
+        &quot;SkillName&quot;,
+        {}
+      ),
+      index(
+        ri!EmployeeView[index(
+          wherecontains(
+            ri!SkillId, tointeger(
+              index(
+                ri!EmployeeView, &quot;SkillId&quot;, {}
+              )
+            )
+          ), 1, {}
+        )],
+        &quot;SkillName&quot;,
+        {}
+      )
+    ),
+    &quot;&quot;&quot;&quot;,
+    &quot; , &quot;,
+    tostring(
+      local!String1
+    ),
+    &quot;}&quot;
+  ),{})
+)</definition>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SelectedYear</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeView</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

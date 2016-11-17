@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_AddTraineeEditableGrid</name>
+        <uuid>_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38178</uuid>
+        <description>Holds the value for the add trainee editable grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+    contents: {
+      /*rule!HRA_Common_PickerRule(
+        MaxSelection: 1,
+        PickerLabels: index(local!EmployeeDetails,&quot;FullName&quot;,{}),
+        Identifiers: index(local!EmployeeDetails,&quot;EId&quot;,{}),
+        Selected: index(
+          ri!EmployeeTrainingPrograms[ri!Index],
+          &quot;EmployeeId&quot;,
+          {}
+        )
+      ),*/
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        label: &quot;&quot;,
+        placeholderLabel: &quot;--Select Training--&quot;,
+        choiceLabels: {
+          union(index(
+            local!TrainingDetails,
+            &quot;Name&quot;,
+            {}
+          ),index(
+            local!TrainingDetails,
+            &quot;Name&quot;,
+            {}
+          )),
+          #&quot;_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38673&quot;
+        },
+        choiceValues: {
+          union(index(
+            local!TrainingDetails,
+            &quot;Id&quot;,
+            {}
+          ),index(
+            local!TrainingDetails,
+            &quot;Id&quot;,
+            {}
+          )),
+          #&quot;_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_38674&quot;
+        },
+        value: index(
+          ri!EmployeeTrainingPrograms[ri!Index],
+          &quot;TrainingId&quot;,
+          {}
+        ),
+        saveInto: {
+          ri!EmployeeTrainingPrograms[ri!Index].TrainingId,
+          a!save(ri!BtnAction,null)
+        },
+        required:true,
+        validations:{
+          if(
+            count(
+              wherecontains(
+                index(
+          ri!EmployeeTrainingPrograms[ri!Index],
+          &quot;TrainingId&quot;,
+          {}
+        ),
+        index(
+          ri!EmployeeTrainingPrograms,
+          &quot;TrainingId&quot;,
+          {}
+        )
+              )
+            )&gt;1,
+            &quot;Already Exist&quot;,
+            &quot;&quot;
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        label: &quot;&quot;,
+        placeholderLabel: &quot;--Select Status--&quot;,
+        choiceLabels: {
+          &quot;Attend&quot;,
+          &quot;Ear Marked&quot;
+        },
+        choiceValues: {
+          &quot;Attend&quot;,
+          &quot;Ear Marked&quot;
+        },
+        value: index(
+          ri!EmployeeTrainingPrograms[ri!Index],
+          &quot;Status&quot;,
+          {}
+        ),
+        saveInto: {
+          ri!EmployeeTrainingPrograms[ri!Index].Status
+        },
+        required:true
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeTrainingPrograms</name>
+            <type>
+                <name>HRA_EmployeeTrainingPrograms?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>BtnAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

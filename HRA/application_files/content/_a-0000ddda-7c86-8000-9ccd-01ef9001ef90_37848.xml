@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeDetailsGrid</name>
+        <uuid>_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_37848</uuid>
+        <description>rule for employee paging grid </description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18582</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  with(&#xD;
+    local!data:&#xD;
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24464&quot;(&#xD;
+        SkillName: ri!SkillName,&#xD;
+        Year: ri!Year,&#xD;
+        ProficiencyId: ri!ProficiencyId&#xD;
+      ),&#xD;
+      local!Griddatasubset: todatasubset(&#xD;
+    local!data,local!GridPagingInfo&#xD;
+  ),&#xD;
+      {&#xD;
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+        firstColumnContents: {&#xD;
+          #&quot;SYSTEM_SYSRULES_gridField&quot;(&#xD;
+            label: &quot;&quot;,&#xD;
+            labelPosition: &quot;ABOVE&quot;,&#xD;
+            totalCount: local!Griddatasubset.totalCount,&#xD;
+            columns: {&#xD;
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                label: &quot;Employee Name&quot;,&#xD;
+                field: &quot;EmployeeName&quot;,&#xD;
+                data: {&#xD;
+                  index(&#xD;
+                    local!Griddatasubset.data,&#xD;
+                    &quot;EmployeeName&quot;,&#xD;
+                    {}&#xD;
+                  )&#xD;
+                },&#xD;
+                links: if(&#xD;
+                  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                    index(&#xD;
+                      local!Griddatasubset.data,&#xD;
+                      &quot;EmployeeId&quot;,&#xD;
+                      {}&#xD;
+                    )&#xD;
+                  ),&#xD;
+                  {},&#xD;
+                  #&quot;SYSTEM_SYSRULES_applyComponents&quot;(&#xD;
+                    function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20839&quot;(&#xD;
+                      Index: _,&#xD;
+                      EmployeeId: index(&#xD;
+                        local!Griddatasubset.data,&#xD;
+                        &quot;EmployeeId&quot;,&#xD;
+                        {}&#xD;
+                      )&#xD;
+                    ),&#xD;
+                    array: 1 + enumerate(&#xD;
+                      count(&#xD;
+                        index(&#xD;
+                          local!Griddatasubset.data,&#xD;
+                          &quot;EmployeeId&quot;,&#xD;
+                          {}&#xD;
+                        )&#xD;
+                      )&#xD;
+                    )&#xD;
+                  )&#xD;
+                )&#xD;
+              ),&#xD;
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                label: &quot;Skill Name&quot;,&#xD;
+                field: &quot;SkillName&quot;,&#xD;
+                data: {&#xD;
+                  index(&#xD;
+                    local!Griddatasubset.data,&#xD;
+                    &quot;SkillName&quot;,&#xD;
+                    {}&#xD;
+                  )&#xD;
+                }&#xD;
+              ),&#xD;
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                label: &quot;Skill Added On&quot;,&#xD;
+                field: &quot;SkillAddedOn&quot;,&#xD;
+                data: {&#xD;
+                  &#xD;
+                    index(&#xD;
+                      local!Griddatasubset.data,&#xD;
+                      &quot;SkillAddedOn&quot;,&#xD;
+                      {}&#xD;
+                    )&#xD;
+                }&#xD;
+              ),&#xD;
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+                label: &quot;Proficiency&quot;,&#xD;
+                field: &quot;Proficiency&quot;,&#xD;
+                data: {&#xD;
+                  index(&#xD;
+                    local!Griddatasubset.data,&#xD;
+                    &quot;Proficiency&quot;,&#xD;
+                    {}&#xD;
+                  )&#xD;
+                }&#xD;
+              )&#xD;
+            },&#xD;
+            value: local!GridPagingInfo,&#xD;
+            saveInto: {&#xD;
+              local!GridPagingInfo&#xD;
+            },&#xD;
+            validations: {}&#xD;
+          ),&#xD;
+          &#xD;
+        }&#xD;
+      )&#xD;
+      }&#xD;
+  )&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>SkillName</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Year</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ProficiencyId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

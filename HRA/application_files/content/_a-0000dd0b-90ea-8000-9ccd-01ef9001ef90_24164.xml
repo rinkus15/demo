@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_RactifySkillsEditableGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24164</uuid>
+        <description>Holds rule of editable grid for skills in ractify</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!test,
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+    contents: {
+      #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+        label: &quot;&quot;,
+        value: index(
+          ri!EmployeeSkillsView[ri!Index],
+          &quot;SkillType&quot;,
+          {}
+        )
+      ),
+      #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+        label: &quot;&quot;,
+        value: index(
+          ri!EmployeeSkillsView[ri!Index],
+          &quot;SkillName&quot;,
+          {}
+        )
+      ),
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        label: &quot;&quot;,
+        placeholderLabel: &quot;--Select Proficiency--&quot;,
+        choiceLabels: {
+          index(
+            local!ProficiencyValue,
+            &quot;Name&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!ProficiencyValue,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: index(
+          ri!EmployeeSkillsView[ri!Index],
+          &quot;ProficiencyId&quot;,
+          {}
+        ),
+        saveInto: {
+          ri!EmployeeSkillsView[ri!Index].ProficiencyId,
+          a!save(
+            ri!ProficiencyId[ri!Index],
+            save!value
+          )
+        }
+      ),
+    
+      #&quot;SYSTEM_SYSRULES_linkField&quot;(
+        links: if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            wherecontains(
+              index(
+                ri!EmployeeSkillsView[ri!Index],
+                &quot;SkillId&quot;,
+                {}
+              ),
+              index(
+                ri!Document,
+                &quot;EntityId&quot;,
+                tointeger(null)
+              )
+            )
+          ),
+          null(),
+          {
+            if(
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21892&quot;(
+                ri!Document[wherecontains(
+                  index(
+                    ri!EmployeeSkillsView[ri!Index],
+                    &quot;SkillId&quot;,
+                    {}
+                  ),
+                  index(
+                    ri!Document,
+                    &quot;EntityId&quot;,
+                   tointeger(null)
+                  )
+                )].DocumentId
+              ),
+              #&quot;SYSTEM_SYSRULES_documentDownloadLink&quot;(
+                document: ri!Document[wherecontains(
+                   index(
+                    ri!EmployeeSkillsView[ri!Index],
+                    &quot;SkillId&quot;,
+                    {}
+                  ),
+                  index(
+                    ri!Document,
+                    &quot;EntityId&quot;,
+                    null()
+                  )
+                )].DocumentId,
+                label: &quot;Download&quot;
+              ),
+              null()
+            )
+          }
+        )
+      ),
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        label: &quot;&quot;,
+        placeholderLabel: &quot;--Select--&quot;,
+        choiceLabels: {
+          index(
+            local!Status,
+            &quot;Status&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!Status,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: local!test,
+        saveInto: {
+          local!test,
+          a!save(
+            ri!Status[ri!Index],
+            save!value
+          )
+        },
+      required:true
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeSkillsView</name>
+            <type>
+                <name>HRA_EmployeeView?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Document</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Status</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ProficiencyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

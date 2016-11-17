@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetAllTotalSkills</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25638</uuid>
+        <description>Contains the value for the employee view report query entity</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(&#xD;
+    startIndex: 1,&#xD;
+    batchSize: - 1,&#xD;
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(&#xD;
+      field: &quot;SkillId&quot;,&#xD;
+      ascending: true&#xD;
+    )&#xD;
+  ),&#xD;
+  #&quot;SYSTEM_SYSRULES_queryEntity&quot;(&#xD;
+    entity: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24906&quot;,&#xD;
+    query: #&quot;SYSTEM_SYSRULES_query&quot;(&#xD;
+      aggregation: #&quot;SYSTEM_SYSRULES_queryAggregation&quot;(&#xD;
+        aggregationColumns:{&#xD;
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(&#xD;
+          field: &quot;SkillId&quot;,&#xD;
+          alias: &quot;COUNT&quot;,&#xD;
+          aggregationFunction: &quot;COUNT&quot;&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(&#xD;
+          field: &quot;SkillId&quot;,&#xD;
+          isGrouping: true&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(&#xD;
+          field: &quot;SkillName&quot;,&#xD;
+          isGrouping: true&#xD;
+        ),&#xD;
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(&#xD;
+          field: &quot;SkillAddedOn&quot;,&#xD;
+          isGrouping: true&#xD;
+        )&#xD;
+        &#xD;
+        &#xD;
+        }&#xD;
+      ),&#xD;
+      logicalExpression: if(&#xD;
+        and(&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!SkillId&#xD;
+          ),&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!DepartmentId&#xD;
+          ),&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!SkillAddedOn&#xD;
+          ),&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!Year&#xD;
+          ),&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!ProficiencyId&#xD;
+          )&#xD;
+        ),&#xD;
+        null,&#xD;
+        #&quot;SYSTEM_SYSRULES_queryLogicalExpression&quot;(&#xD;
+          operator: &quot;AND&quot;,&#xD;
+          filters: {&#xD;
+            if(&#xD;
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!SkillId&#xD;
+              ),&#xD;
+              {},&#xD;
+              #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;SkillId&quot;,&#xD;
+                operator: &quot;in&quot;,&#xD;
+                value: ri!SkillId&#xD;
+              )&#xD;
+            ),&#xD;
+            if(&#xD;
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!DepartmentId&#xD;
+              ),&#xD;
+              {},&#xD;
+              #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;DepartmentId&quot;,&#xD;
+                operator: &quot;in&quot;,&#xD;
+                value: ri!DepartmentId&#xD;
+              )&#xD;
+            ),&#xD;
+            if(&#xD;
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!SkillAddedOn&#xD;
+              ),&#xD;
+              {},&#xD;
+              #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;SkillAddedOn&quot;,&#xD;
+                operator: &quot;&lt;=&quot;,&#xD;
+                value: ri!SkillAddedOn&#xD;
+              )&#xD;
+            ),&#xD;
+            if(&#xD;
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!Year&#xD;
+              ),&#xD;
+              {},&#xD;
+              #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;SkillAddedOn&quot;,&#xD;
+                operator: &quot;&lt;=&quot;,&#xD;
+                value: ri!Year&#xD;
+              )&#xD;
+            ),&#xD;
+            if(&#xD;
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!ProficiencyId&#xD;
+              ),&#xD;
+              {},&#xD;
+              #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;ProficiencyId&quot;,&#xD;
+                operator: &quot;in&quot;,&#xD;
+                value: ri!ProficiencyId&#xD;
+              )&#xD;
+            )&#xD;
+          }&#xD;
+        )&#xD;
+      ),&#xD;
+      pagingInfo: local!pagingInfo&#xD;
+    )&#xD;
+  )&#xD;
+).data</definition>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillAddedOn</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>DepartmentId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Year</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ProficiencyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

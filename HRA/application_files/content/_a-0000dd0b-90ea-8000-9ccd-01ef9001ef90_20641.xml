@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_SingleColumEditableGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20641</uuid>
+        <description>Rue For Single Column Editable Grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(&#xD;
+      contents: {&#xD;
+          #&quot;SYSTEM_SYSRULES_dropdownField&quot;(&#xD;
+            placeholderLabel: &quot;--- Select a Skills Category ---&quot;,&#xD;
+            choiceLabels:{local!SkillType.Name},&#xD;
+            choiceValues: {local!SkillType.Id},&#xD;
+            value: ri!SkillType[ri!Index].Id,&#xD;
+            saveInto: {ri!SkillType[ri!Index].Id,&#xD;
+              /*a!save(ri!EmployeeSkills[ri!Index].employeeId,save!value)*/&#xD;
+              /*ri!EmployeeSkills[ri!Index].employeeId*/}&#xD;
+          ),&#xD;
+           #&quot;SYSTEM_SYSRULES_imageField&quot;(&#xD;
+          images: {&#xD;
+            #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+              document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+                &quot;REMOVE&quot;&#xD;
+              ),&#xD;
+              link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(&#xD;
+                value:ri!Index,&#xD;
+                saveInto: {&#xD;
+                  a!save(&#xD;
+                    ri!SkillType,&#xD;
+                    remove(&#xD;
+                      ri!SkillType,&#xD;
+                      save!value&#xD;
+                    )&#xD;
+                  ),&#xD;
+                  a!save(&#xD;
+                    ri!Proficiency,&#xD;
+                    remove(&#xD;
+                      ri!Proficiency,&#xD;
+                      save!value&#xD;
+                    )&#xD;
+                  ),&#xD;
+                  a!save(&#xD;
+                    ri!Skills,&#xD;
+                    remove(&#xD;
+                      ri!Skills,&#xD;
+                      1&#xD;
+                    )&#xD;
+                  )&#xD;
+                  &#xD;
+                }&#xD;
+              )&#xD;
+            )&#xD;
+          },&#xD;
+          size: &quot;ICON&quot;&#xD;
+        )&#xD;
+      }&#xD;
+      )</definition>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_RD_EmployeeDetailsInterface</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19061</uuid>
+        <description>Contains the dashboard for the record of employee details</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= load(
+  local!EmployeeDetails: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      ri!EmployeeId
+    ),
+    {},
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19132&quot;(
+      ri!EmployeeId
+    )
+  ),
+  local!EmployeeSkills: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      ri!EmployeeId
+    ),
+    {},
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19308&quot;(
+      ri!EmployeeId
+    )
+  ),
+  #&quot;SYSTEM_SYSRULES_dashboardLayout&quot;(
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        label: &quot;Basic Details&quot;,
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;First Name&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: index(
+              local!EmployeeDetails,
+              &quot;FirstName&quot;,
+              {}
+            ),
+            readOnly: true
+          ),
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Last Name&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: index(
+              local!EmployeeDetails,
+              &quot;LastName&quot;,
+              {}
+            ),
+            readOnly: true
+          ),
+          #&quot;SYSTEM_SYSRULES_dateField&quot;(
+            label: &quot;Date Of Birth&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: index(
+              local!EmployeeDetails,
+              &quot;DateOfBirth&quot;,
+              {}
+            ),
+            readOnly: true()
+          ),
+          #&quot;SYSTEM_SYSRULES_dateField&quot;(
+            label: &quot;Date of Joining&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: index(
+              local!EmployeeDetails,
+              &quot;DateOfJoin&quot;,
+              {}
+            ),
+            readOnly: true
+          ),
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Reporting Manager&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                rf!ReportingManager
+              ),
+              null(),
+              #&quot;_a-0000d8ee-7d6f-8000-bffe-010000010000_2461&quot;(
+                rf!ReportingManager
+              )
+            ),
+            readOnly: true
+          )
+        },
+        secondColumnContents: {
+          #&quot;SYSTEM_SYSRULES_imageField&quot;(
+            label: &quot;&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            images: if(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                index(
+                  local!EmployeeDetails,
+                  &quot;PictureURL&quot;,
+                  {}
+                )
+              ),
+              if(
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21892&quot;(
+                  index(
+                    local!EmployeeDetails,
+                    &quot;PictureId&quot;,
+                    {}
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+                  document: index(
+                    local!EmployeeDetails,
+                    &quot;PictureId&quot;,
+                    {}
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+                  document: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20879&quot;
+                )
+              ),
+              #&quot;SYSTEM_SYSRULES_webImage&quot;(
+                source: index(
+                  local!EmployeeDetails,
+                  &quot;PictureURL&quot;,
+                  {}
+                )
+              )
+            ),
+            size: &quot;SMALL&quot;
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_textField&quot;(
+        label: &quot;Profile Overview&quot;,
+        labelPosition: &quot;ADJACENT&quot;,
+        value: index(
+          local!EmployeeDetails,
+          &quot;ProfileOverview&quot;,
+          {}
+        ),
+        readOnly: true
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19154&quot;(
+        index(
+          local!EmployeeDetails,
+          &quot;Id&quot;,
+          {}
+        )
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19274&quot;(
+        index(
+          local!EmployeeDetails,
+          &quot;Id&quot;,
+          {}
+        )
+      ),
+      #&quot;a6503467-4d35-4edf-ab03-1ed0cf54f006&quot;(
+        EmployeeId: ri!EmployeeId
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21547&quot;(
+        EmployeeId: ri!EmployeeId
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23137&quot;(
+        EmployeeId: ri!EmployeeId
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23123&quot;(
+        EmployeeId: ri!EmployeeId
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24966&quot;(
+        EmployeeId: ri!EmployeeId
+      )
+    },
+    secondColumnContents: {
+      /* Add components here for a two-column form */
+      
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>EmployeeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

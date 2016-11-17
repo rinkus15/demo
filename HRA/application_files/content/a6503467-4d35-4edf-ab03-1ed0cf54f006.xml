@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeSkillProficiencyDisplayInterface</name>
+        <uuid>a6503467-4d35-4edf-ab03-1ed0cf54f006</uuid>
+        <description>Holds the rule to show skills and proficiency in the record</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!EmployeeSkillsDetails: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      ri!EmployeeId
+    ),
+    {},
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21739&quot;(
+      ri!EmployeeId,
+      true
+    )
+  ),
+  #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+    label: &quot;Skill(s)&quot;,
+    isCollapsible: true,
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+        label: &quot;&quot;,
+        labelPosition: &quot;ABOVE&quot;,
+        emptyGridMessage:&quot;No skill available&quot;,
+        headerCells: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Skill Type&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Skill&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Proficiency&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Certificate&quot;
+          )
+        },
+        columnConfigs: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 1
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 1
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 1
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 1
+          )
+        },
+        rows: {
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+            function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19895&quot;(
+              Index: _,
+              EntityId: index(
+                local!EmployeeSkillsDetails,
+                &quot;SkillId&quot;,
+                {}
+              )
+            ),
+            array: {
+              if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  local!EmployeeSkillsDetails
+                ),
+                {},
+                1 + enumerate(
+                  count(
+                    local!EmployeeSkillsDetails
+                  )
+                )
+              )
+            }
+          )
+        },
+        selectionDisabled: true,
+        selectionSaveInto: {},
+        validations: {}
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>EmployeeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>SurbhiAgrawal</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

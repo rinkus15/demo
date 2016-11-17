@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_WorkExperiencePagingGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19274</uuid>
+        <description>Contains the paging grid for the work experience</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!WorkExperienceDetails: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      ri!EmployeeId
+    ),
+    {},
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22007&quot;(
+      ri!EmployeeId
+    )
+  ),
+  local!Document: if(
+    or(
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+        local!WorkExperienceDetails
+      ),
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+        fn!reject(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            _
+          ),
+          property(
+            local!WorkExperienceDetails,
+            &quot;WorkExperienceId&quot;,
+            null()
+          )
+        )
+      )
+    ),
+    {},
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21939&quot;(
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22514&quot;[2],
+      index(
+        local!WorkExperienceDetails,
+        &quot;WorkExperienceId&quot;,
+        {}
+      )
+    )
+  ),
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,
+    batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[1],
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;id&quot;,
+      ascending: true
+    )
+  ),
+  with(
+    local!datasubset: todatasubset(
+      if(
+        or(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            local!WorkExperienceDetails
+          ),
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            fn!reject(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                _
+              ),
+              property(
+                local!WorkExperienceDetails,
+                &quot;WorkExperienceId&quot;,
+                null()
+              )
+            )
+          )
+        ),
+        {},
+        local!WorkExperienceDetails
+      ),
+      local!pagingInfo
+    ),
+    local!datasubset1: todatasubset(
+      local!Document,
+      local!pagingInfo
+    ),
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;Work Experience(s)&quot;,
+      isCollapsible:true,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_gridField&quot;(
+          labelPosition: &quot;ABOVE&quot;,
+          totalCount: local!datasubset.totalCount,
+          columns: {
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Name&quot;,
+              field: &quot;CompanyName&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;CompanyName&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Designation&quot;,
+              field: &quot;Designation&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;Designation&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Start Date&quot;,
+              field: &quot;WorkingStartDate&quot;,
+              data: apply(
+                fn!todate(
+                  _
+                ),
+                index(
+                  local!datasubset.data,
+                  &quot;WorkingStartDate&quot;,
+                  {}
+                )
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;End Date&quot;,
+              field: &quot;WorkingEndDate&quot;,
+              data: apply(
+                fn!todate(
+                  _
+                ),
+                index(
+                  local!datasubset.data,
+                  &quot;WorkingEndDate&quot;,
+                  {}
+                )
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Certificate&quot;,
+              field: &quot;DocumentId&quot;,
+              data: if(
+                {
+                  apply(
+                    fn!displayvalue,
+                    {
+                      index(
+                        local!datasubset.data,
+                        &quot;WorkExperienceId&quot;,
+                        null()
+                      )
+                    },
+                    {
+                      index(
+                        local!datasubset1.data,
+                        &quot;EntityId&quot;,
+                        null()
+                      )
+                    },
+                    {
+                      index(
+                        local!datasubset1.data,
+                        &quot;DocumentId&quot;,
+                        null()
+                      )
+                    },
+                    null()
+                  )
+                },
+                &quot;Download&quot;,
+                null
+              ),
+              links: if(
+                local!datasubset.totalCount = 0,
+                {},
+                apply(
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23108&quot;(
+                    _
+                  ),
+                  {
+                    apply(
+                      fn!displayvalue,
+                      {
+                        index(
+                          local!datasubset.data,
+                          &quot;WorkExperienceId&quot;,
+                          null()
+                        )
+                      },
+                      {
+                        index(
+                          local!datasubset1.data,
+                          &quot;EntityId&quot;,
+                          null()
+                        )
+                      },
+                      {
+                        index(
+                          local!datasubset1.data,
+                          &quot;DocumentId&quot;,
+                          null()
+                        )
+                      },
+                      null()
+                    )
+                  }
+                )
+              )
+            )
+          },
+          value: local!pagingInfo,
+          saveInto: local!pagingInfo,
+          validations: {}
+        )
+      },
+      secondColumnContents: {}
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>EmployeeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

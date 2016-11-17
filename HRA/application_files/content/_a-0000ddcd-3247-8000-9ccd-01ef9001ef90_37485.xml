@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_TopSkills_Interface</name>
+        <uuid>_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37485</uuid>
+        <description></description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!GridPagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,
+    batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[2],
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;Id&quot;,
+      ascending: true
+    )
+  ),
+  local!SelectedSkillId,
+  local!Department,
+  local!TopSkillAddedOn: year(
+    today()
+  ),
+  local!SkillTypeValue,
+  local!value,
+  local!SkillAddedOn,
+  local!SelectedProficiency,
+  local!ReportingManagerDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22704&quot;(),
+  local!DepartmentDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18827&quot;(),
+  local!SkillId,
+  local!ProficiencyDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19272&quot;(
+    true
+  ),
+  local!Proficiency: {
+    #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37347&quot;[1],
+    #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37347&quot;[2],
+    #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37347&quot;[3]
+  },
+  local!SkillsType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19158&quot;(
+    true()
+  ),
+  local!Skills,
+  local!SelectedSkill,
+  local!SelectedReportingManager,
+  local!SelectedYear,
+  local!pagingInfoTop: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,
+    batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[4]
+  ),
+  local!Availability,
+  local!SelectedTop,
+  with(
+    local!SkillData: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24464&quot;(
+      SkillId: local!SkillId,
+      ProficiencyId: local!Proficiency,
+      DepartmentId: local!Department,
+      SkillAddedOn: local!TopSkillAddedOn
+    ),
+    local!TopSkillsData: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37492&quot;(
+      Year: local!TopSkillAddedOn,
+      DepartmentId: local!Department,
+      Availability: local!Availability,
+      ProficiencyId: local!Proficiency,
+      SkillTypeId: local!SkillTypeValue,
+      OrderByAscending: if(
+        #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+          local!SelectedTop
+        ),
+        false,
+        if(
+          local!SelectedTop &gt; 0,
+          false(),
+          true()
+        )
+      ),
+      ReportingManager: local!SelectedReportingManager
+    ),
+    local!SelectedTopData: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_26414&quot;(
+      EmployeeSkillView: local!TopSkillsData,
+      TopLeastCount: local!SelectedTop
+    ),
+    local!SelectedTopSkillId: if(
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+        local!SelectedTopData
+      ),
+      null(),
+      index(
+        local!SelectedTopData,
+        &quot;SkillId&quot;,
+        null()
+      )
+    ),
+    local!TopSkilldatasubset: todatasubset(
+      local!SelectedTopData,
+      local!pagingInfoTop
+    ).data,
+    local!TopSkillInput: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28085&quot;(),
+    local!departments: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25126&quot;(
+      SkillId: local!SelectedTopSkillId
+    ).SkillName,
+    local!TopSkillUri: getdatasubsetdownloadlinkfromrule(
+      rule: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28090&quot;,
+      input: local!TopSkillInput
+    ),
+    #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          firstColumnContents: {
+            #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+              secondaryButtons: {
+                #&quot;SYSTEM_SYSRULES_ButtonWidget&quot;(
+                  label: &quot;Reset&quot;,
+                  value: &quot;&quot;,
+                  saveInto: {
+                    a!save(
+                      local!value,
+                      null
+                    ),
+                    a!save(
+                      local!SkillId,
+                      null
+                    ),
+                    a!save(
+                      local!SelectedProficiency,
+                      null
+                    ),
+                    a!save(
+                      local!Department,
+                      null
+                    ),
+                    a!save(
+                      local!Proficiency,
+                      null
+                    ),
+                    a!save(
+                      local!SkillAddedOn,
+                      null
+                    ),
+                    a!save(
+                      local!SelectedYear,
+                      null
+                    ),
+                    a!save(
+                      local!SkillTypeValue,
+                      null
+                    ),
+                    a!save(
+                      local!Skills,
+                      null
+                    ),
+                    a!save(
+                      local!SelectedTop,
+                      null
+                    ),
+                    a!save(
+                      local!TopSkillAddedOn,
+                      year(
+                        today()
+                      )
+                    ),
+                    a!save(
+                      local!SelectedReportingManager,
+                      null
+                    ),
+                    a!save(
+                      local!Availability,
+                      null
+                    )
+                  }
+                )
+              }
+            )
+          }
+        ),
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+          label: &quot;Filters&quot;,
+          isCollapsible: true,
+          firstColumnContents: {
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(
+              label: &quot;Skills Type&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              choiceLabels: fn!index(
+                local!SkillsType,
+                &quot;Name&quot;,
+                {}
+              ),
+              choiceValues: fn!index(
+                local!SkillsType,
+                &quot;Id&quot;,
+                {}
+              ),
+              value: local!SkillTypeValue,
+              saveInto: {
+                local!SkillTypeValue,
+                a!save(
+                  local!value,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkillId,
+                  null
+                ),
+                a!save(
+                  local!SelectedProficiency,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkill,
+                  null
+                ),
+                a!save(
+                  local!Skills,
+                  if(
+                    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                      save!value
+                    ),
+                    {},
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20878&quot;(
+                      save!value,
+                      true()
+                    )
+                  )
+                ),
+                a!save(
+                  local!SkillId,
+                  null
+                )
+              },
+              validations: {}
+            ),
+            /*if(
+                  rule!Utils_CheckIsNull(
+                    local!Skills
+                  ),
+                  a!multipleDropdownField(
+                    label: &quot;Skills&quot;,
+                    labelPosition: &quot;ADJACENT&quot;,
+                    choiceLabels: {
+                      &quot; &quot;
+                    },
+                    choiceValues: {
+                      &quot; &quot;
+                    },
+                    saveInto: {},
+                    disabled: true,
+                    validations: {}
+                  ),
+                  a!multipleDropdownField(
+                    label: &quot;Skills&quot;,
+                    labelPosition: &quot;ADJACENT&quot;,
+                    choiceLabels: {
+                      fn!index(
+                        local!Skills,
+                        &quot;Skill&quot;,
+                        {}
+                      )
+                    },
+                    choiceValues: {
+                      fn!index(
+                        local!Skills,
+                        &quot;Id&quot;,
+                        {}
+                      )
+                    },
+                    value: local!SkillId,
+                    saveInto: {
+                      local!SkillId,
+                      a!save(
+                        local!value,
+                        null
+                      ),
+                      a!save(
+                        local!SelectedSkillId,
+                        null
+                      ),
+                      a!save(
+                        local!SelectedSkill,
+                        null
+                      )
+                    },
+                    validations: {}
+                  )
+                ),*/
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Top / Least Skills&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholderLabel: &quot;----Please Select----&quot;,
+              choiceLabels: {
+                &quot;Top 5 Skills&quot;,
+                &quot;Top 10 Skills&quot;,
+                &quot;Top 15 Skills&quot;,
+                &quot;Top 20 Skills&quot;,
+                &quot;Least 5 Skills&quot;,
+                &quot;Least 10 Skills&quot;,
+                &quot;Least 15 Skills&quot;,
+                &quot;Least 20 Skills&quot;
+              },
+              choiceValues: {
+                5,
+                10,
+                15,
+                20,
+                - 5,
+                - 10,
+                - 15,
+                - 20
+              },
+              value: local!SelectedTop,
+              saveInto: {
+                local!SelectedTop,
+                a!save(
+                  local!value,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkillId,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkill,
+                  null
+                ),
+                a!save(
+                  local!SelectedProficiency,
+                  null
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(
+              label: &quot;Proficiency&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              choiceLabels: index(
+                local!ProficiencyDetails,
+                &quot;Name&quot;,
+                {}
+              ),
+              choiceValues: index(
+                local!ProficiencyDetails,
+                &quot;Id&quot;,
+                {}
+              ),
+              value: local!Proficiency,
+              saveInto: {
+                a!save(
+                  local!Proficiency,
+                  save!value
+                ),
+                a!save(
+                  local!value,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkillId,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkill,
+                  null
+                ),
+                a!save(
+                  local!SelectedProficiency,
+                  null
+                )
+              }
+            )
+          },
+          secondColumnContents: {
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Year&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholderLabel: &quot;--- Select a Year ---&quot;,
+              choiceLabels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24982&quot;,
+              choiceValues: {
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24982&quot;
+              },
+              value: local!TopSkillAddedOn,
+              saveInto: {
+                local!TopSkillAddedOn,
+                a!save(
+                  local!value,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkillId,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkill,
+                  null
+                ),
+                a!save(
+                  local!SelectedProficiency,
+                  null
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(
+              label: &quot;Department&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              choiceLabels: local!DepartmentDetails.Name,
+              choiceValues: local!DepartmentDetails.Id,
+              value: local!Department,
+              saveInto: {
+                a!save(
+                  local!Department,
+                  save!value
+                ),
+                a!save(
+                  local!value,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkillId,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkill,
+                  null
+                ),
+                a!save(
+                  local!SelectedProficiency,
+                  null
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+              label: &quot;Reporting Manager&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              placeholderLabel: &quot;--- Select a Reporting Manager ---&quot;,
+              choiceLabels: {
+                apply(
+                  #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37208&quot;(
+                    _
+                  ),
+                  union(
+                    local!ReportingManagerDetails.ReportingManager,
+                    local!ReportingManagerDetails.ReportingManager
+                  )
+                )/*getdistinctusers(
+                    topeople(
+                      cons!HRA_REPORTING_MANAGER_GROUP
+                    )
+                  )*/
+                
+              },
+              choiceValues: {
+                union(
+                  local!ReportingManagerDetails.ReportingManager,
+                  local!ReportingManagerDetails.ReportingManager
+                )/*getdistinctusers(
+                    topeople(
+                      cons!HRA_REPORTING_MANAGER_GROUP
+                    )
+                  )*/
+                
+              },
+              value: local!SelectedReportingManager,
+              saveInto: {
+                a!save(
+                  local!SelectedReportingManager,
+                  save!value
+                ),
+                a!save(
+                  local!value,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkillId,
+                  null
+                ),
+                a!save(
+                  local!SelectedSkill,
+                  null
+                ),
+                a!save(
+                  local!SelectedProficiency,
+                  null
+                )
+              }
+            ),
+            #&quot;SYSTEM_SYSRULES_radioButtonField&quot;(
+              label: &quot;Availability&quot;,
+              labelPosition: &quot;ADJACENT&quot;,
+              choiceLabels: {
+                &quot;Yes&quot;,
+                &quot;No&quot;
+              },
+              choiceValues: {
+                true,
+                false
+              },
+              value: local!Availability,
+              saveInto: local!Availability
+              
+            )
+          }
+        ),
+        if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            local!SelectedTopData
+          ),
+          {},
+          {
+            if(
+              or(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  local!TopSkillAddedOn
+                ),
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  local!TopSkillUri
+                )
+              ),
+              {},
+              #&quot;SYSTEM_SYSRULES_linkField&quot;(
+                links: {
+                  /*a!dynamicLink(
+                      label: &quot;Export to Excel&quot;,
+                      value: true(),
+                      saveInto: {
+                        a!startProcess(
+                          processModel: cons!HRA_EXPORT_TO_EXCEL_PM,
+                          processParameters: {
+                            EmployeeSkills: a!fromJson(
+                              local!TopSkillInput
+                            )
+                          },
+                          onSuccess: &quot;Success&quot;,
+                          onError: &quot;Error&quot;
+                        ),
+                        a!save(
+                          local!IsDocument,
+                          true()
+                        )
+                      }
+                    ),*/
+                  #&quot;SYSTEM_SYSRULES_safeLink&quot;(
+                    label: &quot;Export to Excel&quot;,
+                    uri: local!TopSkillUri
+                  )
+                },
+                align: &quot;RIGHT&quot;
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_columnChartField&quot;(
+              label: &quot;&quot;,
+              labelPosition: &quot;ABOVE&quot;,
+              categories: local!departments,
+              series: {
+                if(
+                  or(
+                    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                      local!Proficiency
+                    ),
+                    count(
+                      local!Proficiency
+                    ) = 3
+                  ),
+                  #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                    function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28306&quot;(
+                      _
+                    ),
+                    array: {
+                      1,
+                      2,
+                      3
+                    }
+                  ),
+                  if(
+                    count(
+                      local!Proficiency
+                    ) = 1,
+                    {
+                      #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                        function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28306&quot;(
+                          _
+                        ),
+                        array: {
+                          local!Proficiency
+                        }
+                      )
+                    },
+                    #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                      function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28306&quot;(
+                        _
+                      ),
+                      array: {
+                        local!Proficiency
+                      }
+                    )
+                  )
+                )
+              },
+              xAxisTitle: &quot;Skills&quot;,
+              yAxisTitle: &quot;Proficency&quot;,
+              stacking: &quot;NORMAL&quot;,
+              showLegend: true,
+              showTooltips: true
+            )
+          }
+        )
+      }
+    )
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

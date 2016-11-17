@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>Utils_GetUserFullName</name>
+        <uuid>_a-0000d8ee-7d6f-8000-bffe-010000010000_2461</uuid>
+        <description>Get the full name of user</description>
+        <parentUuid>_a-0000d8e7-e0f9-8000-bffe-010000010000_2405</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>/*Get the full name of user*/
+= if(
+  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+    ri!username
+  ),
+  &quot; &quot;,
+  if(
+    isusernametaken(
+      ri!username
+    ),
+    if(
+      isuseractive(
+        ri!username
+      ),
+      user(
+        touser(
+          ri!username
+        ),
+        &quot;firstName&quot;
+      ) &amp; &quot; &quot; &amp; user(
+        touser(
+          ri!username
+        ),
+        &quot;lastName&quot;
+      ),
+      tostring(
+        ri!username
+      )
+    ),
+    tostring(
+      ri!username
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>username</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

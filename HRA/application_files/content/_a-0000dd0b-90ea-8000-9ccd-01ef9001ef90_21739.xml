@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeViewSkillQE</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21739</uuid>
+        <description>Returns all the skills associated to Employee</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(&#xD;
+    1,&#xD;
+    - 1&#xD;
+  ),&#xD;
+&#xD;
+#&quot;SYSTEM_SYSRULES_queryEntity&quot;(&#xD;
+    entity: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20521&quot;,&#xD;
+    query: #&quot;SYSTEM_SYSRULES_query&quot;(&#xD;
+      aggregation: #&quot;SYSTEM_SYSRULES_queryAggregation&quot;(aggregationColumns: {&#xD;
+        #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;SkillId&quot;,aggregationFunction:&quot;MAX&quot;),       &#xD;
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;SkillName&quot;,isGrouping:true),&#xD;
+          #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;SkillType&quot;,isGrouping:true),&#xD;
+		  #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;SkillProficiency&quot;,isGrouping:true),&#xD;
+		  #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;Percentage&quot;,isGrouping:true),&#xD;
+		  #&quot;SYSTEM_SYSRULES_queryAggregationColumn&quot;(field:&quot;EmployeeSkillIsApproved&quot;,isGrouping:true)&#xD;
+          }),&#xD;
+      logicalExpression: if(&#xD;
+        and(&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!EId&#xD;
+          ),&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            ri!EmployeeSkillIsApproved&#xD;
+          )&#xD;
+        ),&#xD;
+        null,&#xD;
+        #&quot;SYSTEM_SYSRULES_queryLogicalExpression&quot;(&#xD;
+          operator: &quot;AND&quot;,&#xD;
+          filters: {&#xD;
+            if(&#xD;
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!EId&#xD;
+              ),&#xD;
+              {},&#xD;
+              #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;EId&quot;,&#xD;
+                operator: &quot;=&quot;,&#xD;
+                value: ri!EId&#xD;
+              )&#xD;
+            ),&#xD;
+            if(&#xD;
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                ri!EmployeeSkillIsApproved&#xD;
+              ),&#xD;
+              {},&#xD;
+            #&quot;SYSTEM_SYSRULES_queryFilter&quot;(&#xD;
+                field: &quot;EmployeeSkillIsApproved&quot;,&#xD;
+                operator: &quot;=&quot;,&#xD;
+                value: ri!EmployeeSkillIsApproved&#xD;
+              ))&#xD;
+		}&#xD;
+        )&#xD;
+      ),&#xD;
+      pagingInfo: local!pagingInfo&#xD;
+    )&#xD;
+  )&#xD;
+).data</definition>
+        <namedTypedValue>
+            <name>EId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeSkillIsApproved</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

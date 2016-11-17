@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_YearProficiency</name>
+        <uuid>_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37639</uuid>
+        <description>Contains the value for the proficiency year</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!Temp: 
+    index(
+      index(
+        ri!data,
+        whereContains(
+          ri!SkillName,
+          touniformstring(
+            reject(
+              fn!isnull,
+              union(
+                index(
+                  index(
+                    ri!data,
+                    whereContains(
+                      ri!Year,
+                      tointeger(
+                        index(
+                          ri!data,
+                          &quot;SkillAddedOn&quot;,
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  &quot;SkillName&quot;,
+                  {}
+                ),
+                index(
+                  index(
+                    ri!data,
+                    whereContains(
+                      ri!Year,
+                      tointeger(
+                        index(
+                          ri!data,
+                          &quot;SkillAddedOn&quot;,
+                          {}
+                        )
+                      )
+                    )
+                  ),
+                  &quot;SkillName&quot;,
+                  {}
+                )
+              )
+            )
+          )
+        )
+      ),
+      &quot;ProficiencyId&quot;,
+      {}
+    
+  ),
+  if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      local!Temp
+    ),
+    0,
+    local!Temp
+  )
+)</definition>
+        <namedTypedValue>
+            <name>SkillName</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Year</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>data</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

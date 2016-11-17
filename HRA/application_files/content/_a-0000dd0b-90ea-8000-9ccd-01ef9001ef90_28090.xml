@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetExcelTopSkillsChartDatasubset</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28090</uuid>
+        <description>Contains rule to get uri for export to excel link</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: 1,
+    batchSize: - 1,
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;FullName&quot;,
+      ascending: true
+    )
+  ),
+  /* local!SelectedTop:5,*/
+  local!data: #&quot;SYSTEM_SYSRULES_fromJson&quot;(
+    ri!Input
+  ),
+  local!ProficiencyName: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19682&quot;(
+    index(
+      local!data,
+      &quot;ProficiencyId&quot;,
+      {}
+    )
+  ).Name,
+  'type!{urn:appian:plugin:datasubsetdownload:types}ExportableDataSubset'(
+    datasubset: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28100&quot;(
+      SkillId: index(
+        local!data,
+        &quot;SkillId&quot;,
+        {}
+      ),
+      Year: index(
+        local!data,
+        &quot;Year&quot;,
+        {}
+      ),
+      DepartmentId: index(
+        local!data,
+        &quot;DepartmentId&quot;,
+        {}
+      ),
+      ProficiencyId: index(
+        local!data,
+        &quot;ProficiencyId&quot;,
+        {}
+      )
+    ),
+    fieldNames: {
+      &quot;SkillName&quot;,
+      local!ProficiencyName
+    },
+    fieldLabels: {
+      &quot;Skill&quot;,
+      local!ProficiencyName
+    },
+    filename: &quot;Top  Skills&quot;
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Input</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

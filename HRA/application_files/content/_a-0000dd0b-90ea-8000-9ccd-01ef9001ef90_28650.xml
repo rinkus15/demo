@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <constant>
+        <name>HRA_All_Process_IDS</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28650</uuid>
+        <description>holds process model ids for HRA applictions:&#xD;
+1. Employee full text search&#xD;
+2. Show Interest.&#xD;
+3. Look Up Employee.&#xD;
+4. Update Employee.&#xD;
+5. Contact Reporting Manager.&#xD;
+6. HRA Write Multiple details To.&#xD;
+7. Add Skills.&#xD;
+8. Add Certification.&#xD;
+9. Endorse Employee.&#xD;
+10 Job Opening.&#xD;
+11 Add Recommendation&#xD;
+12 Employee Skills to manager&#xD;
+13 HRA Job Posting</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18597</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <typedValue>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+            <value>
+                <el>3157</el>
+                <el>3104</el>
+                <el>2565</el>
+                <el>2456</el>
+                <el>3091</el>
+                <el>2451</el>
+                <el>2636</el>
+                <el>2641</el>
+                <el>2604</el>
+                <el>2562</el>
+                <el>2784</el>
+                <el>2475</el>
+                <el>2572</el>
+            </value>
+        </typedValue>
+    </constant>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

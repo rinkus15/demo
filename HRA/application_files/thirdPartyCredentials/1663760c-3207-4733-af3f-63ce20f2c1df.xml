@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<thirdPartyCredentialsHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <externalSystem>
+        <a:uuid>1663760c-3207-4733-af3f-63ce20f2c1df</a:uuid>
+        <a:name>ExcelPlugin</a:name>
+        <a:key>excelplugin</a:key>
+        <a:attribute>
+            <a:key>username</a:key>
+            <a:name>Username</a:name>
+            <a:showValueOnUi>true</a:showValueOnUi>
+        </a:attribute>
+        <a:attribute>
+            <a:key>password</a:key>
+            <a:name>Password</a:name>
+            <a:showValueOnUi>true</a:showValueOnUi>
+        </a:attribute>
+        <a:showPerUser>false</a:showPerUser>
+        <a:testExpression>true()</a:testExpression>
+    </externalSystem>
+</thirdPartyCredentialsHaul>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_UpdateSkillsEditableGrid</name>
+        <uuid>_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_37949</uuid>
+        <description>Holds the value for the update skills editable grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!test,
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+    contents: {
+      #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+        label: &quot;&quot;,
+        value: index(
+          ri!EmployeeSkillsView[ri!Index],
+          &quot;SkillType&quot;,
+          {}
+        )
+      ),
+      #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+        label: &quot;&quot;,
+        value: index(
+          ri!EmployeeSkillsView[ri!Index],
+          &quot;SkillName&quot;,
+          {}
+        ),
+        saveInto: {
+          a!save(
+            ri!EmployeeSkills[ri!Index].SkillId,
+            ri!EmployeeSkillsView[ri!Index].SkilldvId
+          ),
+          a!save(
+            ri!SkillId[ri!Index],
+            ri!EmployeeSkillsView[ri!Index].SkillId
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        label: &quot;&quot;,
+        placeholderLabel: &quot;--Select Proficiency--&quot;,
+        choiceLabels: {
+          index(
+            local!ProficiencyValue,
+            &quot;Name&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!ProficiencyValue,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: index(
+          ri!EmployeeSkillsView[ri!Index],
+          &quot;ProficiencyId&quot;,
+          {}
+        ),
+        saveInto: {
+          ri!EmployeeSkillsView[ri!Index].ProficiencyId,
+          a!save(
+            ri!EmployeeSkills[ri!Index].ProficiencyId,
+            save!value
+          ),
+          a!save(
+            ri!ProficiencyId[ri!Index],
+            save!value
+          ),
+          a!save(
+            ri!EmployeeSkills[ri!Index].SkillId,
+            ri!EmployeeSkillsView[ri!Index].SkilldvId
+          ),
+          a!save(
+            ri!SkillId[ri!Index],
+            ri!EmployeeSkillsView[ri!Index].SkilldvId
+          )
+        }
+      )
+      
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeSkillsView</name>
+            <type>
+                <name>HRA_EmployeeView?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ProficiencyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeSkills</name>
+            <type>
+                <name>HRA_EmployeeSkills?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

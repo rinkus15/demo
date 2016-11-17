@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeTrainingReportInterface</name>
+        <uuid>_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_37777</uuid>
+        <description>Contains the value for the employee training report interface</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(&#xD;
+    startIndex: 1,&#xD;
+    batchSize: 10,&#xD;
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(&#xD;
+      field: &quot;FullName&quot;,&#xD;
+      ascending: true&#xD;
+    )&#xD;
+  ),&#xD;
+  local!SkillsType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19158&quot;(&#xD;
+    true()&#xD;
+  ),&#xD;
+  local!Proficiency: {&#xD;
+    #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37347&quot;[1],&#xD;
+    #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37347&quot;[2],&#xD;
+    #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37347&quot;[3]&#xD;
+  },&#xD;
+  local!SkillS,&#xD;
+  local!value,&#xD;
+  local!ProficiencyDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19272&quot;(&#xD;
+    true&#xD;
+  ),&#xD;
+  local!TrainingDetails:#&quot;_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_37767&quot;(), &#xD;
+  local!DepartmentDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18827&quot;(),&#xD;
+  local!SkillTypeValue,&#xD;
+  local!SkillId,&#xD;
+  local!DepartmentId,&#xD;
+  local!ProficiencyId,&#xD;
+  local!TrainingId,&#xD;
+  local!TrainingStatus,&#xD;
+  with(&#xD;
+    local!data: #&quot;_a-0000ddda-7c86-8000-9ccd-01ef9001ef90_37756&quot;(&#xD;
+      SkillId: local!SkillId,&#xD;
+      DepartmentId: local!DepartmentId,&#xD;
+      ProficiencyId: local!ProficiencyId,&#xD;
+      TrainingId: local!TrainingId,&#xD;
+      TrainingStatus: local!TrainingStatus&#xD;
+    ),&#xD;
+    local!datasubset: todatasubset(&#xD;
+      local!data,&#xD;
+      local!pagingInfo&#xD;
+    ),&#xD;
+    {&#xD;
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+        label:&quot;Filters&quot;,&#xD;
+        firstColumnContents: {&#xD;
+          #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+            label: &quot;Skills Type&quot;,&#xD;
+            labelPosition: &quot;ADJACENT&quot;,&#xD;
+            choiceLabels: fn!index(&#xD;
+              local!SkillsType,&#xD;
+              &quot;Name&quot;,&#xD;
+              {}&#xD;
+            ),&#xD;
+            choiceValues: fn!index(&#xD;
+              local!SkillsType,&#xD;
+              &quot;Id&quot;,&#xD;
+              {}&#xD;
+            ),&#xD;
+            value: local!SkillTypeValue,&#xD;
+            saveInto: {&#xD;
+              local!SkillTypeValue,&#xD;
+              a!save(&#xD;
+                local!value,&#xD;
+                null&#xD;
+              ),&#xD;
+              a!save(&#xD;
+                local!Skills,&#xD;
+                if(&#xD;
+                  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+                    save!value&#xD;
+                  ),&#xD;
+                  {},&#xD;
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20878&quot;(&#xD;
+                    save!value,&#xD;
+                    true()&#xD;
+                  )&#xD;
+                )&#xD;
+              )&#xD;
+            },&#xD;
+            validations: {}&#xD;
+          ),&#xD;
+          if(&#xD;
+            #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+              local!Skills&#xD;
+            ),&#xD;
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+              label: &quot;Skills&quot;,&#xD;
+              labelPosition: &quot;ADJACENT&quot;,&#xD;
+              choiceLabels: {&#xD;
+                &quot; &quot;&#xD;
+              },&#xD;
+              choiceValues: {&#xD;
+                &quot; &quot;&#xD;
+              },&#xD;
+              saveInto: {},&#xD;
+              disabled: true,&#xD;
+              validations: {}&#xD;
+            ),&#xD;
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+              label: &quot;Skills&quot;,&#xD;
+              labelPosition: &quot;ADJACENT&quot;,&#xD;
+              choiceLabels: {&#xD;
+                fn!index(&#xD;
+                  local!Skills,&#xD;
+                  &quot;Skill&quot;,&#xD;
+                  {}&#xD;
+                )&#xD;
+              },&#xD;
+              choiceValues: {&#xD;
+                fn!index(&#xD;
+                  local!Skills,&#xD;
+                  &quot;Id&quot;,&#xD;
+                  {}&#xD;
+                )&#xD;
+              },&#xD;
+              value: local!SkillId,&#xD;
+              saveInto: {&#xD;
+                local!SkillId&#xD;
+                &#xD;
+              },&#xD;
+              validations: {}&#xD;
+            )&#xD;
+           &#xD;
+          ),&#xD;
+           #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+                label: &quot;Training Programs&quot;,&#xD;
+                labelPosition: &quot;ADJACENT&quot;,&#xD;
+                choiceLabels: local!TrainingDetails.Description,&#xD;
+                choiceValues: local!TrainingDetails.Id,&#xD;
+                value: local!TrainingId,&#xD;
+                saveInto: {&#xD;
+                  a!save(&#xD;
+                    local!TrainingId,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                }&#xD;
+              )&#xD;
+        },&#xD;
+        secondColumnContents: {&#xD;
+          #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+            label: &quot;Proficiency&quot;,&#xD;
+            labelPosition: &quot;ADJACENT&quot;,&#xD;
+            choiceLabels: index(&#xD;
+              local!ProficiencyDetails,&#xD;
+              &quot;Name&quot;,&#xD;
+              {}&#xD;
+            ),&#xD;
+            choiceValues: index(&#xD;
+              local!ProficiencyDetails,&#xD;
+              &quot;Id&quot;,&#xD;
+              {}&#xD;
+            ),&#xD;
+            value: local!ProficiencyId,&#xD;
+            saveInto: {&#xD;
+              a!save(&#xD;
+                local!ProficiencyId,&#xD;
+                save!value&#xD;
+              )&#xD;
+            }&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+                label: &quot;Department&quot;,&#xD;
+                labelPosition: &quot;ADJACENT&quot;,&#xD;
+                choiceLabels: local!DepartmentDetails.Name,&#xD;
+                choiceValues: local!DepartmentDetails.Id,&#xD;
+                value: local!DepartmentId,&#xD;
+                saveInto: {&#xD;
+                  a!save(&#xD;
+                    local!DepartmentId,&#xD;
+                    save!value&#xD;
+                  )&#xD;
+                }&#xD;
+              ),&#xD;
+        }&#xD;
+      ),&#xD;
+      #&quot;SYSTEM_SYSRULES_gridField&quot;(&#xD;
+        totalCount: local!datasubset.totalCount,&#xD;
+        columns: {&#xD;
+          #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+            label: &quot;Full Name&quot;,&#xD;
+            field: &quot;FullName&quot;,&#xD;
+            data: index(&#xD;
+              local!datasubset.data,&#xD;
+              &quot;FullName&quot;,&#xD;
+              null&#xD;
+            )&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+            label: &quot;Training Description&quot;,&#xD;
+            field: &quot;TrainingDescription&quot;,&#xD;
+            data: index(&#xD;
+              local!datasubset.data,&#xD;
+              &quot;TrainingDescription&quot;,&#xD;
+              null&#xD;
+            )&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(&#xD;
+            label: &quot;Training Status&quot;,&#xD;
+            field: &quot;TrainingStatus&quot;,&#xD;
+            data: index(&#xD;
+              local!datasubset.data,&#xD;
+              &quot;TrainingStatus&quot;,&#xD;
+              null&#xD;
+            )&#xD;
+          ),&#xD;
+          /*a!gridTextColumn(&#xD;
+            label: &quot;Department Name&quot;,&#xD;
+            field: &quot;DepartmentName&quot;,&#xD;
+            data: index(&#xD;
+              local!datasubset.data,&#xD;
+              &quot;DepartmentName&quot;,&#xD;
+              null&#xD;
+            )&#xD;
+          )*/&#xD;
+        },&#xD;
+        value: local!pagingInfo,&#xD;
+        saveInto: local!pagingInfo&#xD;
+      )&#xD;
+    }&#xD;
+  )&#xD;
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

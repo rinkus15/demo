@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeReportPagingGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24516</uuid>
+        <description>Contains the value for the employee report paging grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  with(
+    local!newdata: if(
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+        ri!SkilldvId
+      ),
+      null,
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24772&quot;(
+        SkilldvId: ri!SkilldvId,
+        DepartmentId: local!Department,
+        Year: ri!Year,
+        ProficiencyId: local!Proficiency,
+        SelectedProficiency: ri!SelectedProficiency,
+        ReportingManager: local!SelectedReportingManager,
+        SkillAddedOn:ri!SkillAddedOn
+      )
+    ),
+    local!Department1: substitute(
+      tostring(
+        local!Department
+      ),
+      &quot;;&quot;,
+      &quot;,&quot;
+    ),
+    local!Proficiency1: substitute(
+      tostring(
+        local!Proficiency
+      ),
+      &quot;;&quot;,
+      &quot;,&quot;
+    ),
+    local!SelectedProficiency1: substitute(
+      tostring(
+        ri!SelectedProficiency
+      ),
+      &quot;;&quot;,
+      &quot;,&quot;
+    ),
+    local!DataSubsetGrid: todatasubset(
+      local!newdata,
+      local!GridPagingInfo
+    ),
+    local!GridInput: if(
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+        ri!SelectedProficiency
+      ),
+      concat(
+        &quot;{&quot;&quot;SkillId&quot;&quot;: &quot;,
+        &quot;[&quot;,
+        ri!SkilldvId,
+        &quot;]&quot;,
+        &quot; , &quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;Year&quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;: &quot;,
+        &quot;[&quot;,
+        ri!Year,
+        &quot;]&quot;,
+        &quot; , &quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;DepartmentId&quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;: &quot;,
+        &quot;[&quot;,
+        local!Department1,
+        &quot;]&quot;,
+        &quot; , &quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;ProficiencyId&quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;: &quot;,
+        &quot;[&quot;,
+        local!Proficiency1,
+        &quot;]&quot;,
+        &quot;}&quot;
+      ),
+      concat(
+        &quot;{&quot;&quot;SkillId&quot;&quot;: &quot;,
+        &quot;[&quot;,
+        ri!SkilldvId,
+        &quot;]&quot;,
+        &quot; , &quot;,
+         &quot;&quot;&quot;&quot;,
+        &quot;Year&quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;: &quot;,
+        &quot;[&quot;,
+        ri!Year,
+        &quot;]&quot;,
+        &quot; , &quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;SkillAddedOn&quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;: &quot;,
+        &quot;[&quot;,
+        ri!SkillAddedOn,
+        &quot;]&quot;,
+        &quot; , &quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;DepartmentId&quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;: &quot;,
+        &quot;[&quot;,
+        local!Department1,
+        &quot;]&quot;,
+        &quot; , &quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;SelectedProficiencyId&quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;: &quot;,
+        local!SelectedProficiency1,
+        &quot; , &quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;ProficiencyId&quot;,
+        &quot;&quot;&quot;&quot;,
+        &quot;: &quot;,
+        &quot;[&quot;,
+        local!Proficiency1,
+        &quot;]&quot;,
+        &quot;}&quot;
+      )
+    ),
+    local!GridUri: getdatasubsetdownloadlinkfromrule(
+      rule: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_27979&quot;,
+      input: local!GridInput
+    ),
+    {
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        secondColumnContents: {
+          #&quot;SYSTEM_SYSRULES_linkField&quot;(
+            links: {
+              #&quot;SYSTEM_SYSRULES_safeLink&quot;(
+                label: &quot;Export to Excel&quot;,
+                uri: local!GridUri
+              )
+            },
+            align: &quot;RIGHT&quot;
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_gridField&quot;(
+            label: &quot;&quot;,
+            labelPosition: &quot;ABOVE&quot;,
+            totalCount: local!DataSubsetGrid.totalCount,
+            columns: {
+              #&quot;SYSTEM_SYSRULES_gridImageColumn&quot;(
+                label: &quot;&quot;,
+                field: &quot;PictureId&quot;,
+                data: {
+                  apply(
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20925&quot;(
+                      _
+                    ),
+                    index(
+                      local!DataSubsetGrid.data,
+                      &quot;PictureId&quot;,
+                      {}
+                    )
+                  )
+                }
+              ),
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Full Name&quot;,
+                field: &quot;FullName&quot;,
+                data: {
+                  index(
+                    local!DataSubsetGrid.data,
+                    &quot;FullName&quot;,
+                    {}
+                  )
+                },
+                links: if(
+                  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                    index(
+                      local!DataSubsetGrid.data,
+                      &quot;EId&quot;,
+                      {}
+                    )
+                  ),
+                  {},
+                  #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                    function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20839&quot;(
+                      Index: _,
+                      EmployeeId: index(
+                        local!DataSubsetGrid.data,
+                        &quot;EId&quot;,
+                        {}
+                      )
+                    ),
+                    array: 1 + enumerate(
+                      count(
+                        index(
+                          local!DataSubsetGrid.data,
+                          &quot;EId&quot;,
+                          {}
+                        )
+                      )
+                    )
+                  )
+                )
+              ),
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Department&quot;,
+                field: &quot;Department&quot;,
+                data: {
+                  index(
+                    local!DataSubsetGrid.data,
+                    &quot;Department&quot;,
+                    {}
+                  )
+                }
+              ),
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Date of Joining&quot;,
+                field: &quot;DateOfJoining&quot;,
+                data: {
+                  apply(
+                    fn!todate(
+                      _
+                    ),
+                    index(
+                      local!DataSubsetGrid.data,
+                      &quot;DateOfJoining&quot;,
+                      {}
+                    )
+                  )
+                }
+              ),
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Proficiency&quot;,
+                field: &quot;SkillProficiency&quot;,
+                data: {
+                  index(
+                    local!DataSubsetGrid.data,
+                    &quot;SkillProficiency&quot;,
+                    {}
+                  )
+                }
+              ),
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Total Work Experience &quot;,
+                field: &quot;TotalWorkExperience&quot;,
+                data: {
+                  apply(
+                    #&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(
+                      _
+                    ),
+                    index(
+                      local!DataSubsetGrid.data,
+                      &quot;TotalWorkExperience&quot;,
+                      {}
+                    )
+                  )
+                }
+              )
+            },
+            value: local!GridPagingInfo,
+            saveInto: {
+              local!GridPagingInfo
+            },
+            validations: {}
+          ),
+          
+        }
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Year</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkilldvId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SelectedProficiency</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillAddedOn</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

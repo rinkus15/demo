@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_ReportSkillUsageDetail</name>
+        <uuid>353e3c5c-0c34-48a9-ad97-8f146e408673</uuid>
+        <description></description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(&#xD;
+    startIndex: 1,&#xD;
+    batchSize: - 1&#xD;
+  ),&#xD;
+  local!SkillDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19261&quot;(&#xD;
+    true()&#xD;
+  ),&#xD;
+  local!ProficiencyDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19272&quot;(&#xD;
+    true&#xD;
+  ),&#xD;
+  local!DepartmentDetails: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18827&quot;(),&#xD;
+  local!value,&#xD;
+  local!SkillId,&#xD;
+  local!Department,&#xD;
+  local!SkillAddedOn,&#xD;
+  local!Proficiency,&#xD;
+  with(&#xD;
+    &#xD;
+    local!data2016: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25638&quot;(&#xD;
+      SkillId: local!SkillId,&#xD;
+      SkillAddedOn: 2016,&#xD;
+      DepartmentId: local!Department,&#xD;
+      Year: 2016,&#xD;
+      ProficiencyId: local!Proficiency&#xD;
+    ),&#xD;
+    &#xD;
+    #&quot;SYSTEM_SYSRULES_formLayout&quot;(&#xD;
+      label: &quot;&quot;,&#xD;
+      firstColumnContents: {&#xD;
+        #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+          label: &quot;Filters&quot;,&#xD;
+          firstColumnContents: {&#xD;
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+              label: &quot;Skills&quot;,&#xD;
+              labelPosition: &quot;ADJACENT&quot;,&#xD;
+              choiceLabels: index(&#xD;
+                local!SkillDetails,&#xD;
+                &quot;Skill&quot;,&#xD;
+                {}&#xD;
+              ),&#xD;
+              choiceValues: index(&#xD;
+                local!SkillDetails,&#xD;
+                &quot;Id&quot;,&#xD;
+                {}&#xD;
+              ),&#xD;
+              value: local!SkillId,&#xD;
+              saveInto: a!save(&#xD;
+                local!SkillId,&#xD;
+                save!value&#xD;
+              )&#xD;
+            ),&#xD;
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+              label: &quot;Department&quot;,&#xD;
+              labelPosition: &quot;ADJACENT&quot;,&#xD;
+              choiceLabels: local!DepartmentDetails.Name,&#xD;
+              choiceValues: local!DepartmentDetails.Id,&#xD;
+              value: local!Department,&#xD;
+              saveInto: a!save(&#xD;
+                local!Department,&#xD;
+                save!value&#xD;
+              )&#xD;
+            )&#xD;
+          },&#xD;
+          secondColumnContents: {&#xD;
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+              label: &quot;Proficiency&quot;,&#xD;
+              labelPosition: &quot;ADJACENT&quot;,&#xD;
+              choiceLabels: index(&#xD;
+                local!ProficiencyDetails,&#xD;
+                &quot;Name&quot;,&#xD;
+                {}&#xD;
+              ),&#xD;
+              choiceValues: index(&#xD;
+                local!ProficiencyDetails,&#xD;
+                &quot;Id&quot;,&#xD;
+                {}&#xD;
+              ),&#xD;
+              value: local!Proficiency,&#xD;
+              saveInto: a!save(&#xD;
+                local!Proficiency,&#xD;
+                save!value&#xD;
+              )&#xD;
+            ),&#xD;
+            #&quot;SYSTEM_SYSRULES_multipleDropdownField&quot;(&#xD;
+              label: &quot;Year&quot;,&#xD;
+              labelPosition: &quot;ADJACENT&quot;,&#xD;
+              choiceLabels: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24982&quot;,&#xD;
+              choiceValues: {&#xD;
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24982&quot;&#xD;
+              },&#xD;
+              value: local!SkillAddedOn,&#xD;
+              saveInto: a!save(&#xD;
+                local!SkillAddedOn,&#xD;
+                save!value&#xD;
+              )&#xD;
+            )&#xD;
+          }&#xD;
+        ),&#xD;
+      &#xD;
+       #&quot;SYSTEM_SYSRULES_lineChartField&quot;(&#xD;
+              label: &quot;Tempo Usage Trends&quot;,&#xD;
+              categories: {2012,2013,2014,2015,2016},&#xD;
+              series: {&#xD;
+                    #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Action taken to perform a task&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:1, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                     #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Organize&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:2, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                      #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Promote&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:3, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                        #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Promote&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:3, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                      #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Result Oriented&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:4, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                      #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Diplomatic&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:5, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Patient&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:6, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Accounting&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:7, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Personal Administration&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:8, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Contract&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:9, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Planning&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:10, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Judgement&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:11, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ), #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;General&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:12, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Motivation&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:13, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Strategy&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:14, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Loyalty&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:15, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                         #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Time Management&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:17, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        ),&#xD;
+                      #&quot;SYSTEM_SYSRULES_chartSeries&quot;(&#xD;
+                        label:&quot;Commitments&quot;,&#xD;
+                        data:apply(&#xD;
+                                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_25549&quot;(&#xD;
+                                  Year:_, Category:18, AllData:local!data2016&#xD;
+                                ),&#xD;
+                                {2012,2013,2014,2015,2016}&#xD;
+                              )&#xD;
+                               &#xD;
+                        )&#xD;
+                    &#xD;
+              },&#xD;
+              xAxisTitle: &quot;Month&quot;,&#xD;
+              yAxisTitle: &quot;% Active&quot;,&#xD;
+              yAxisMax: 100,&#xD;
+              showLegend: true&#xD;
+            )&#xD;
+       &#xD;
+      }&#xD;
+    )&#xD;
+  )&#xD;
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users>
+                <userUuid>ArpitB</userUuid>
+            </users>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

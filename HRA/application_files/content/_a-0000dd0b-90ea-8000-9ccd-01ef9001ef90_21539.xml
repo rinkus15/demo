@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeProfilePicture</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21539</uuid>
+        <description>Profile picture in compare view</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= #&quot;SYSTEM_SYSRULES_imageField&quot;(
+  label: &quot;Label&quot;,
+  labelPosition: &quot;ABOVE&quot;,
+  images: {
+    #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+      document: if(
+        or(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            ri!Employee
+          ),
+          not(
+            #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21892&quot;(
+              index(
+                ri!Employee,
+                &quot;PictureId&quot;,
+                {}
+              )
+            )
+          )
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20879&quot;,
+        index(
+          ri!Employee,
+          &quot;PictureId&quot;,
+          {}
+        )
+      ),
+      link: #&quot;SYSTEM_SYSRULES_safeLink&quot;(
+        uri: urlforrecord(
+          recordType: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20843&quot;,
+          recordIds: index(
+            ri!Employee,
+            &quot;EId&quot;,
+            {}
+          )
+        )
+      )/*a!recordLink(
+        label: &quot;&quot;,
+        recordtype: cons!HRA_EMPLOYEE_RECORD,
+        identifier: index(
+          ri!Employee,
+          &quot;EId&quot;,
+          {}
+        )
+      )*/
+      
+    )
+  },
+  size: &quot;SMALL&quot;
+)</definition>
+        <namedTypedValue>
+            <name>Employee</name>
+            <type>
+                <name>HRA_EmployeeView</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

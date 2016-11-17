@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_RAGIndicator</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28685</uuid>
+        <description>rule for RAG indicator</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>=if(&#xD;
+  #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(ri!deadline),&#xD;
+  #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+    document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+      &quot;RATING_GOOD&quot;&#xD;
+    ),&#xD;
+    altText: &quot;No Deadline&quot;,&#xD;
+    caption: &quot;No Deadline&quot;&#xD;
+  ),&#xD;
+  if(ri!deadline&lt;now(),&#xD;
+  #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+    document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+      &quot;STATUS_NOTDONE&quot;&#xD;
+    ),&#xD;
+    altText: &quot;Deadline is in the past&quot;,&#xD;
+    caption: &quot;Deadline is in the past&quot;&#xD;
+  ),&#xD;
+  if(and(ri!deadline&gt;now(),ri!deadline&lt;now()+1), #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+    document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+      &quot;STATUS_WARN&quot;&#xD;
+    ),&#xD;
+    altText: &quot;Deadline is within 1 day&quot;,&#xD;
+    caption: &quot;Deadline is within 1 day&quot;&#xD;
+  ),&#xD;
+  if(ri!deadline&gt;now()+1, #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+    document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+      &quot;STATUS_OK&quot;&#xD;
+    ),&#xD;
+    altText: &quot;Deadline is more than 1 day&quot;,&#xD;
+    caption: &quot;Deadline is more than 1 day&quot;&#xD;
+  ),&#xD;
+  #&quot;SYSTEM_SYSRULES_documentImage&quot;(&#xD;
+    document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(&#xD;
+      &quot;RATING_GOOD&quot;&#xD;
+    ),&#xD;
+    altText: &quot;No Deadline&quot;,&#xD;
+    caption: &quot;No Deadline&quot;&#xD;
+  ))))&#xD;
+  )</definition>
+        <namedTypedValue>
+            <name>deadline</name>
+            <type>
+                <name>dateTime</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

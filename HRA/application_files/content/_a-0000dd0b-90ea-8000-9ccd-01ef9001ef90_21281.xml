@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_CertificationGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21281</uuid>
+        <description>Contains editable grid for certification</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+  local!Certification: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      index(
+        ri!Certification[ri!Index],
+        &quot;CertificationTypeId&quot;,
+        {}
+      )
+    ),
+    {},
+    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20920&quot;(
+      index(
+        ri!Certification[ri!Index],
+        &quot;CertificationTypeId&quot;,
+        {}
+      )
+    )
+  ),
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+    contents: {
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        placeholderLabel: &quot;--- Select a Certification Category ---&quot;,
+        required: true,
+        requiredMessage: &quot;Please select the certification type&quot;,
+        choiceLabels: {
+          index(
+            local!CertificationType,
+            &quot;Name&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!CertificationType,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: ri!Certification[ri!Index].CertificationTypeId,
+        saveInto: {
+          
+          a!save(
+            ri!Certification[ri!Index].CertificationTypeId,
+            save!value
+          ),
+          
+          a!save(
+            ri!CertificationDetails[ri!Index].CertificationId,
+            null
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        placeholderLabel: &quot;--- Select a Certificate ---&quot;,
+        required: true,
+        requiredMessage: &quot;Please select the certificate&quot;,
+        choiceLabels: {
+          index(
+            local!Certification,
+            &quot;Certification&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!Certification,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: ri!CertificationDetails[ri!Index].CertificationId,
+        saveInto: {
+          a!save(
+            ri!CertificationDetails[ri!Index].CertificationId,
+            save!value
+          )
+          
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_dropdownField&quot;(
+        placeholderLabel: &quot;--- Grade ---&quot;,
+        required: true,
+        requiredMessage: &quot;Please select the grade&quot;,
+        choiceLabels: {
+          index(
+            local!Grades,
+            &quot;Name&quot;,
+            {}
+          )
+        },
+        choiceValues: {
+          index(
+            local!Grades,
+            &quot;Id&quot;,
+            {}
+          )
+        },
+        value: ri!CertificationDetails[ri!Index].GradeId,
+        saveInto: {
+          a!save(
+            ri!CertificationDetails[ri!Index].GradeId,
+            save!value
+          )
+          
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_dateField&quot;(
+        value: property(
+          ri!CertificationDetails[ri!Index],
+          &quot;ExpiryDate&quot;,
+          &quot;&quot;
+        ),
+        saveInto: {
+          ri!CertificationDetails[ri!Index].ExpiryDate,
+          
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_fileUploadField&quot;(
+        label: &quot;&quot;,
+        target: {
+          #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21421&quot;,
+          
+        },
+        value: ri!HoldCertificationDocumentId[ri!Index],
+        saveInto: {
+          a!save(
+            ri!HoldCertificationDocumentId[ri!Index],
+            save!value
+          )
+         
+        }
+      ),
+     
+      #&quot;SYSTEM_SYSRULES_imageField&quot;(
+        images: {
+          #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+            document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+              &quot;REMOVE&quot;
+            ),
+            caption: &quot;Remove&quot;,
+            link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+              value: {
+                ri!Index
+              },
+              saveInto: {
+                a!save(
+                  ri!CertificationDetails,
+                  remove(
+                    ri!CertificationDetails,
+                    save!value
+                  )
+                ),
+                a!save(
+                  ri!Certification,
+                  remove(
+                    ri!Certification,
+                    save!value
+                  )
+                ),
+                a!save(
+                  ri!CertificationType,
+                  remove(
+                    ri!CertificationType,
+                    save!value
+                  )
+                ),
+                a!save(
+                  ri!HoldCertificationDocumentId,
+                  remove(
+                    ri!HoldCertificationDocumentId,
+                    save!value
+                  )
+                ),
+                a!save(
+                  ri!Document,
+                  remove(
+                    ri!Document,
+                    save!value
+                  )
+                )
+                
+              }
+            )
+          )
+        },
+        size: &quot;ICON&quot;
+      )
+    }
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificationDetails</name>
+            <type>
+                <name>HRA_EmployeeCertification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Document</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Certification</name>
+            <type>
+                <name>HRA_dv_Certification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificationType</name>
+            <type>
+                <name>HRA_dv_CertificationType?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldCertificationDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

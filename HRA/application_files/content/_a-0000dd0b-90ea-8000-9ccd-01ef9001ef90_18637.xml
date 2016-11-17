@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeCertificationRule</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18637</uuid>
+        <description>Contains the rule for the employee certifaction</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+    label: &quot;Certification(s)&quot;,
+    isCollapsible:true,
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+        label: &quot;&quot;,
+        labelPosition: &quot;ABOVE&quot;,
+        emptyGridMessage:&quot;No certification available&quot;,
+        headerCells: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Type&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Certification&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Grade&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Expiry Date&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Upload Document&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            align: &quot;CENTER&quot;
+          )
+        },
+        columnConfigs: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+        
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;ICON&quot;
+            
+          )
+        },
+        rows: {
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+            function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21281&quot;(
+              Index: _,
+              Certification: ri!Certification,
+              CertificationType: ri!CertificationType,
+              CertificationDetails: ri!CertificationDetails,
+              Document: ri!Document,
+              HoldCertificationDocumentId: ri!HoldCertificationDocumentId
+            ),
+            array: if(
+              or(
+                isnull(
+                  ri!Certification
+                ),
+                count(
+                  ri!Certification
+                ) &lt; 1
+              ),
+              {},
+              1 + enumerate(
+                count(
+                  ri!Certification
+                )
+              )
+            )
+          )
+        },
+        validations: {
+          if(
+            #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+              index(ri!CertificationDetails,&quot;CertificationId&quot;,{})
+            ),
+            {},
+            if(
+              count(
+                wherecontains(
+                  {
+                    ri!CertificationDetails[count(
+                      ri!CertificationDetails
+                    )]
+                  },
+                  {
+                    ri!CertificationDetails
+                  }
+                )
+              ) &gt; 1,
+              &quot;Already Exist&quot;,
+              {}
+            )
+          ),
+           if(or(
+            #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+              ri!Certification
+            ),
+            #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+              local!OldCertificates
+            )
+            ),
+            {},
+          if(
+            count(
+              wherecontains(
+                ri!CertificationDetails.CertificationId,
+                tointeger(local!OldCertificates.CertificationId)
+              )
+            )&gt;0,
+             if(
+               #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(reject(fn!isnull,index(local!OldCertificates[wherecontains(
+                  ri!CertificationDetails.CertificationId,
+                  tointeger(local!OldCertificates.CertificationId)
+                )],&quot;IsApproved&quot;,{}))),
+                &quot;This certificate is pending for approval&quot;,
+                &quot;Certificate already exists in your pofile&quot;
+              ),
+            {}
+          )
+          )
+        },
+        addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+          label: &quot;Add New Certification&quot;,
+          value: {
+            local!addnewrow
+          },
+          saveInto: {
+            a!save(
+              ri!Certification,
+              append(
+                ri!Certification,
+                save!value
+              )
+            ),
+            a!save(
+              ri!HoldCertificationDocumentId,
+              append(
+                ri!HoldCertificationDocumentId,
+                save!value
+              )
+            ),
+            a!save(
+              ri!CertificationType,
+              append(
+                ri!CertificationType,
+                save!value
+              )
+            ),
+            a!save(
+              ri!Document,
+              append(
+                ri!Document,
+                save!value
+              )
+            ),
+            a!save(
+              ri!CertificationDetails,
+              append(
+                ri!CertificationDetails,
+                save!value
+              )
+            ),
+            
+          }
+        )
+      )
+    }
+  )
+}</definition>
+        <namedTypedValue>
+            <name>CertificationDetails</name>
+            <type>
+                <name>HRA_EmployeeCertification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Certification</name>
+            <type>
+                <name>HRA_dv_Certification?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificationType</name>
+            <type>
+                <name>HRA_dv_CertificationType?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Document</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldCertificationDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

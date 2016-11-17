@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeTraining</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22746</uuid>
+        <description>Rule for employee training grid filed</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>{
+  #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+    label: &quot;Training&quot;,
+    isCollapsible:true,
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+        label: &quot;&quot;,
+        emptyGridMessage:&quot;No training available&quot;,
+        labelPosition: &quot;ABOVE&quot;,
+        headerCells: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot; Title&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Description&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Start Date&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;End Date&quot;,
+            align: &quot;CENTER&quot;
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            label: &quot;Upload Document&quot;,
+            align: &quot;CENTER&quot;
+          )/*,
+          a!gridLayoutHeaderCell(
+            label: &quot;Document Description&quot;,
+            align: &quot;RIGHT&quot;
+          )*/,
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+            align: &quot;CENTER&quot;
+          )
+        },
+        columnConfigs: {
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),
+          /*a!gridLayoutColumnConfig(
+            width: &quot;DISTRIBUTE&quot;,
+            weight: 2
+          ),*/
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+            width: &quot;ICON&quot;/*,
+            weight: 2*/
+            
+          )
+        },
+        rows: {
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+            function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22769&quot;(
+              Index: _,
+              Training: ri!Training,
+              TempTrainingDocument: ri!TempTrainingDocument,
+              HoldTrainingId: ri!HoldTrainingId
+            ),
+            array: if(
+              or(
+                isnull(
+                  ri!Training
+                ),
+                count(
+                  ri!Training
+                ) &lt; 1
+              ),
+              {},
+              1 + enumerate(
+                count(
+                  ri!Training
+                )
+              )
+            )
+          )
+        },
+        addRowLink: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+          label: &quot;Add Training&quot;,
+          value: {
+            local!addnewrow
+          },
+          saveInto: {
+            a!save(
+              ri!Training,
+              append(
+                ri!Training,
+                save!value
+              )
+            ),
+            a!save(
+              ri!TempTrainingDocument,
+              append(
+                ri!TempTrainingDocument,
+                save!value
+              )
+            ),
+            a!save(
+              ri!HoldTrainingId,
+              append(
+                ri!HoldTrainingId,
+                save!value
+              )
+            )
+          }
+        ),
+        validations: {
+          if(
+            or(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                ri!Training
+              ),
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                ri!Training.StartDate
+              ),
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                ri!Training.EndDate
+              )
+            ),
+            {},
+            
+              if(
+                count(
+                  wherecontains(
+                    {
+                      ri!Training[count(
+                        ri!Training
+                      )]
+                    },
+                    {
+                      ri!Training
+                    }
+                  )
+                ) &gt; 1,
+                &quot;Already Exist&quot;,
+                {}
+              )
+            
+          )
+        }
+      )
+    }
+  )
+}</definition>
+        <namedTypedValue>
+            <name>Training</name>
+            <type>
+                <name>HRA_EmployeeTraining?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempTrainingDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldTrainingId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

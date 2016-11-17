@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeCompareView</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21290</uuid>
+        <description>Employee Compare View</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= load(
+  local!RowCount: #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[9],
+  local!Employee: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23488&quot;(
+    EId: ri!EmployeeId
+  ),
+  #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+    label: &quot;Employee Comparison&quot;,
+    instructions: &quot;Below is the comparison of employees on different aspects&quot;,
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_gridLayout&quot;(
+        label: &quot;&quot;,
+        labelPosition: &quot;ABOVE&quot;,
+        headerCells: if(
+          count(
+            local!Employee
+          ) = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3],
+          {
+            #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+              label: &quot;&quot;
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+              label: &quot;Employee - &quot; &amp; property(
+                index(
+                  local!Employee,
+                  #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1],
+                  null()
+                ),
+                &quot;FullName&quot;,
+                null()
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+              label: &quot;Employee - &quot; &amp; property(
+                index(
+                  local!Employee,
+                  #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2],
+                  null()
+                ),
+                &quot;FullName&quot;,
+                null()
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+              label: &quot;Employee - &quot; &amp; property(
+                index(
+                  local!Employee,
+                  #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3],
+                  null()
+                ),
+                &quot;FullName&quot;,
+                null()
+              )
+            )
+          },
+          {
+            #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+              label: &quot;&quot;
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+              label: &quot;Employee - &quot; &amp; property(
+                index(
+                  local!Employee,
+                  #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1],
+                  null()
+                ),
+                &quot;FullName&quot;,
+                null()
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(
+              label: &quot;Employee - &quot; &amp; property(
+                index(
+                  local!Employee,
+                  #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2],
+                  null()
+                ),
+                &quot;FullName&quot;,
+                null()
+              )
+            )
+          }
+        ),
+        columnConfigs: if(
+          count(
+            local!Employee
+          ) = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3],
+          {
+            #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+              width: &quot;DISTRIBUTE&quot;,
+              weight: 1
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+              width: &quot;DISTRIBUTE&quot;,
+              weight: 2
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+              width: &quot;DISTRIBUTE&quot;,
+              weight: 2
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+              width: &quot;DISTRIBUTE&quot;,
+              weight: 2
+            )
+          },
+          {
+            #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+              width: &quot;DISTRIBUTE&quot;,
+              weight: 1
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+              width: &quot;DISTRIBUTE&quot;,
+              weight: 2
+            ),
+            #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(
+              width: &quot;DISTRIBUTE&quot;,
+              weight: 2
+            )
+          }
+        ),
+        rows: #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+          function: if(
+            count(
+              local!Employee
+            ) = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3],
+            #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21379&quot;(
+              Index: _,
+              Employee: local!Employee
+            ),
+            #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22096&quot;(
+              Index: _,
+              Employee: local!Employee
+            )
+          ),
+          array: 1 + enumerate(
+            local!RowCount
+          )
+        ),
+        selectionSaveInto: {},
+        validations: {}
+      )
+    },
+    secondColumnContents: {
+      /* Add components here for a two-column form */
+      
+    },
+    buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+      primaryButtons: {
+        #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Search Again&quot;,
+          style: &quot;PRIMARY&quot;,
+          saveInto: ri!Action,
+          value: true
+        )
+      },
+      secondaryButtons: {
+        #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+          label: &quot;Cancel&quot;,
+          style: &quot;NORMAL&quot;,
+          value: false,
+          saveInto: ri!Action,
+          skipValidation: true
+        ),
+        
+      }
+    ),
+    validations: {}
+  )
+)</definition>
+        <namedTypedValue>
+            <name>EmployeeId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Action</name>
+            <type>
+                <name>boolean</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

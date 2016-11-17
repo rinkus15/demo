@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_ContactDetailsForReportingManager</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28558</uuid>
+        <description>Hold Contact Details For Reporting Manager</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>= #&quot;SYSTEM_SYSRULES_formLayout&quot;(
+  label: &quot;Employee Enquiry&quot;,
+  firstColumnContents: {
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;&quot;,
+      firstColumnContents: {
+        if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            ri!ContactToManager
+          ),
+          {},
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Enquiry By :&quot;,
+            readOnly: true,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: user(
+              ri!ContactToManager.CreatedBy,
+              &quot;firstName&quot;
+            ) &amp; &quot; &quot; &amp; user(
+              ri!ContactToManager.CreatedBy,
+              &quot;lastName&quot;
+            ),
+            saveInto: {},
+            validations: {}
+          )
+        ),
+/*        a!linkField(
+          label: &quot;Enquiry For Employee :&quot;,
+          links: a!safeLink(
+            label: rule!Utils_GetUserFullName(index(ri!EmployeeDetails,&quot;EmployeeId&quot;,{})),
+            uri: urlforrecord(
+              recordType: cons!HRA_EMPLOYEE_RECORD,
+              recordIds: index(ri!EmployeeDetails,&quot;Id&quot;,{})
+            )
+          )
+        ),
+*/        #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label: &quot;Enquiry For Employee :&quot;,
+          readOnly: true,
+          labelPosition: &quot;ADJACENT&quot;,
+          value: concat(
+            index(
+              ri!EmployeeDetails,
+              &quot;FirstName&quot;,
+              {}
+            ),
+            &quot; &quot;,
+            index(
+              ri!EmployeeDetails,
+              &quot;LastName&quot;,
+              {}
+            )
+          ),
+          saveInto: {},
+          validations: {}
+        ),
+        #&quot;SYSTEM_SYSRULES_textField&quot;(
+          label: &quot;Enquiry :&quot;,
+          readOnly: true,
+          labelPosition: &quot;ADJACENT&quot;,
+          value: ri!ContactToManager.Description,
+          saveInto: {},
+          validations: {}
+        )
+      },
+      secondColumnContents: {
+        if(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            ri!ContactToManager
+          ),
+          {},
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Email Id :&quot;,
+            readOnly: true,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: user(
+              ri!ContactToManager.CreatedBy,
+              &quot;email&quot;
+            ),
+            saveInto: {},
+            validations: {}
+          )
+        )
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_paragraphField&quot;(
+          label: &quot;Reply&quot;,
+          required: true,
+          labelPosition: &quot;ADJACENT&quot;,
+          value: index(
+            ri!Reply,
+            &quot;Reply&quot;,
+            {}
+          ),
+          saveInto: {
+            ri!Reply.Reply
+          },
+          validations: {
+            if(
+              len(
+                index(
+                  ri!Reply,
+                  &quot;Reply&quot;,
+                  null
+                )
+              ) &gt; 999,
+              &quot; Only &quot; &amp; 1000 &amp; &quot; characters are allowed&quot;,
+              &quot;&quot;
+            )
+          }
+        )
+      },
+      secondColumnContents: {}
+    )
+  },
+  secondColumnContents: {},
+  buttons: #&quot;SYSTEM_SYSRULES_ButtonLayout&quot;(
+    primaryButtons: {
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+        label: &quot;Submit&quot;,
+        style: &quot;PRIMARY&quot;,
+        value: &quot;Submit&quot;,
+        saveInto: ri!ButtonAction
+      )
+    },
+    secondaryButtons: {
+      #&quot;SYSTEM_SYSRULES_ButtonWidgetSubmit&quot;(
+        label: &quot;Cancel&quot;,
+        style: &quot;NORMAL&quot;,
+        value: &quot;Cancel&quot;,
+        saveInto: ri!ButtonAction,
+        skipValidation: true
+      )
+    }
+  ),
+  validations: {}
+)</definition>
+        <namedTypedValue>
+            <name>ButtonAction</name>
+            <type>
+                <name>string</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+            <value/>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ContactToManager</name>
+            <type>
+                <name>HRA_ContactToManager</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Reply</name>
+            <type>
+                <name>HRA_Reply</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeDetails</name>
+            <type>
+                <name>HRA_Employee</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <typedValue>
+        <type>
+            <name>RuleTestConfig?list</name>
+            <namespace>http://www.appian.com/ae/types/2009</namespace>
+        </type>
+        <value>
+            <el>
+                <a:name/>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string"/>
+                    <a:nameRef>ButtonAction</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_ContactToManager"/>
+                    <a:nameRef>ContactToManager</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_Reply"/>
+                    <a:nameRef>Reply</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:ruleInputTestConfigs>
+                    <a:value xmlns:n1="urn:com:appian:types:HRA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" xsi:type="n1:HRA_Employee"/>
+                    <a:nameRef>EmployeeDetails</a:nameRef>
+                    <a:id/>
+                </a:ruleInputTestConfigs>
+                <a:assertions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+            </el>
+        </value>
+    </typedValue>
+</contentHaul>

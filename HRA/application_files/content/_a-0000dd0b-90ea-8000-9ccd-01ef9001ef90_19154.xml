@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_QualificationPagingGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_19154</uuid>
+        <description>Contain Paging Grid of Employee's Qualification </description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,
+    batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[1],
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;Id&quot;,
+      ascending: true
+    )
+  ),
+  with(
+    local!QualificationDetails: if(
+      #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+        ri!EmployeeId
+      ),
+      {},
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21741&quot;(
+        ri!EmployeeId
+      )
+    ),
+    local!Document: if(
+      or(
+        #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+          local!QualificationDetails
+        ),
+        #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+          fn!reject(
+            #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+              _
+            ),
+            property(
+              local!QualificationDetails,
+              &quot;QualificationId&quot;,
+              null()
+            )
+          )
+        )
+      ),
+      {},
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21939&quot;(
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22514&quot;[1],
+        index(
+          local!QualificationDetails,
+          &quot;QualificationId&quot;,
+          {}
+        )
+      )
+    ),
+    local!datasubset: todatasubset(
+      if(
+        or(
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            local!QualificationDetails
+          ),
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+            fn!reject(
+              #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                _
+              ),
+              property(
+                local!QualificationDetails,
+                &quot;QualificationId&quot;,
+                null()
+              )
+            )
+          )
+        ),
+        {},
+        local!QualificationDetails
+      ),
+      local!pagingInfo
+    ),
+    local!datasubset1: todatasubset(
+      local!Document,
+      local!pagingInfo
+    ),
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;Qualification(s)&quot;,
+      isCollapsible:true,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_gridField&quot;(
+          labelPosition: &quot;ABOVE&quot;,
+          totalCount: local!datasubset.totalCount,
+          columns: {
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Education&quot;,
+              field: &quot;QualificationType&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;QualificationType&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Course&quot;,
+              field: &quot;QualificationName&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;QualificationName&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Passing Year&quot;,
+              field: &quot;DateTimePassed&quot;,
+              data: apply(
+                todate(
+                  _
+                ),
+                reject(
+                  fn!isnull,
+                  index(
+                    local!datasubset.data,
+                    &quot;DateTimePassed&quot;,
+                    {}
+                  )
+                )
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Grade&quot;,
+              field: &quot;QualificationGrade&quot;,
+              data: index(
+                local!datasubset.data,
+                &quot;QualificationGrade&quot;,
+                {}
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Degree&quot;,
+              field: &quot;DocumentId&quot;,
+              data: if(
+                {
+                  apply(
+                    fn!displayvalue,
+                    {
+                      index(
+                        local!datasubset.data,
+                        &quot;QualificationId&quot;,
+                        null()
+                      )
+                    },
+                    {
+                      index(
+                        local!datasubset1.data,
+                        &quot;EntityId&quot;,
+                        null()
+                      )
+                    },
+                    {
+                      index(
+                        local!datasubset1.data,
+                        &quot;DocumentId&quot;,
+                        null()
+                      )
+                    },
+                    null()
+                  )
+                },
+                &quot;Download&quot;,
+                null
+              ),
+              links: if(
+                local!datasubset.totalCount = 0,
+                {},
+                #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23108&quot;(
+                    _
+                  ),
+                  {
+                    apply(
+                      fn!displayvalue,
+                      {
+                        index(
+                          local!datasubset.data,
+                          &quot;QualificationId&quot;,
+                          null()
+                        )
+                      },
+                      {
+                        index(
+                          local!datasubset1.data,
+                          &quot;EntityId&quot;,
+                          null()
+                        )
+                      },
+                      {
+                        index(
+                          local!datasubset1.data,
+                          &quot;DocumentId&quot;,
+                          null()
+                        )
+                      },
+                      null()
+                    )
+                  }
+                )
+              )
+            )
+          },
+          value: local!pagingInfo,
+          saveInto: local!pagingInfo,
+          validations: {}
+        )
+      },
+      secondColumnContents: {}
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>EmployeeId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

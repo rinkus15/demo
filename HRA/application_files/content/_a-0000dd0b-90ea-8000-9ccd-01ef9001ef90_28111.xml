@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetCountOfSkillsByProficiencyForReport</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28111</uuid>
+        <description>Returns json string of proficiency with count </description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>with(
+   /*ri!EmployeeView:rule!HRA_EmployeeViewReportQueryEntity(
+      SkillId: ri!SkillId,
+      ProficiencyId: ri!ProficiencyId
+       
+      ),
+      local!ProficiencyDetails: rule!HRA_GetProficiencyDetailsByProficiencyIds(
+      if(
+        rule!Utils_CheckIsNull(
+          ri!ProficiencyId
+        ),
+        {},
+        ri!ProficiencyId
+      )
+    ),*/
+  local!DataBySkillId: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      ri!EmployeeView
+    ),
+    {},
+    index(
+      ri!EmployeeView,
+      wherecontains(
+        ri!SkillId,
+        tointeger(
+          index(
+            ri!EmployeeView,
+            &quot;SkillId&quot;,
+            null()
+          )
+        )
+      )
+    )
+  ),
+  local!count: if(
+    #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+      local!DataBySkillId
+    ),
+    0,
+    Count(
+      index(
+        local!DataBySkillId.ProficiencyId,
+        where(
+          tointeger(
+            local!DataBySkillId.ProficiencyId
+          ) = ri!ProficiencyId
+        )
+      )
+    )
+  ),
+  concat(
+    &quot;&quot;&quot;&quot;,
+    index(local!ProficiencyDetails[wherecontains(
+      ri!ProficiencyId, index(
+        local!ProficiencyDetails, &quot;Id&quot;, {}
+      )
+    )],&quot;Name&quot;,{}),
+    &quot;&quot;&quot;&quot;,
+    &quot;: &quot;,
+    local!count
+  )
+)</definition>
+        <namedTypedValue>
+            <name>ProficiencyId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeView</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<thirdPartyCredentialsHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <externalSystem>
+        <a:uuid>591bb52d-125a-43a9-a594-733ee37bc1e8</a:uuid>
+        <a:name>Linkedin</a:name>
+        <a:description>Credential to use Linkedin </a:description>
+        <a:key>linkedin</a:key>
+        <a:attribute>
+            <a:key>appsecretkey</a:key>
+            <a:name>appsecretkey</a:name>
+            <a:showValueOnUi>true</a:showValueOnUi>
+        </a:attribute>
+        <a:attribute>
+            <a:key>accesstoken</a:key>
+            <a:name>accesstoken</a:name>
+            <a:showValueOnUi>true</a:showValueOnUi>
+        </a:attribute>
+        <a:showPerUser>true</a:showPerUser>
+        <a:allowedPlugin>socialcontentcrawling</a:allowedPlugin>
+    </externalSystem>
+</thirdPartyCredentialsHaul>

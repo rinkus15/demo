@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_JobOpeningPagingGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20447</uuid>
+        <description>Contains the paging grid for the job opening</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition> load(
+   
+   with(
+    local!data: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20403&quot;(
+      SkillId: ri!SkillId,
+      QualificationId: ri!QualificationId,
+      CertificateId: ri!CertificateId,
+      MinExpRequired: ri!MinExpRequired,
+      MaxExpRequired: ri!MaxExpRequired
+    ),
+    local!datasubset:todatasubset(
+      local!data,
+    
+      local!gridEmployeeSelection.pagingInfo
+      
+    ),
+    #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+      label: &quot;Job Search&quot;,
+      firstColumnContents: {
+        #&quot;SYSTEM_SYSRULES_gridField&quot;(
+          label: &quot;&quot;,
+          labelPosition: &quot;ABOVE&quot;,
+          totalCount: local!datasubset.totalCount,
+          columns: {
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Job Id&quot;,
+              field:&quot;JId&quot;,
+              data: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;JId&quot;,
+                    {}
+                  )
+                ),
+                {},
+                {
+                  index(
+                    local!datasubset.data,
+                    &quot;JId&quot;,
+                    {}
+                  )
+                }
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Title&quot;,
+              field:&quot;JobTitle&quot;,
+              data: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;JobTitle&quot;,
+                    {}
+                  )
+                ),
+                {},
+                {
+                  index(
+                    local!datasubset.data,
+                    &quot;JobTitle&quot;,
+                    {}
+                  )
+                }
+              ),
+              links: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;JId&quot;,
+                    {}
+                  )
+                ),
+                {},
+                #&quot;SYSTEM_SYSRULES_applyComponents&quot;(
+                  function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20825&quot;(
+                    Index: _,
+                    JobId: index(
+                      local!datasubset.data,
+                      &quot;JId&quot;,
+                      {}
+                    )
+                  ),
+                  array: 1 + enumerate(
+                    count(
+                      index(
+                        local!datasubset.data,
+                        &quot;JId&quot;,
+                        {}
+                      )
+                    )
+                  )
+                )
+              )
+            ),
+            /*a!gridTextColumn(
+              label: &quot;Description&quot;,
+              data: if(
+                rule!Utils_CheckIsNull(
+                  index(
+                    local!datasubset.data,
+                    &quot;Description&quot;,
+                    {}
+                  )
+                ),
+                {},
+                {
+                  index(
+                    local!datasubset.data,
+                    &quot;Description&quot;,
+                    {}
+                  )
+                }
+              )
+            ),*/
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Minimum Experience &quot;,
+              field:&quot;MinExpRequired&quot;,
+              data: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;MinExpRequired&quot;,
+                    {}
+                  )
+                ),
+                {},
+                {
+                 apply(#&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(_),index(
+                    local!datasubset.data,
+                    &quot;MinExpRequired&quot;,
+                    {}
+                  )
+                  )
+                }
+              
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Maximum Experience &quot;,
+              field:&quot;MaxExpRequired&quot;,
+              data: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;MaxExpRequired&quot;,
+                    {}
+                  )
+                ),
+                {},
+                {
+                 apply(#&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(_), index(
+                    local!datasubset.data,
+                    &quot;MaxExpRequired&quot;,
+                    {}
+                  )
+                  )
+                }
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;No of Opening&quot;,
+              field:&quot;NoOfOpening&quot;,
+              data: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;NoOfOpening&quot;,
+                    {}
+                  )
+                ),
+                {},
+                {
+                  index(
+                    local!datasubset.data,
+                    &quot;NoOfOpening&quot;,
+                    {}
+                  )
+                }
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Posted On&quot;,
+              field:&quot;CreatedOn&quot;,
+              data: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;CreatedOn&quot;,
+                    {}
+                  )
+                ),
+                {},
+                {
+                  apply(
+                    todate(
+                      _
+                    ),
+                   index(
+                      local!datasubset.data,
+                      &quot;CreatedOn&quot;,
+                      {}
+                    )
+                  )
+                }
+              )
+            ),
+            #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+              label: &quot;Closing Date&quot;,
+              field:&quot;ClosingDate&quot;,
+              data: if(
+                #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(
+                  index(
+                    local!datasubset.data,
+                    &quot;ClosingDate&quot;,
+                    {}
+                  )
+                ),
+                {},
+                {
+                  apply(
+                    todate(
+                      _
+                    ),
+                    index(
+                      local!datasubset.data,
+                      &quot;ClosingDate&quot;,
+                      {}
+                    )
+                  )
+                }
+              )
+            ),
+            
+            #&quot;SYSTEM_SYSRULES_gridImageColumn&quot;(
+              label: &quot;Status&quot;,
+              field: &quot;Status&quot;,
+              size: &quot;ICON&quot;,
+              data: if(
+                index(
+                  local!dataSubset.data,
+                  &quot;Status&quot;,
+                  {}
+                ),
+                #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+                  #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+                    &quot;STATUS_OK&quot;
+                  )
+                ),
+                #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+                  #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+                    &quot;STATUS_NOTDONE&quot;
+                  )
+                )
+              )
+            )
+          },
+          value: local!gridEmployeeSelection,
+          saveInto: local!gridEmployeeSelection
+        )
+      }
+    )
+  )
+  )</definition>
+        <namedTypedValue>
+            <name>SkillId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>CertificateId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>MinExpRequired</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>MaxExpRequired</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>QualificationId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

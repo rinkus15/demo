@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_EmployeeCompareViewItemRowEach</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21379</uuid>
+        <description>Row layout for compare view grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>if(
+  ri!Index = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1],
+  #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+    id: ri!Index,
+    contents: {
+      #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+        labelPosition: &quot;COLLAPSED&quot;,
+        value: {
+          #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+            text: &quot;Profile Picture&quot;,
+            style: &quot;STRONG&quot;
+          )
+        }
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21539&quot;(
+        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]]
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21539&quot;(
+        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]]
+      ),
+      #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21539&quot;(
+        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]]
+      )
+    }
+  ),
+  if(
+    ri!Index = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2],
+    #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+      id: ri!Index,
+      contents: {
+        #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+          labelPosition: &quot;COLLAPSED&quot;,
+          value: {
+            #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+              text: &quot;Basic Details&quot;,
+              style: &quot;STRONG&quot;
+            )
+          }
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21483&quot;(
+          ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]]
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21483&quot;(
+          ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]]
+        ),
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21483&quot;(
+          ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]]
+        ),
+        
+      }
+    ),
+    if(
+      ri!Index = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3],
+      #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+        id: ri!Index,
+        contents: {
+          #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+            labelPosition: &quot;COLLAPSED&quot;,
+            value: {
+              #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+                text: &quot;Work Experience&quot;,
+                style: &quot;STRONG&quot;
+              )
+            }
+          ),
+          #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22049&quot;(
+            fn!property(
+              ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]],
+              &quot;EId&quot;,
+              null()
+            )
+          ),
+          #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22049&quot;(
+            fn!property(
+              ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]],
+              &quot;EId&quot;,
+              null()
+            )
+          ),
+          #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22049&quot;(
+            fn!property(
+              ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]],
+              &quot;EId&quot;,
+              null()
+            )
+          )
+        }
+      ),
+      if(
+        ri!Index = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[4],
+        #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+          id: ri!Index,
+          contents: {
+            #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+              labelPosition: &quot;COLLAPSED&quot;,
+              value: {
+                #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+                  text: &quot;Qualification&quot;,
+                  style: &quot;STRONG&quot;
+                )
+              }
+            ),
+            #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21765&quot;(
+              fn!property(
+                ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]],
+                &quot;EId&quot;,
+                null()
+              )
+            ),
+            #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21765&quot;(
+              fn!property(
+                ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]],
+                &quot;EId&quot;,
+                null()
+              )
+            ),
+            #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21765&quot;(
+              fn!property(
+                ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]],
+                &quot;EId&quot;,
+                null()
+              )
+            ),
+            
+          }
+        ),
+        if(
+          ri!Index = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[5],
+          #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+            id: ri!Index,
+            contents: {
+              #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+                labelPosition: &quot;COLLAPSED&quot;,
+                value: {
+                  #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+                    text: &quot;Skills&quot;,
+                    style: &quot;STRONG&quot;
+                  )
+                }
+              ),
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21754&quot;(
+                fn!property(
+                  ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]],
+                  &quot;EId&quot;,
+                  null()
+                )
+              ),
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21754&quot;(
+                fn!property(
+                  ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]],
+                  &quot;EId&quot;,
+                  null()
+                )
+              ),
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21754&quot;(
+                fn!property(
+                  ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]],
+                  &quot;EId&quot;,
+                  null()
+                )
+              )
+            }
+          ),
+          if(
+            ri!Index = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[6],
+            #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+              id: ri!Index,
+              contents: {
+                #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+                  labelPosition: &quot;COLLAPSED&quot;,
+                  value: {
+                    #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+                      text: &quot;Certification&quot;,
+                      style: &quot;STRONG&quot;
+                    )
+                  }
+                ),
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21772&quot;(
+                  fn!property(
+                    ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]],
+                    &quot;EId&quot;,
+                    null()
+                  )
+                ),
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21772&quot;(
+                  fn!property(
+                    ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]],
+                    &quot;EId&quot;,
+                    null()
+                  )
+                ),
+                #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21772&quot;(
+                  fn!property(
+                    ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]],
+                    &quot;EId&quot;,
+                    null()
+                  )
+                )
+              }
+            ),
+            if(
+              ri!Index = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[7],
+              #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+                id: ri!Index,
+                contents: {
+                  #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+                    labelPosition: &quot;COLLAPSED&quot;,
+                    value: {
+                      #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+                        text: &quot;Key Assignments&quot;,
+                        style: &quot;STRONG&quot;
+                      )
+                    }
+                  ),
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22957&quot;(
+                    fn!property(
+                      ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]],
+                      &quot;EId&quot;,
+                      null()
+                    )
+                  ),
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22957&quot;(
+                    fn!property(
+                      ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]],
+                      &quot;EId&quot;,
+                      null()
+                    )
+                  ),
+                  #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22957&quot;(
+                    fn!property(
+                      ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]],
+                      &quot;EId&quot;,
+                      null()
+                    )
+                  )
+                }
+              ),
+              if(
+                ri!Index = #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[8],
+                #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+                  id: ri!Index,
+                  contents: {
+                    #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+                      labelPosition: &quot;COLLAPSED&quot;,
+                      value: {
+                        #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+                          text: &quot;Training&quot;,
+                          style: &quot;STRONG&quot;
+                        )
+                      }
+                    ),
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22959&quot;(
+                      fn!property(
+                        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]],
+                        &quot;EId&quot;,
+                        null()
+                      )
+                    ),
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22959&quot;(
+                      fn!property(
+                        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]],
+                        &quot;EId&quot;,
+                        null()
+                      )
+                    ),
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22959&quot;(
+                      fn!property(
+                        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]],
+                        &quot;EId&quot;,
+                        null()
+                      )
+                    )
+                  }
+                ),
+                #&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+                  id: ri!Index,
+                  contents: {
+                    #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(
+                      labelPosition: &quot;COLLAPSED&quot;,
+                      value: {
+                        #&quot;SYSTEM_SYSRULES_richTextItem&quot;(
+                          text: &quot;Recommendation&quot;,
+                          style: &quot;STRONG&quot;
+                        )
+                      }
+                    ),
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23160&quot;(
+                      fn!property(
+                        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[1]],
+                        &quot;EId&quot;,
+                        null()
+                      )
+                    ),
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23160&quot;(
+                      fn!property(
+                        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[2]],
+                        &quot;EId&quot;,
+                        null()
+                      )
+                    ),
+                    #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_23160&quot;(
+                      fn!property(
+                        ri!Employee[#&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39535&quot;[3]],
+                        &quot;EId&quot;,
+                        null()
+                      )
+                    )
+                  }
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Employee</name>
+            <type>
+                <name>HRA_EmployeeView?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

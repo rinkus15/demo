@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_RD_JobOpeningDashboardView</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_20608</uuid>
+        <description>Contains the value for the job opening dashboard for record
+</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18586</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!JobQualificationRequired: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21017&quot;(
+    rf!Id
+  ),
+  local!JobSkillRequired: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21023&quot;(
+    rf!Id
+  ),
+  local!JobCertificationRequired: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21025&quot;(
+    rf!Id
+  ),
+  local!pagingInfo: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+    startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,
+    batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[1],
+    sort: #&quot;SYSTEM_SYSRULES_sortInfo&quot;(
+      field: &quot;Id&quot;,
+      ascending: true
+    )
+  ),
+  local!DataSubsetGrid: todatasubset(
+    local!JobSkillRequired,
+    local!pagingInfo
+  ),
+  #&quot;SYSTEM_SYSRULES_dashboardLayout&quot;(
+    firstColumnContents: {
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        label: &quot;Basic Details&quot;,
+        isCollapsible: true,
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Experience Required&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: concat(
+              #&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(
+                rf!MinExpRequired
+              ),
+              &quot;- &quot;,
+              #&quot;16d26be6-240c-4818-adff-30f8ad4cbd07&quot;(
+                rf!MaxExpRequired
+              )
+            ),
+            readOnly: true
+          ),
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Description&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: rf!Description,
+            readOnly: true
+          )
+        },
+        secondColumnContents: {
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Status&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: if(
+              rf!Status = true(),
+              #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39323&quot;[1],
+              #&quot;_a-0000dde1-361a-8000-9ccd-01ef9001ef90_39323&quot;[2]
+            ),
+            readOnly: true
+          ),
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Closing Date&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: todate(
+              rf!ClosingDate
+            ),
+            readOnly: true
+          ),
+          #&quot;SYSTEM_SYSRULES_textField&quot;(
+            label: &quot;Location&quot;,
+            labelPosition: &quot;ADJACENT&quot;,
+            value: rf!Location,
+            readOnly: true
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        label: &quot;Qualification Required&quot;,
+        isCollapsible: true,
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_gridField&quot;(
+            label: &quot;&quot;,
+            labelPosition: &quot;ABOVE&quot;,
+            totalCount: length(
+              local!JobQualificationRequired
+            ),
+            columns: {
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Education&quot;,
+                data: property(
+                  local!JobQualificationRequired,
+                  &quot;QualificationType&quot;,
+                  {}
+                )
+              ),
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Course&quot;,
+                data: property(
+                  local!JobQualificationRequired,
+                  &quot;QualificationName&quot;,
+                  {}
+                )
+              )
+            },
+            value: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+              startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,
+              batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[1]
+            ),
+            saveInto: {},
+            validations: {}
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        label: &quot;Skills Required&quot;,
+        isCollapsible: true,
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_gridField&quot;(
+            label: &quot;&quot;,
+            labelPosition: &quot;ABOVE&quot;,
+            totalCount: local!DataSubsetGrid.totalCount,
+            columns: {
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Skill Type&quot;,
+                data: property(
+                  local!DataSubsetGrid.data,
+                  &quot;SkillType&quot;,
+                  {}
+                )
+              ),
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Skill&quot;,
+                data: property(
+                  local!DataSubsetGrid.data,
+                  &quot;SkillName&quot;,
+                  {}
+                )
+              )
+            },
+            value: local!pagingInfo,
+            saveInto: {
+              local!pagingInfo
+            },
+            validations: {}
+          )
+        }
+      ),
+      #&quot;SYSTEM_SYSRULES_sectionLayout&quot;(
+        label: &quot;Certification Required&quot;,
+        isCollapsible: true,
+        firstColumnContents: {
+          #&quot;SYSTEM_SYSRULES_gridField&quot;(
+            label: &quot;&quot;,
+            labelPosition: &quot;ABOVE&quot;,
+            totalCount: length(
+              local!JobCertificationRequired
+            ),
+            columns: {
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Certification Type&quot;,
+                data: property(
+                  local!JobCertificationRequired,
+                  &quot;CertificationType&quot;,
+                  {}
+                )
+              ),
+              #&quot;SYSTEM_SYSRULES_gridTextColumn&quot;(
+                label: &quot;Certification&quot;,
+                data: property(
+                  local!JobCertificationRequired,
+                  &quot;CertificationName&quot;,
+                  {}
+                )
+              )
+            },
+            value: #&quot;SYSTEM_SYSRULES_pagingInfo&quot;(
+              startIndex: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_37345&quot;,
+              batchSize: #&quot;_a-0000ddcd-3247-8000-9ccd-01ef9001ef90_36817&quot;[1]
+            ),
+            saveInto: {},
+            validations: {}
+          )
+        }
+      )
+    },
+    secondColumnContents: {}
+  )
+)</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

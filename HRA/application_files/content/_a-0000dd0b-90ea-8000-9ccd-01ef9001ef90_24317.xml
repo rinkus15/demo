@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_RactifyCertificateEditableGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24317</uuid>
+        <description>Holds rule for editable grid of certification</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(&#xD;
+  local!test,&#xD;
+#&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(&#xD;
+  contents: {&#xD;
+    #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(&#xD;
+      label: &quot;&quot;,&#xD;
+      value: index(&#xD;
+        ri!EmployeeCertificationView[ri!Index],&#xD;
+        &quot;CertificationType&quot;,&#xD;
+        {}&#xD;
+      )&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(&#xD;
+      label: &quot;&quot;,&#xD;
+      value: index(&#xD;
+        ri!EmployeeCertificationView[ri!Index],&#xD;
+        &quot;CertificationName&quot;,&#xD;
+        {}&#xD;
+      )&#xD;
+    ),&#xD;
+    #&quot;SYSTEM_SYSRULES_richTextDisplayField&quot;(&#xD;
+      label: &quot;&quot;,&#xD;
+      value: index(&#xD;
+        ri!EmployeeCertificationView[ri!Index],&#xD;
+        &quot;ExpiryDate&quot;,&#xD;
+        {}&#xD;
+      )&#xD;
+    ),&#xD;
+   #&quot;SYSTEM_SYSRULES_linkField&quot;(&#xD;
+        links: if(&#xD;
+          #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+            wherecontains(&#xD;
+              index(&#xD;
+                    ri!EmployeeCertificationView[ri!Index],&#xD;
+                    &quot;CertificateId&quot;,&#xD;
+                    {}&#xD;
+                  ),&#xD;
+              index(&#xD;
+                ri!Document,&#xD;
+                &quot;EntityId&quot;,&#xD;
+                tointeger(null)&#xD;
+              )&#xD;
+            )&#xD;
+          ),&#xD;
+          null(),&#xD;
+          {&#xD;
+            if(&#xD;
+              #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21892&quot;(&#xD;
+                ri!Document[wherecontains(&#xD;
+                 index(&#xD;
+                    ri!EmployeeCertificationView[ri!Index],&#xD;
+                    &quot;CertificateId&quot;,&#xD;
+                    {}&#xD;
+                  ),&#xD;
+                  index(&#xD;
+                    ri!Document,&#xD;
+                    &quot;EntityId&quot;,&#xD;
+                    tointeger(null)&#xD;
+                  )&#xD;
+                )].DocumentId&#xD;
+              ),&#xD;
+              #&quot;SYSTEM_SYSRULES_documentDownloadLink&quot;(&#xD;
+                document: ri!Document[wherecontains(&#xD;
+                   index(&#xD;
+                    ri!EmployeeCertificationView[ri!Index],&#xD;
+                    &quot;CertificateId&quot;,&#xD;
+                    {}&#xD;
+                  ),&#xD;
+                  index(&#xD;
+                    ri!Document,&#xD;
+                    &quot;EntityId&quot;,&#xD;
+                    null()&#xD;
+                  )&#xD;
+                )].DocumentId,&#xD;
+                label: &quot;Download&quot;&#xD;
+              ),&#xD;
+              null()&#xD;
+            )&#xD;
+          }&#xD;
+        )&#xD;
+      ),&#xD;
+    &#xD;
+  &#xD;
+    #&quot;SYSTEM_SYSRULES_dropdownField&quot;(&#xD;
+      label:&quot;&quot;,&#xD;
+      placeholderLabel:&quot;--Select--&quot;,&#xD;
+      choiceLabels:{index(local!Status,&quot;Status&quot;,{})},&#xD;
+      choiceValues:{index(local!Status,&quot;Id&quot;,{})},&#xD;
+      value:local!test,&#xD;
+      saveInto:{&#xD;
+        local!test,&#xD;
+        a!save(ri!Status[ri!Index],save!value)&#xD;
+      },&#xD;
+      required:true&#xD;
+    )&#xD;
+    &#xD;
+  }&#xD;
+)&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>EmployeeCertificationView</name>
+            <type>
+                <name>HRA_EmployeeView?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Document</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Status</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

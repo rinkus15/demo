@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_RactifySkills</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24163</uuid>
+        <description>Holds rule of editable grid for showing skills</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_sectionLayout&quot;(&#xD;
+    label: &quot;Employee Skills&quot;,&#xD;
+    firstColumnContents: {&#xD;
+      #&quot;SYSTEM_SYSRULES_gridLayout&quot;(&#xD;
+        label: &quot;&quot;,&#xD;
+        labelPosition: &quot;ABOVE&quot;,&#xD;
+        headerCells: {&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Skill Type&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Skill&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Proficiency&quot;&#xD;
+          )&#xD;
+          /*,&#xD;
+          a!gridLayoutHeaderCell(&#xD;
+            label: &quot;Document Discription&quot;&#xD;
+          )*/&#xD;
+          ,#&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Certificate&quot;&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutHeaderCell&quot;(&#xD;
+            label: &quot;Approve/Reject&quot;&#xD;
+          )&#xD;
+        },&#xD;
+        columnConfigs: {&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 1&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 1&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 1&#xD;
+          )&#xD;
+/*          ,a!gridLayoutColumnConfig(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 1&#xD;
+          )&#xD;
+*/        ,&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 1&#xD;
+          ),&#xD;
+          #&quot;SYSTEM_SYSRULES_gridLayoutColumnConfig&quot;(&#xD;
+            width: &quot;DISTRIBUTE&quot;,&#xD;
+            weight: 1&#xD;
+          )&#xD;
+        },&#xD;
+        rows: {&#xD;
+          #&quot;SYSTEM_SYSRULES_applyComponents&quot;(&#xD;
+            function: #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_24164&quot;(&#xD;
+              Index: _,&#xD;
+              EmployeeSkillsView:ri!EmployeeSkillsView,&#xD;
+              Document:ri!Document,&#xD;
+              Status:ri!Status,&#xD;
+              ProficiencyId:ri!ProficiencyId&#xD;
+            ),&#xD;
+            array: {&#xD;
+              if(#&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(ri!EmployeeSkillsView),&#xD;
+              {},&#xD;
+              1 + enumerate(&#xD;
+                count(&#xD;
+                  ri!EmployeeSkillsView&#xD;
+                )&#xD;
+              ))&#xD;
+            }&#xD;
+          )&#xD;
+        },&#xD;
+        selectionDisabled: true,&#xD;
+        selectionSaveInto: {},&#xD;
+        validations: {&#xD;
+          if(&#xD;
+            #&quot;_a-0000d33c-c5a1-8000-7bd7-760000760000_1541&quot;(&#xD;
+              ri!EmployeeSkillsView&#xD;
+            ),&#xD;
+            {},&#xD;
+            if(&#xD;
+              count(&#xD;
+                wherecontains(&#xD;
+                  {&#xD;
+                    ri!EmployeeSkillsView[count(&#xD;
+                      ri!EmployeeSkillsView&#xD;
+                    )]&#xD;
+                  },&#xD;
+                  {&#xD;
+                    ri!EmployeeSkillsView&#xD;
+                  }&#xD;
+                )&#xD;
+              ) &gt; 1,&#xD;
+              &quot;Alreday exit&quot;,&#xD;
+              {}&#xD;
+            )&#xD;
+          )&#xD;
+        }&#xD;
+      )&#xD;
+    }&#xD;
+  )</definition>
+        <namedTypedValue>
+            <name>EmployeeSkillsView</name>
+            <type>
+                <name>HRA_EmployeeView?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Document</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Status</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>ProficiencyId</name>
+            <type>
+                <name>Integer?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

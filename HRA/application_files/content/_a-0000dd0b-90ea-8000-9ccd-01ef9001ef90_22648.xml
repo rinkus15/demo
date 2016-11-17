@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_KeyAssignmentsGrid</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_22648</uuid>
+        <description>Rule for Key Assignments Grid</description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>#&quot;SYSTEM_SYSRULES_gridRowLayout&quot;(
+  contents: {
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      value: property(
+        ri!KeyAssignments[ri!Index],
+        &quot;ShortDescription&quot;,
+        &quot;&quot;
+      ),
+      saveInto: {
+        a!save(ri!KeyAssignments[ri!Index].ShortDescription,trim(save!value))
+      
+      },
+      required: true,
+      requiredMessage: &quot;Please enter the Title&quot;
+    ),
+    #&quot;SYSTEM_SYSRULES_textField&quot;(
+      value: property(
+        ri!KeyAssignments[ri!Index],
+        &quot;Description&quot;,
+        &quot;&quot;
+      ),
+      saveInto: {
+        a!save(ri!KeyAssignments[ri!Index].Description,trim(save!value))
+      },
+      required: true,
+      requiredMessage: &quot;Please enter the Description&quot;
+    ),
+    #&quot;SYSTEM_SYSRULES_dateField&quot;(
+      value: property(
+        ri!KeyAssignments[ri!Index],
+        &quot;StartDate&quot;,
+        &quot;&quot;
+      ),
+      saveInto: {
+        ri!KeyAssignments[ri!Index].StartDate
+        
+        
+        },
+        validations: {
+          if(
+            
+              ri!KeyAssignments[ri!Index].StartDate &gt;= today(),
+            
+            &quot;Invalid start date.&quot;,
+            {}
+          )
+        }
+    ),
+    #&quot;SYSTEM_SYSRULES_dateField&quot;(
+      value: property(
+        ri!KeyAssignments[ri!Index],
+        &quot;EndDate&quot;,
+        &quot;&quot;
+      ),
+      saveInto: {
+        ri!KeyAssignments[ri!Index].EndDate
+        
+      },
+      
+      validations: {
+        if(
+         or(
+            ri!KeyAssignments[ri!Index].EndDate &lt; ri!KeyAssignments[ri!Index].StartDate,
+            ri!KeyAssignments[ri!Index].EndDate&gt;today()
+            ),
+          
+          &quot;Invalid end date.&quot;,
+          {}
+        )
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_fileUploadField&quot;(
+      label: &quot;&quot;,
+      target: {
+        #&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_21421&quot;
+      },
+      value: ri!HoldAssignmentDocumentId[ri!Index],
+      saveInto: {
+        a!save(
+          ri!HoldAssignmentDocumentId[ri!Index],
+          save!value
+        )
+        
+      }
+    ),
+    #&quot;SYSTEM_SYSRULES_imageField&quot;(
+      images: {
+        #&quot;SYSTEM_SYSRULES_documentImage&quot;(
+          document: #&quot;SYSTEM_SYSRULES_iconIndicator&quot;(
+            &quot;REMOVE&quot;
+          ),
+          caption: &quot;Remove&quot;,
+          link: #&quot;SYSTEM_SYSRULES_dynamicLink&quot;(
+            value: {
+              ri!Index
+            },
+            saveInto: {
+              a!save(
+                ri!KeyAssignments,
+                remove(
+                  ri!KeyAssignments,
+                  save!value
+                )
+              ),
+              a!save(
+                ri!TempKeyAssignmentsDocument,
+                remove(
+                  ri!TempKeyAssignmentsDocument,
+                  save!value
+                )
+              ),
+              a!save(
+                ri!HoldAssignmentDocumentId,
+                remove(
+                  ri!HoldAssignmentDocumentId,
+                  save!value
+                )
+              )
+            }
+          )
+        )
+      },
+      size: &quot;ICON&quot;
+    )
+  }
+)</definition>
+        <namedTypedValue>
+            <name>KeyAssignments</name>
+            <type>
+                <name>HRA_EmployeeKeyAssignments?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>int</name>
+                <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>TempKeyAssignmentsDocument</name>
+            <type>
+                <name>HRA_Documents?list</name>
+                <namespace>urn:com:appian:types:HRA</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>HoldAssignmentDocumentId</name>
+            <type>
+                <name>CollaborationDocument?list</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

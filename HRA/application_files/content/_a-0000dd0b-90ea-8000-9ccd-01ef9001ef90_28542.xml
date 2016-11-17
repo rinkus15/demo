@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <rule>
+        <name>HRA_GetTaskStatusDisplay</name>
+        <uuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28542</uuid>
+        <description></description>
+        <parentUuid>_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_18584</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>index(&#xD;
+  {&#xD;
+    &quot;Assigned&quot;,&#xD;
+    &quot;Accepted&quot;,&#xD;
+    &quot;Completed&quot;,&#xD;
+    &quot;Not Started&quot;,&#xD;
+    &quot;Cancelled&quot;,&#xD;
+    &quot;Paused&quot;,&#xD;
+    &quot;Unattended&quot;,&#xD;
+    &quot;Aborted&quot;,&#xD;
+    &quot;Cancelled By Exception&quot;,&#xD;
+    &quot;Submitted&quot;,&#xD;
+    &quot;Running&quot;,&#xD;
+    &quot;Error&quot;&#xD;
+  },&#xD;
+  &#xD;
+  tointeger(index(ri!Data, ri!Index, -1)) + 1,&#xD;
+  &quot;Other&quot;&#xD;
+)</definition>
+        <namedTypedValue>
+            <name>Data</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <namedTypedValue>
+            <name>Index</name>
+            <type>
+                <name>Variant</name>
+                <namespace>http://www.appian.com/ae/types/2009</namespace>
+            </type>
+        </namedTypedValue>
+        <preferredEditor>legacy</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role allowForAll="false" inherit="true" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="true" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role allowForAll="false" inherit="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+</contentHaul>

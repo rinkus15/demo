@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskReportHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <taskReport name="My Tasks" a:uuid="8dc46f41-c1ed-4819-adf8-13ff3cb24b6c">
+        <a:description>Contains the task related to the HRA Application</a:description>
+        <a:uiExpr>=#&quot;_a-0000dd0b-90ea-8000-9ccd-01ef9001ef90_28514&quot;()</a:uiExpr>
+        <a:urlStub>gNiCOA</a:urlStub>
+    </taskReport>
+    <roleMap>
+        <role name="report_viewer">
+            <users/>
+            <groups>
+                <groupUuid>_e-0001dd0b-8755-8000-9ccd-011e94011e94_252</groupUuid>
+            </groups>
+        </role>
+    </roleMap>
+</taskReportHaul>
